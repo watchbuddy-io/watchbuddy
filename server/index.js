@@ -7,7 +7,6 @@ const moviedb = require('../helper/moviedb.js')
 const app = express();
 
 app.use(bodyParser.json());
-
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 app.get('/items', function (req, res) {
