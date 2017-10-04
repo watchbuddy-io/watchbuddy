@@ -11,11 +11,11 @@ class UserHome extends Component {
   render () {
     return (<Container fluid>
 
-      <Navbar />
+      <Navbar loggedIn='true'/>
       <Header as='h1' textAlign='center'>
-        <Icon name='film'/> Recommended
+        <Icon name='film'/> Welcome back, name!
       </Header>
-      <ShowList />
+
 
     </Container>);
   }

@@ -16,34 +16,35 @@ class App extends React.Component {
   }
 
   changeView(option) {
+    console.log(option);
     this.setState({
       view: option
     });
-    console.log(this.state.view);
+    // console.log(this.state.view);
   }
 
   getView() {
-    if (this.state.view === 'Home') {
-        return <Home changeView={this.changeView.bind(this)}/>
-    } else if (this.state.view === 'Login') {
+    if (this.state.view === 'Login') {
       return <Login changeView={this.changeView.bind(this)}/>
     } else if (this.state.view === 'Signup') {
       return <Signup />
     } else if (this.state.view === 'UserHome') {
-      return <UserHome />
+      return <UserHome loggedIn='true'/>
+    } else if (this.state.view === 'Home') {
+      return <Home changeView={this.changeView.bind(this)}/>
     }
   }
 
   componentDidMount() {
-    $.ajax({
-      url: '/surveys', 
-      success: (data) => {
-        console.log(data);
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
-    });
+    // $.ajax({
+    //   url: '/surveys', 
+    //   success: (data) => {
+    //     console.log(data);
+    //   },
+    //   error: (err) => {
+    //     console.log('err', err);
+    //   }
+    // });
   }
 
   render () {
