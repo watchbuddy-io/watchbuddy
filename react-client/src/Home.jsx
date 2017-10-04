@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import Search from './components/Search.jsx';
 import ShowList from './components/ShowList.jsx';
+import Navbar from './components/Navbar.jsx';
+import { Container, Header, Icon } from 'semantic-ui-react'
+
 
 class Home extends Component {
   constructor(props) {
@@ -8,12 +10,15 @@ class Home extends Component {
   }
 
   render () {
-    return (<div>
-      <h1>WatchBuddy</h1>
-      <a href="#">Login</a>
-      <Search />
+    return (<Container fluid>
+
+      <Navbar />
+      <Header as='h1' textAlign='center'>
+        <Icon name='film'/> Recommended
+      </Header>
       <ShowList />
-    </div>);
+
+    </Container>);
   }
 }
 
