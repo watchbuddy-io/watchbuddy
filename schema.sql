@@ -10,6 +10,7 @@ CREATE TABLE user (
   password varchar(255) NOT NULL,
   show varchar(255),
   start DATE DEFAULT CURDATE(),
+  deadline DATE DEFAULT CURDATE(),
   monday int DEFAULT 0,
   tuesday int DEFAULT 0,
   wednesday int DEFAULT 0,
