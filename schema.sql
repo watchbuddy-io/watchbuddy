@@ -9,6 +9,8 @@ CREATE TABLE user (
   username varchar(255) NOT NULL,
   password varchar(255) NOT NULL,
   show varchar(255),
+  season int,
+  episode int,
   start DATE DEFAULT CURDATE(),
   deadline DATE DEFAULT CURDATE(),
   monday int DEFAULT 0,
@@ -22,6 +24,15 @@ CREATE TABLE user (
   hours int,
   PRIMARY KEY (ID)
 );
+
+-- CREATE TABLE shows (
+--   show_id int NOT NULL AUTO_INCREMENT,
+--   title varchar(255),
+--   season int,
+--   episode int,
+--   user_id int,
+--   FOREIGN KEY (user_id) REFERENCES user(id)
+-- );
 
 /*  Execute this file from the command line by typing:
  *    mysql -u root < server/schema.sql
