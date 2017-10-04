@@ -4,6 +4,7 @@ import ShowList from './components/ShowList.jsx';
 
 class Home extends Component {
   constructor(props) {
+    super(props)
   }
 
   render () {

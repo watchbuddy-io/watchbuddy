@@ -23,7 +23,6 @@ class App extends React.Component {
       url: '/surveys', 
       success: (data) => {
         console.log(data);
-        });
       },
       error: (err) => {
         console.log('err', err);
