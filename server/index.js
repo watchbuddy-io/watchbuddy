@@ -1,27 +1,28 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-// UNCOMMENT THE DATABASE YOU'D LIKE TO USE
-// var items = require('../database-mysql');
+const express = require('express');
+const bodyParser = require('body-parser');
+const items = require('../database-mysql');
+const moviedb = require('../helper/moviedb.js')
 // var items = require('../database-mongo');
 
-var app = express();
+const app = express();
 
-// UNCOMMENT FOR REACT
+app.use(bodyParser.json());
+
 app.use(express.static(__dirname + '/../react-client/dist'));
 
-// UNCOMMENT FOR ANGULAR
-// app.use(express.static(__dirname + '/../angular-client'));
-// app.use(express.static(__dirname + '/../node_modules'));
-
 app.get('/items', function (req, res) {
-  items.selectAll(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      res.json(data);
-    }
-  });
+	moviedb.getInfoByTitle('Game of thrones', (data) => {
+		console.log(JSON.parse(data))
+	})
+	
 });
+
+app.post('/submit', function (req, res) {
+	var title = req.body.topic.split(' ').join('_')
+	moviedb.getInfoByTitle(title, (data) => {
+		console.log(JSON.parse(data))
+	})
+})
 
 app.listen(3000, function() {
   console.log('listening on port 3000!');
