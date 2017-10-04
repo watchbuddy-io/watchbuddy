@@ -26,8 +26,6 @@ class Search extends Component {
       error: data => console.log('error in submit post')
     });
 
-
-
     this.setState({text: ''});
   }
 

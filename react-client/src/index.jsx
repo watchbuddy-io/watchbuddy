@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import Search from './components/Search.jsx';
-import ShowList from './components/ShowList.jsx';
+import Home from './Home.jsx';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -33,10 +33,7 @@ class App extends React.Component {
 
   render () {
     return (<div>
-      <h1>WatchBuddy</h1>
-      <a href="#">Login</a>
-      <Search />
-      <ShowList />
+      <Home />
     </div>);
   }
 }
