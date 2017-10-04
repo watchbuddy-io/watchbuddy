@@ -1,23 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import List from './components/List.jsx';
+import Search from './components/Search.jsx';
+import ShowList from './components/ShowList.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      items: []
-    }
+      view: 'home'
+    };
+  }
+
+  changeView(option) {
+    this.setState({
+      view: option
+    });
   }
 
   componentDidMount() {
     $.ajax({
-      url: '/items', 
+      url: '/surveys', 
       success: (data) => {
-        this.setState({
-          items: data
-        })
+        console.log(data);
+        });
       },
       error: (err) => {
         console.log('err', err);
@@ -27,9 +33,11 @@ class App extends React.Component {
 
   render () {
     return (<div>
-      <h1>Item List</h1>
-      <List items={this.state.items}/>
-    </div>)
+      <h1>WatchBuddy</h1>
+      <a href="#">Login</a>
+      <Search />
+      <ShowList />
+    </div>);
   }
 }
 
