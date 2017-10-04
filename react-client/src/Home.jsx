@@ -12,7 +12,7 @@ class Home extends Component {
   render () {
     return (<Container fluid>
 
-      <Navbar />
+      <Navbar changeView={this.props.changeView}/>
       <Header as='h1' textAlign='center'>
         <Icon name='film'/> Recommended
       </Header>

@@ -6,6 +6,10 @@ class Navbar extends Component {
     super(props)
   }
 
+  changeView(){
+    this.props.changeView('Login');
+  }
+
   render () {
     return (<Menu className="ui inverted menu">
 
@@ -19,7 +23,7 @@ class Navbar extends Component {
           </Menu.Item>
 
           <Menu.Item>
-            <Button>Log-in</Button>
+            <Button onClick={this.changeView.bind(this)}>Log-in</Button>
           </Menu.Item>
         </Menu.Menu>
 
