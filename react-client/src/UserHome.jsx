@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ShowList from './components/ShowList.jsx';
 import Navbar from './components/Navbar.jsx';
-import { Container, Header, Icon } from 'semantic-ui-react'
+import AddShow from './components/AddShow.jsx';
+import { Container, Header, Icon, Message } from 'semantic-ui-react'
 
 class UserHome extends Component {
   constructor(props) {
@@ -12,10 +13,21 @@ class UserHome extends Component {
     return (<Container fluid>
 
       <Navbar loggedIn='true'/>
-      <Header as='h1' textAlign='center'>
-        <Icon name='film'/> Welcome back, name!
+      <Header as='h3' textAlign='center'>
+        <Icon name='film'/> Welcome back!
       </Header>
 
+      <Message>
+        <Message.Header>
+          Get started
+        </Message.Header>
+        <p>
+          We see you haven't added a TV show yet. Search for your favorite TV show and click the calendar icon to add it to your watch list!
+        </p>
+      </Message>
+
+      <AddShow />
+      <ShowList />
 
     </Container>);
   }

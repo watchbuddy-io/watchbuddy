@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ShowList from './components/ShowList.jsx';
 import Navbar from './components/Navbar.jsx';
+import AddShow from './components/AddShow.jsx';
 import { Container, Header, Icon } from 'semantic-ui-react'
 
 

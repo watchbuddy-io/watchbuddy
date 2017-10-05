@@ -3,7 +3,7 @@ import { Button, Image, List, Segment, Icon } from 'semantic-ui-react'
 import ShowEntry from './ShowEntry.jsx';
 
 const ShowList = props => (<Segment inverted>
-   <List divided inverted verticalAlign='middle' size='big'>
+   <List divided inverted verticalAlign='middle' size='medium'>
     <List.Item>
       <List.Content floated='right'>
         <Button icon size='medium'>
