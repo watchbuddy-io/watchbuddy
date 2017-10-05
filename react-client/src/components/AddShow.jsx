@@ -63,25 +63,25 @@ class AddShow extends Component {
           <p>Which days do you have free?</p>
 
           <Form.Field>
-            <Checkbox label='Monday'/>
+            <Checkbox label='Monday' onClick={() => this.props.handleDay('monday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Tuesday'/>
+            <Checkbox label='Tuesday' onClick={() => this.props.handleDay('tuesday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Wednesday'/>
+            <Checkbox label='Wednesday' onClick={() => this.props.handleDay('wednesday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Thursday'/>
+            <Checkbox label='Thursday' onClick={() => this.props.handleDay('thursday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Friday'/>
+            <Checkbox label='Friday' onClick={() => this.props.handleDay('friday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Saturday'/>
+            <Checkbox label='Saturday' onClick={() => this.props.handleDay('saturday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Sunday'/>
+            <Checkbox label='Sunday' onClick={() => this.props.handleDay('sunday')}/>
           </Form.Field>
           <Button type='submit'>Submit</Button>
         </Form>
