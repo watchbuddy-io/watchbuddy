@@ -12,19 +12,13 @@ var checkUser = (params, callback) => {
     if (error) {
       console.log('User does not exist');
     } else {
-      createUser(params, (err, res) => {
-        if (err) {
-          console.log(err);
-        } else {
-          callback(res);
-        }
-      })
+      callback(results);
     }
   })
 }
 
 var createUser = (params, callback) => {
-  connection.query('insert into user set ?', params, (error, results, fields) => {
+  connection.query('insert into user set username = ?, password = ?', params, (error, results, fields) => {
     if (error) {
       console.log(error);
     } else {
