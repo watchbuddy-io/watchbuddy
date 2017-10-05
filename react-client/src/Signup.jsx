@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Image, Message, Segment, Icon } from 'semantic-ui-react';
 
 class Signup extends Component {
   constructor(props) {
@@ -58,8 +58,7 @@ class Signup extends Component {
     >
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as='h2' color='green' textAlign='center'>
-          <Image src='/logo.png' />
-          {' '}Sign up for an account
+          <div><Icon name ='film' /> <Icon name='child' /> WatchBuddy</div>
         </Header>
         <Form size='large'>
           <Segment stacked>

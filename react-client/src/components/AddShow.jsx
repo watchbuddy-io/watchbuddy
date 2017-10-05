@@ -1,12 +1,28 @@
 import React, { Component } from 'react';
-import { Container, Form, Button, Checkbox } from 'semantic-ui-react'
+import { Container, Form, Button, Checkbox } from 'semantic-ui-react';
+import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 
 class AddShow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
-    }
+      startDate: moment(),
+      endDate: moment()
+    };
+  }
+
+  handleStartDateChange(date) {
+    this.setState({
+      startDate: date
+    });
+  }
+
+  handleEndDateChange(date) {
+    this.setState({
+      endDate: date
+    });
   }
 
   render () {
@@ -31,11 +47,17 @@ class AddShow extends Component {
           </Form.Field>
           <Form.Field>
             <label>Start date</label>
-            <input placeholder='Start date' />
+            <DatePicker
+              selected={this.state.startDate}
+              onChange={this.handleStartDateChange.bind(this)}
+            />
           </Form.Field>
           <Form.Field>
             <label>End date</label>
-            <input placeholder='End date' />
+            <DatePicker
+              selected={this.state.endDate}
+              onChange={this.handleEndDateChange.bind(this)}
+            />
           </Form.Field>
           
           <p>Which days do you have free?</p>
@@ -60,10 +82,6 @@ class AddShow extends Component {
           </Form.Field>
           <Form.Field>
             <Checkbox label='Sunday'/>
-          </Form.Field>
-          <Form.Field>
-            <label>When is your deadline to catch up?</label>
-            <input placeholder='When is your deadline to catch up?' />
           </Form.Field>
           <Button type='submit'>Submit</Button>
         </Form>
