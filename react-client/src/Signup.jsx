@@ -1,7 +1,43 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
 
-const Signup = () => (
+class Signup extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      showSuccessMessage: 'false'
+    }
+  }
+
+  handleEmailChange(e) {
+    this.setState({
+      email: e.target.value
+    });
+  }
+
+  handlePasswordChange(e) {
+    this.setState({
+      password: e.target.value
+    });
+  }
+
+  handleSubmit() {
+    $.ajax({
+      url: '/signup',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({email: this.state.email, password: this.state.password})
+    });
+    this.setState({showSuccessMessage: 'true'});
+  }
+
+
+
+  render() {
+    return (
   <div className='login-form'>
     {/*
       Heads up! The styles below are necessary for the correct render of this example.
@@ -27,13 +63,13 @@ const Signup = () => (
         </Header>
         <Form size='large'>
           <Segment stacked>
-            <Form.Input
+            <Form.Input onChange={this.handleEmailChange.bind(this)}
               fluid
               icon='user'
               iconPosition='left'
               placeholder='E-mail address'
             />
-            <Form.Input
+            <Form.Input onChange={this.handlePasswordChange.bind(this)}
               fluid
               icon='lock'
               iconPosition='left'
@@ -41,15 +77,18 @@ const Signup = () => (
               type='password'
             />
 
-            <Button color='teal' fluid size='large'>Signup</Button>
+            <Button color='teal' fluid size='large' onClick={this.handleSubmit.bind(this)}>Signup</Button>
           </Segment>
         </Form>
-        <Message>
-          New to us? <a href='#'>Sign Up</a>
-        </Message>
+        {this.state.showSuccessMessage === 'true' ? <Message
+            success
+            header='Your user registration was successful'
+            content='You may now log-in with the username you have chosen'
+          /> : null}
       </Grid.Column>
     </Grid>
-  </div>
-)
+  </div>)
+  }
+} 
 
 export default Signup;
