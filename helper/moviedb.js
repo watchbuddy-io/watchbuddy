@@ -43,4 +43,4 @@ let genre = (callback) => {
 
 module.exports.getInfoByTitle = getInfoByTitle;
 module.exports.getPopularShows = getPopularShows;
-module.exports.test = test;
+module.exports.genre = genre;
