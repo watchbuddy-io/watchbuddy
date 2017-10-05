@@ -1,21 +1,21 @@
 import React from 'react';
-import { Container, Image, Reveal } from 'semantic-ui-react';
+import { Container, Image, List, Button, Icon } from 'semantic-ui-react';
 
-const ShowEntry = props => (<Container>
-	<Reveal animated='move right'>
-    <Reveal.Content visible>
-      <Image src='https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg' />
-    </Reveal.Content>
-    <Reveal.Content hidden>
-      <ul>
-        <li>Game of Thrones</li>
-        <li>TV-MA</li>
-        <li>57min</li>
-        <li>Drama, Fantasy</li>
-        <li>TV Series (2011- )</li>
+const ShowEntry = ({ show }) => (<List.Item>
+      <List.Content floated='right'>
+        <Button icon size='medium' inverted color='green'>
+          <Icon name='add to calendar'/>
+        </Button>
+      </List.Content>
+      <Image src={show.image} size='small' />
+      <List.Content>
+        <ul>
+        <li>{show.name}</li>
+        <ul>{show.genres.map((genre, i) => <li key={i}>{genre}</li>)}</ul>
+        <li>{show.summary}</li>
+        <li>First aired: {show.firstAirDate}</li>
       </ul>
-    </Reveal.Content>
-  </Reveal>
-</Container>);
+      </List.Content>
+    </List.Item>);
 
 export default ShowEntry;
