@@ -41,17 +41,17 @@ class Navbar extends Component {
   render () {
     return (
 
-      <Menu className="ui inverted menu">
+      <Menu className="ui inverted menu" inverted color='green'>
 
-        <Menu.Item>
-          <Icon name ='film' /> <Icon name='child' /> WatchBuddy
+        <Menu.Item onClick={this.changeViewToUserHome.bind(this)}>
+          <h2><Icon name ='film' /> <Icon name='child' /> WatchBuddy</h2>
         </Menu.Item>
 
         <Menu.Menu position='right'>
           <Menu.Item>
           
             <Input placeholder='Search...' onChange={this.handleChange.bind(this)}/>
-            <Button>
+            <Button icon color='black'>
               <Icon name='search' className='icon' onClick={this.handleSubmit.bind(this)}/>
             </Button>
 
@@ -62,14 +62,10 @@ class Navbar extends Component {
             <Menu.Item>
               <Button>Logout</Button>
             </Menu.Item>
-            : <span>
-                <Menu.Item>
-                  <Button onClick={this.changeViewToLogin.bind(this)}>Log-in</Button>
-                </Menu.Item>
-                <Menu.Item>
-                  <Button onClick={this.changeViewToUserHome.bind(this)}>Post-login</Button>
-                </Menu.Item>
-            </span>
+            : 
+            <Menu.Item>
+              <Button color='black' onClick={this.changeViewToLogin.bind(this)}>Log-in</Button>
+            </Menu.Item>
           }
           
 
