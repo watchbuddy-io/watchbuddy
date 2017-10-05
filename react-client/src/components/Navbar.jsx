@@ -49,7 +49,10 @@ class Navbar extends Component {
 
         <Menu.Menu position='right'>
           <Menu.Item>
-            <Input className='icon' icon='search' placeholder='Search...' onChange={this.handleChange.bind(this)} onClick={this.handleSubmit.bind(this)}/>
+            <Input placeholder='Search...' onChange={this.handleChange.bind(this)}/>
+            <Button>
+              <Icon name='search' className='icon' onClick={this.handleSubmit.bind(this)}/>
+            </Button>
           </Menu.Item>
 
           
