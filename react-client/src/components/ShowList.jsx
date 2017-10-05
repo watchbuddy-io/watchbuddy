@@ -10,7 +10,7 @@ const ShowList = props => (<Segment inverted>
           <Icon name='add to calendar'/>
         </Button>
       </List.Content>
-      <Image src='https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg' size='size' />
+      <Image src='https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg' size='small' />
       <List.Content>
         <ul>
         <li>Game of Thrones</li>
@@ -28,7 +28,7 @@ const ShowList = props => (<Segment inverted>
           <Icon name='add to calendar'/>
         </Button>
       </List.Content>
-      <Image src='https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg' size='size' />
+      <Image src='https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg' size='small' />
       <List.Content>
         <ul>
         <li>Game of Thrones</li>
@@ -46,7 +46,7 @@ const ShowList = props => (<Segment inverted>
           <Icon name='add to calendar'/>
         </Button>
       </List.Content>
-      <Image src='https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg' size='size' />
+      <Image src='https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg' size='small' />
       <List.Content>
         <ul>
         <li>Game of Thrones</li>

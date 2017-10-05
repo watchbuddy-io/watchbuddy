@@ -57,7 +57,7 @@ class Signup extends Component {
       verticalAlign='middle'
     >
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h2' color='teal' textAlign='center'>
+        <Header as='h2' color='green' textAlign='center'>
           <Image src='/logo.png' />
           {' '}Sign up for an account
         </Header>
@@ -77,7 +77,7 @@ class Signup extends Component {
               type='password'
             />
 
-            <Button color='teal' fluid size='large' onClick={this.handleSubmit.bind(this)}>Signup</Button>
+            <Button color='green' fluid size='large' onClick={this.handleSubmit.bind(this)}>Signup</Button>
           </Segment>
         </Form>
         {this.state.showSuccessMessage === 'true' ? <Message
