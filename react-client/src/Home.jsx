@@ -13,7 +13,7 @@ class Home extends Component {
     return (<Container fluid>
 
       <Navbar changeView={this.props.changeView}/>
-      <Header as='h1' textAlign='center'>
+      <Header as='h3' textAlign='center'>
         <Icon name='film'/> Recommended
       </Header>
       <ShowList />
