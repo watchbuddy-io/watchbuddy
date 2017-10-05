@@ -20,11 +20,7 @@
     "angular": "^1.6.3",
     "body-parser": "^1.17.2",
     "express": "^4.15.0",
-<<<<<<< HEAD
-    "faker": "^4.1.0",
-=======
-    "imdb-ap": "^3.1.1",
->>>>>>> added api
+    "imdb-api": "^3.1.1",
     "jquery": "^3.1.1",
     "mongoose": "^4.8.6",
     "mysql": "^2.13.0",

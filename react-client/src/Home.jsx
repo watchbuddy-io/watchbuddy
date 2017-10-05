@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ShowList from './components/ShowList.jsx';
 import Navbar from './components/Navbar.jsx';
+import AddShow from './components/AddShow.jsx';
 import { Container, Header, Icon } from 'semantic-ui-react'
 
 
@@ -13,7 +14,7 @@ class Home extends Component {
     return (<Container fluid>
 
       <Navbar changeView={this.props.changeView}/>
-      <Header as='h1' textAlign='center'>
+      <Header as='h3' textAlign='center'>
         <Icon name='film'/> Recommended
       </Header>
       <ShowList />

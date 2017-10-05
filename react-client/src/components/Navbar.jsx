@@ -44,14 +44,14 @@ class Navbar extends Component {
       <Menu className="ui inverted menu">
 
         <Menu.Item>
-          <Icon name ='film' /> <Icon name='child' /> WatchBuddy
+          <h2><Icon name ='film' /> <Icon name='child' /> WatchBuddy</h2>
         </Menu.Item>
 
         <Menu.Menu position='right'>
           <Menu.Item>
           
             <Input placeholder='Search...' onChange={this.handleChange.bind(this)}/>
-            <Button>
+            <Button icon>
               <Icon name='search' className='icon' onClick={this.handleSubmit.bind(this)}/>
             </Button>
 
