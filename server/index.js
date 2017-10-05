@@ -24,10 +24,10 @@ app.post('/submit', function (req, res) {
 })
 
 
-app.post('/signup', function (req, res) {
-	var email = req.body.email;
+app.post('/signUp', function (req, res) {
+	var user = req.body.username;
 	var pw = req.body.password;
-	db.createUser(email, pw, (err, data) => {
+	db.createUser(user, pw, (err, data) => {
 		if (err) {
 			res.send(err);
 		} else {
@@ -37,7 +37,8 @@ app.post('/signup', function (req, res) {
 })
 
 
-app.post('/login', function (req, res){
+
+app.post('/logIn', function (req, res){
 	var user = req.body.username;
 	var pw = req.body.password;
 	db.checkUser(user, pw, (err, data) => {
