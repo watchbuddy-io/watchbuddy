@@ -6,7 +6,7 @@ const ShowList = props => (<Segment inverted>
    <List divided inverted verticalAlign='middle' size='medium'>
     <List.Item>
       <List.Content floated='right'>
-        <Button icon size='medium'>
+        <Button icon size='medium' inverted color='green'>
           <Icon name='add to calendar'/>
         </Button>
       </List.Content>
@@ -24,7 +24,7 @@ const ShowList = props => (<Segment inverted>
     
    <List.Item>
       <List.Content floated='right'>
-        <Button icon size='medium'>
+        <Button icon size='medium' inverted color='green'>
           <Icon name='add to calendar'/>
         </Button>
       </List.Content>
@@ -42,7 +42,7 @@ const ShowList = props => (<Segment inverted>
 
     <List.Item>
       <List.Content floated='right'>
-        <Button icon size='medium'>
+        <Button icon size='medium' inverted color='green'>
           <Icon name='add to calendar'/>
         </Button>
       </List.Content>
