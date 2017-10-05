@@ -6,30 +6,34 @@ import { Container, Header, Icon, Message } from 'semantic-ui-react'
 
 class UserHome extends Component {
   constructor(props) {
-  	super(props)
+  	super(props);
+    this.state = {
+      username: '',
+      show: ''
+    };
   }
 
   render () {
-    return (<Container fluid>
-
+    return (<div>
       <Navbar loggedIn='true'/>
-      <Header as='h3' textAlign='center'>
-        <Icon name='film'/> Welcome back!
-      </Header>
+        <Container>
+        <Header as='h3' textAlign='center'>
+          <Icon name='film'/> Welcome!
+        </Header>
 
-      <Message>
-        <Message.Header>
-          Get started
-        </Message.Header>
-        <p>
-          We see you haven't added a TV show yet. Search for your favorite TV show and click the calendar icon to add it to your watch list!
-        </p>
-      </Message>
+        <Message>
+          <Message.Header>
+            Get started
+          </Message.Header>
+          <p>
+            We see you haven't added a TV show yet. Search for your favorite TV show and click the calendar icon to add it to your watch list!
+          </p>
+        </Message>
 
-      <AddShow />
-      <ShowList />
-
-    </Container>);
+        <AddShow />
+        <ShowList />
+      </Container>
+    </div>);
   }
 }
 

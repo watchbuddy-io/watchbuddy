@@ -12,6 +12,7 @@ class ShowList extends Component {
     $.ajax({
       url: '/recommend',
       method: 'GET',
+      contentType: 'application/json',
       success: data => console.log(data)
     });
   }
