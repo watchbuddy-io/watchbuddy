@@ -3,18 +3,38 @@ var mysql = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'FILL_ME_IN',
-  database : 'test'
+  password : '',
+  database : 'watchbuddy'
 });
 
-var selectAll = function(callback) {
-  connection.query('SELECT * FROM items', function(err, results, fields) {
-    if(err) {
-      callback(err, null);
+var checkUser =  function(params, callback) {
+  connection.query('select id where username = ? and password = ?', params, function(error, results, fields) {
+    if (error) {
+      console.log('User does not exist');
     } else {
-      callback(null, results);
+      createUser(params, function(err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+          callback(results);
+        }
+      });
     }
   });
 };
 
-module.exports.selectAll = selectAll;
+var createUser = function(params, callback) {
+  connection.query('insert into user set ?', params, function(error, results, fields) {
+    if (error) {
+      console.log(error);
+    } else {
+      callback(results);
+    }
+  });
+};
+
+
+module.exports = {
+  checkUser,
+  createUser
+};
