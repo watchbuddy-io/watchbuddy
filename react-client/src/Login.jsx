@@ -31,7 +31,7 @@ class Login extends Component {
           verticalAlign='middle'
         >
           <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as='h2' color='teal' textAlign='center'>
+            <Header as='h2' color='green' textAlign='center'>
               <Image src='/logo.png' />
               {' '}Log-in to your account
             </Header>
@@ -51,7 +51,7 @@ class Login extends Component {
                   type='password'
                 />
 
-                <Button color='teal' fluid size='large'>Login</Button>
+                <Button color='green' fluid size='large'>Login</Button>
               </Segment>
             </Form>
             <Message>

@@ -11,10 +11,34 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 
 
 app.get('/recommend', function (req, res) {
-	moviedb.getPopularShows((data) => {
-		console.log(JSON.parse(data).results[1].genre_ids);
+	var genres;
+	moviedb.genre((data) => {
+		genres = JSON.parse(data).genres
+		moviedb.getPopularShows((data) => {
+			var top = JSON.parse(data).results.splice(0, 5)
+			var array = [];
+			top.forEach((el) => {
+				var obj = {};
+				obj.name = el.name;
+				var arr = [];
+				el.genre_ids.forEach((int) => {
+					for (var i = 0; i < genres.length; i++) {
+						if (genres[i].id === int){
+							arr.push(genres[i].name)
+						}
+					}
+				})
+				obj.genres = arr
+				obj.summary = el.overview;
+				obj.firstAirDate = el.first_air_date;
+				obj.image = "https://image.tmdb.org/t/p/w500/" + el.backdrop_path;
+				array.push(obj)
+			})
+			res.send(array)
+		})
 	})
 })
+
 
 app.post('/submit', function (req, res) {
 	var title = req.body.topic.split(' ').join('_')
@@ -50,15 +74,7 @@ app.post('/logIn', function (req, res){
 	})
 })
 
-app.get('/genre', function (req, res) {
-	moviedb.genre((err, data) => {
-		if (err) {
-			console.log(err);
-		} else {
-			console.log(data)
-		}
-	})
-})
+
 
 
 app.listen(3000, function() {
