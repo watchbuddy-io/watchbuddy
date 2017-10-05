@@ -3,7 +3,32 @@ import { Button, Form, Grid, Header, Image, Message, Segment, Icon } from 'seman
 
 class Login extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+    this.state = {
+      email: '',
+      password: ''
+    }
+  }
+
+  handleEmailChange(e) {
+    this.setState({
+      email: e.target.value
+    });
+  }
+
+  handlePasswordChange(e) {
+    this.setState({
+      password: e.target.value
+    });
+  }
+
+  handleSubmit() {
+    $.ajax({
+      url: '/login',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({email: this.state.email, password: this.state.password})
+    });
   }
 
   changeView() {
@@ -36,13 +61,13 @@ class Login extends Component {
             </Header>
             <Form size='large'>
               <Segment stacked>
-                <Form.Input
+                <Form.Input onChange={this.handleEmailChange.bind(this)}
                   fluid
                   icon='user'
                   iconPosition='left'
                   placeholder='E-mail address'
                 />
-                <Form.Input
+                <Form.Input onChange={this.handlePasswordChange.bind(this)}
                   fluid
                   icon='lock'
                   iconPosition='left'
@@ -50,7 +75,7 @@ class Login extends Component {
                   type='password'
                 />
 
-                <Button color='green' fluid size='large'>Login</Button>
+                <Button color='green' fluid size='large' onClick={this.handleSubmit.bind(this)}>Signup</Button>
               </Segment>
             </Form>
             <Message>
