@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import { Button, Image, List, Segment, Icon } from 'semantic-ui-react'
+import { Button, Image, List, Segment, Icon, Loader, Dimmer } from 'semantic-ui-react'
 import ShowEntry from './ShowEntry.jsx';
 
 class ShowList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loaded: 'false',
       shows: [{
         firstAirDate: '2000-01-01',
         genres: ['Daniel'],
@@ -22,23 +23,26 @@ class ShowList extends Component {
       method: 'GET',
       contentType: 'application/json',
       success: data => {
-        this.setState({shows: data});
+        this.setState({shows: data, loaded: 'true'});
         console.log(data);
       }
     });
   }
 
-  render() {
-    return (<Segment inverted>
-   <List divided inverted verticalAlign='middle' size='medium'>
-    
-    {this.state.shows.map((show, i) => <ShowEntry show={show} key={i}/>)}
-    
-   
-   
-  </List>
-  
-</Segment>)
+  render() { 
+    return (<div>
+    {this.state.loaded === 'true' 
+    ? <Segment inverted>
+        <List divided inverted verticalAlign='middle' size='medium'>
+          { this.state.shows.map((show, i) => <ShowEntry show={show} key={i}/>)}
+        </List>
+      </Segment> 
+  : <Segment>
+      <Dimmer active>
+        <Loader size='massive'>Loading</Loader>
+      </Dimmer>
+    </Segment>}
+    </div>)
   }
 } 
 
