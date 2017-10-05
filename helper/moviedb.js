@@ -40,7 +40,19 @@ let genre = (callback) => {
 	})
 }
 
+let search = (title, callback) => {
+	let options = {
+		url: `https://api.themoviedb.org/3/search/tv?api_key=${config.TOKEN}&query=${title}&language=en-US&page=1`,
+		headers: {
+			'User-Agent': 'request'
+		}
+	}
+	request(options, (err, res, body) => {
+		callback(body)
+	})
+}
 
 module.exports.getInfoByTitle = getInfoByTitle;
 module.exports.getPopularShows = getPopularShows;
 module.exports.genre = genre;
+module.exports.search = search;

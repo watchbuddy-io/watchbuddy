@@ -40,10 +40,10 @@ app.get('/recommend', function (req, res) {
 })
 
 
-app.post('/submit', function (req, res) {
-	var title = req.body.topic.split(' ').join('_')
-	moviedb.getInfoByTitle(title, (data) => {
-		res.send(JSON.parse(data))
+app.get('/submit', function (req, res) {
+	var title = req.body.search
+	moviedb.search(title, (data) => {
+		console.log(JSON.parse(data))
 	})
 })
 
