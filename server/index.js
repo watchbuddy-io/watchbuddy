@@ -51,7 +51,7 @@ app.post('/logIn', function (req, res){
 })
 
 app.get('/genre', function (req, res) {
-	moviedb.test((err, data) => {
+	moviedb.genre((err, data) => {
 		if (err) {
 			console.log(err);
 		} else {
