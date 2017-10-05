@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
+import $ from 'jquery';
 import { Button, Image, List, Segment, Icon } from 'semantic-ui-react'
 import ShowEntry from './ShowEntry.jsx';
 
-const ShowList = props => (<Segment inverted>
+class ShowList extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  componentDidMount() {
+    $.ajax({
+      url: '/recommend',
+      method: 'GET',
+      success: data => console.log(data)
+    });
+  }
+
+  render() {
+    return (<Segment inverted>
    <List divided inverted verticalAlign='middle' size='medium'>
     <List.Item>
       <List.Content floated='right'>
@@ -60,6 +75,8 @@ const ShowList = props => (<Segment inverted>
    
   </List>
   
-</Segment>);
+</Segment>)
+  }
+} 
 
 export default ShowList;
