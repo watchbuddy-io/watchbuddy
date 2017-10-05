@@ -30,7 +30,7 @@ let getPopularShows = (callback) => {
 
 let genre = (callback) => {
 	let options = {
-		url: `https://api.themoviedb.org/3/genre/movie/list?api_key=${config.TOKEN}&language=en-US`,
+		url: `https://api.themoviedb.org/3/genre/tv/list?api_key=${config.TOKEN}&language=en-US`,
 		headers: {
 			'User-Agent': 'request'
 		}
