@@ -49,28 +49,26 @@ app.post('/submit', function (req, res) {
 
 
 app.post('/signUp', function (req, res) {
-	var user = req.body.username;
+	var user = req.body.email;
 	var pw = req.body.password;
-	db.createUser(user, pw, (err, data) => {
-		if (err) {
-			res.send(err);
-		} else {
-			res.send(data);
-		}
+	var array = [];
+	array.push(user);
+	array.push(pw);
+	db.createUser(array, (data) => {
+		res.send(user);
 	})
 })
 
 
 
 app.post('/logIn', function (req, res){
-	var user = req.body.username;
+	var user = req.body.email;
 	var pw = req.body.password;
+	var array = [];
+	array.push(user);
+	array.push(pw);
 	db.checkUser(user, pw, (err, data) => {
-		if (err){
-			res.send(err);
-		} else {
-			res.send(data);
-		}
+		res.send(user);
 	})
 })
 
