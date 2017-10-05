@@ -12,7 +12,7 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 
 app.get('/recommend', function (req, res) {
 	moviedb.getPopularShows((data) => {
-		res.send(JSON.parse(data));
+		console.log(JSON.parse(data).results[1].genre_ids);
 	})
 })
 
@@ -45,6 +45,16 @@ app.post('/logIn', function (req, res){
 			res.send(err);
 		} else {
 			res.send(data);
+		}
+	})
+})
+
+app.get('/genre', function (req, res) {
+	moviedb.test((err, data) => {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(data)
 		}
 	})
 })
