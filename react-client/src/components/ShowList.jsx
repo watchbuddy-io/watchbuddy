@@ -24,7 +24,6 @@ class ShowList extends Component {
       contentType: 'application/json',
       success: data => {
         this.setState({shows: data, loaded: 'true'});
-        console.log(data);
       }
     });
   }
@@ -34,7 +33,7 @@ class ShowList extends Component {
     {this.state.loaded === 'true' 
     ? <Segment inverted>
         <List divided inverted verticalAlign='middle' size='medium'>
-          { this.state.shows.map((show, i) => <ShowEntry show={show} key={i}/>)}
+          { this.state.shows.map((show, i) => <ShowEntry show={show} key={i} getShow={this.props.getShow}/>)}
         </List>
       </Segment> 
   : <Segment>

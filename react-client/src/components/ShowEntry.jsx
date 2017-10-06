@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, Image, List, Button, Icon } from 'semantic-ui-react';
 
-const ShowEntry = ({ show }) => (<List.Item>
+const ShowEntry = ({ show, getShow }) => (<List.Item>
       <List.Content floated='right'>
-        <Button icon size='medium' inverted color='green'>
+        <Button icon size='medium' inverted color='green' onClick={() => getShow(show.name)}>
           <Icon name='add to calendar'/>
         </Button>
       </List.Content>

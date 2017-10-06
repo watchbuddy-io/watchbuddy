@@ -24,12 +24,15 @@ class UserHome extends Component {
     let setObj = {};
     if (this.state[day] === 0) {
       setObj[day] = 1;
-      this.setState(setObj)
+      this.setState(setObj, () => console.log(this.state[day]));
     } else {
       setObj[day] = 0;
-      this.setState(setObj)
+      this.setState(setObj, () => console.log(this.state[day]));
     }
-    console.log(this.state[day]);
+  }
+
+  getShow(show){
+    this.setState({show}, () => console.log(this.state.show));
   }
 
   render () {
@@ -50,7 +53,7 @@ class UserHome extends Component {
         </Message>
 
         <AddShow handleDay={this.handleDay.bind(this)}/>
-        <ShowList />
+        <ShowList getShow={this.getShow.bind(this)}/>
       </Container>
     </div>);
   }
