@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../database-mysql');
 const moviedb = require('../helper/moviedb.js');
-
+const utils = require('./hashUtils.js')
 
 const app = express();
 
@@ -47,7 +47,7 @@ app.post('/search', function (req, res) {
 	moviedb.genre((data) => {
 		genres = JSON.parse(data).genres
 		moviedb.search(title, (data) => {
-			var searched = JSON.parse(data).results.splice(0,10);
+			var searched = JSON.parse(data).results.splice(0, 10);
 			var array = [];
 			searched.forEach((el) => {
 				var obj = {};
@@ -73,29 +73,45 @@ app.post('/search', function (req, res) {
 
 
 app.post('/signUp', function (req, res) {
-	var user = req.body.email;
-	var pw = req.body.password;
-	var array = [];
-	array.push(user);
-	array.push(pw);
-	db.createUser(array, (data) => {
-		res.send(user);
-	})
+    var salt = utils.createRandom32String(); // create salt
+    var user = req.body.email;
+    var pw = utils.createHash(req.body.password, salt);
+    var array = [];
+    array.push(user);
+    array.push(pw);
+    array.push(salt);
+    db.createUser(array, (data) => {
+    	console.log('here')
+        res.send(user);
+    })
 })
-
 
 
 app.post('/logIn', function (req, res){
-	var user = req.body.email;
-	var pw = req.body.password;
-	var array = [];
-	array.push(user);
-	array.push(pw);
-	db.checkUser(array, (err, data) => {
-		res.send(user);
-	})
+    var user = req.body.email;
+    var pw = req.body.password;
+    var salt = '';
+    var hash = '';
+    var array = [];
+    array.push(user);
+    // array.push(pw); only sending username
+    db.checkUser(array, (data) => { // now only requires user, sends back data only??
+        // res.send(user);
+        // if user does not exist, sends empty array
+        if (data.length === 0) {
+            res.send('User does not exist')
+        } else {
+            // if user does exist, sends password and salt
+            hash = data[0].password;
+            salt = data[0].salt;
+            if (utils.compareHash(pw, hash, salt)) {
+                res.send(user);
+            } else {
+                res.send('Incorrect Password');
+            }
+        }
+    })
 })
-
 
 
 
