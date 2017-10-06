@@ -9,8 +9,27 @@ class UserHome extends Component {
   	super(props);
     this.state = {
       username: '',
-      show: ''
+      show: '',
+      monday: 0,
+      tuesday: 0,
+      wednesday: 0,
+      thursday: 0,
+      friday: 0,
+      saturday: 0,
+      sunday: 0
     };
+  }
+
+  handleDay(day){
+    let setObj = {};
+    if (this.state[day] === 0) {
+      setObj[day] = 1;
+      this.setState(setObj)
+    } else {
+      setObj[day] = 0;
+      this.setState(setObj)
+    }
+    console.log(this.state[day]);
   }
 
   render () {
@@ -30,7 +49,7 @@ class UserHome extends Component {
           </p>
         </Message>
 
-        <AddShow />
+        <AddShow handleDay={this.handleDay.bind(this)}/>
         <ShowList />
       </Container>
     </div>);

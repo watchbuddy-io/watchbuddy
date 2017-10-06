@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
 import { Button, Form, Grid, Header, Image, Message, Segment, Icon } from 'semantic-ui-react';
 
 class Login extends Component {
@@ -27,12 +28,19 @@ class Login extends Component {
       url: '/login',
       method: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({email: this.state.email, password: this.state.password})
+      data: JSON.stringify({email: this.state.email, password: this.state.password}),
+      success: () => {
+        this.postLogin();
+      }
     });
   }
 
   changeView() {
     this.props.changeView('Signup')
+  }
+
+  postLogin() {
+    this.props.changeView('UserHome')
   }
 
   render() {
@@ -75,7 +83,7 @@ class Login extends Component {
                   type='password'
                 />
 
-                <Button color='green' fluid size='large' onClick={this.handleSubmit.bind(this)}>Signup</Button>
+                <Button color='green' fluid size='large' onClick={this.handleSubmit.bind(this)}>Login</Button>
               </Segment>
             </Form>
             <Message>
