@@ -26,12 +26,14 @@ class Navbar extends Component {
   }
 
   handleSubmit(event) {
+    console.log('submitting!');
     $.ajax({
       url: '/search',
       method: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({term}),
-      success: data => console.log('data from search', data)
+      data: JSON.stringify({term: this.state.term}),
+      success: data => console.log('data from search', data),
+      error: data => console.log('err from search submit')
     });
   }
 
