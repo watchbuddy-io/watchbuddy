@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
 });
 
 var checkUser = (params, callback) => {
-  connection.query('select id where username = ? and password = ?', params, (error, results, fields) => {
+  connection.query('select id from user where username = ? and password = ?', params, (error, results, fields) => {
     if (error) {
       console.log('User does not exist');
     } else {
