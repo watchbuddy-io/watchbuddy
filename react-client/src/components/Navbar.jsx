@@ -25,8 +25,13 @@ class Navbar extends Component {
   }
 
   handleSubmit(event) {
-    //make ajax call here
-    console.log('submitting!');
+    $.ajax({
+      url: '/search',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({term}),
+      success: data => console.log('data from search', data)
+    });
   }
 
   changeViewToLogin(){
