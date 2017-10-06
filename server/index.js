@@ -40,7 +40,8 @@ app.get('/recommend', function (req, res) {
 })
 
 
-app.get('/submit', function (req, res) {
+app.post('/search', function (req, res) {
+	console.log(req.body)
 	var title = req.body.search
 	moviedb.search(title, (data) => {
 		console.log(JSON.parse(data))
@@ -67,7 +68,7 @@ app.post('/logIn', function (req, res){
 	var array = [];
 	array.push(user);
 	array.push(pw);
-	db.checkUser(user, pw, (err, data) => {
+	db.checkUser(array, (err, data) => {
 		res.send(user);
 	})
 })
