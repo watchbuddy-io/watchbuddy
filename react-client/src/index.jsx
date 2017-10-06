@@ -12,7 +12,13 @@ class App extends React.Component {
     super(props);
     this.state = { 
       view: 'Home',
-      username: ''
+      username: '',
+      showList: [{
+        firstAirDate: '2000-01-01',
+        genres: ['Daniel'],
+        image: '',
+        summary: 'Default summary'
+      }]
     };
   }
 
@@ -26,6 +32,10 @@ class App extends React.Component {
     this.setState({username});
   }
 
+  getShowList(data){
+    this.setState({showList: data}, () => console.log(this.state.showList))
+  }
+
   getView() {
     if (this.state.view === 'Login') {
       return <Login changeView={this.changeView.bind(this)} getUsername={this.getUsername.bind(this)}/>
@@ -34,7 +44,7 @@ class App extends React.Component {
     } else if (this.state.view === 'UserHome') {
       return <UserHome loggedIn='true' username={this.state.username}/>
     } else if (this.state.view === 'Home') {
-      return <Home changeView={this.changeView.bind(this)}/>
+      return <Home changeView={this.changeView.bind(this)} getShowList={this.getShowList.bind(this)} showList={this.state.showList}/>
     }
   }
 

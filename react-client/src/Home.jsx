@@ -9,10 +9,15 @@ class Home extends Component {
     super(props)
   }
 
+  componentWillReceiveProps(nextProps) {
+    // console.log('nextprops', nextProps);
+    
+  }
+
   render () {
     return (<Container fluid>
 
-      <Navbar changeView={this.props.changeView}/>
+      <Navbar changeView={this.props.changeView} getShowList={this.props.getShowList}/>
       
         <Header as='h3' icon textAlign='center' inverted color='green'>
           <Header.Content>
@@ -37,7 +42,7 @@ class Home extends Component {
           </Header.Content>
         </Header>
 
-      <ShowList />
+      <ShowList showList={this.props.showList}/>
 
     </Container>);
   }
