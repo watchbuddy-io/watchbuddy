@@ -4,7 +4,7 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '',
-  database : 'watchbuddyplay'
+  database : 'watchbuddy'
 });
 
 var checkUser = (params, callback) => {
