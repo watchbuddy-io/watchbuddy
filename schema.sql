@@ -6,8 +6,9 @@ USE watchbuddy;
 
 CREATE TABLE user (
   id int NOT NULL AUTO_INCREMENT,
-  username varchar(255) NOT NULL,
-  password varchar(255) NOT NULL,
+  username varchar(255) UNIQUE, -- set username to be unique
+  password varchar(64),
+  salt varchar(64),
   showtitle varchar(255),
   season int,
   episode int,
