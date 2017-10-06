@@ -33,7 +33,7 @@ class Home extends Component {
         <Header as='h3' icon textAlign='center' inverted color='green'>
           <Icon name='checked calendar' circular />
           <Header.Content>
-            WatchBuddy will find time in your busy schedule to get caught up
+            WatchBuddy will find time in your busy schedule so you can get caught up
           </Header.Content>
         </Header>
 

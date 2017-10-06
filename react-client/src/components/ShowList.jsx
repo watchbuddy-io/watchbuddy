@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import { Button, Image, List, Segment, Icon, Loader, Dimmer } from 'semantic-ui-react'
+import { Button, Image, List, Segment, Icon, Loader, Dimmer, Grid } from 'semantic-ui-react'
 import ShowEntry from './ShowEntry.jsx';
 
 class ShowList extends Component {
@@ -41,10 +41,11 @@ class ShowList extends Component {
   render() { 
     return (<div>
     {this.state.loaded === 'true' 
-    ? <Segment inverted>
-        <List divided inverted verticalAlign='middle' size='medium'>
+    ? 
+      <Segment inverted>
+    <Grid celled>
           { this.state.shows.map((show, i) => <ShowEntry show={show} key={i} getShow={this.props.getShow}/>)}
-        </List>
+    </Grid>
       </Segment> 
   : <Segment>
       <Dimmer active>

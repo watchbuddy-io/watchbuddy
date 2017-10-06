@@ -1,21 +1,26 @@
 import React from 'react';
-import { Container, Image, List, Button, Icon } from 'semantic-ui-react';
+import { Container, Image, List, Button, Icon, Grid } from 'semantic-ui-react';
 
-const ShowEntry = ({ show, getShow }) => (<List.Item>
-      <List.Content floated='right'>
-        <Button icon size='medium' inverted color='green' onClick={() => getShow(show.name)}>
-          <Icon name='add to calendar'/>
+const ShowEntry = ({ show, getShow }) => (
+  <Grid.Row>
+      <Grid.Column width={3}>
+        <Container>
+        <Image src={show.image} size='big' />
+        <Button fluid icon size='big' inverted color='green' onClick={() => getShow(show.name)}>
+          Add show <Icon name='add to calendar'/>
         </Button>
-      </List.Content>
-      <Image src={show.image} size='small' />
-      <List.Content>
+        </Container>
+      </Grid.Column>
+
+      <Grid.Column width={13}>
         <ul>
-        <li>{show.name}</li>
-        <ul>{show.genres.map((genre, i) => <li key={i}>{genre}</li>)}</ul>
-        <li>{show.summary}</li>
-        <li>First aired: {show.firstAirDate}</li>
-      </ul>
-      </List.Content>
-    </List.Item>);
+          <li><h4>{show.name}</h4></li>
+          <ul>{show.genres.map((genre, i) => <li key={i}>{genre}</li>)}</ul>
+          <li>{show.summary}</li>
+          <li>First aired: {show.firstAirDate}</li>
+        </ul>
+   </Grid.Column>
+  </Grid.Row>
+  );
 
 export default ShowEntry;
