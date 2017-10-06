@@ -28,6 +28,16 @@ class ShowList extends Component {
     });
   }
 
+  getShowInfo(show) {
+    $.ajax({
+      url: '/add',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({show}),
+      success: data => console.log('data from get show info', data)
+    });
+  }
+
   render() { 
     return (<div>
     {this.state.loaded === 'true' 
