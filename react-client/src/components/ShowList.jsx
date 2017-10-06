@@ -8,7 +8,7 @@ class ShowList extends Component {
     super(props);
     this.state = {
       loaded: 'false',
-      shows: [{
+      showList: [{
         firstAirDate: '2000-01-01',
         genres: ['Daniel'],
         image: '',
@@ -18,14 +18,20 @@ class ShowList extends Component {
   }
 
   componentDidMount() {
+    this.setState({showList: this.props.showList}, () => console.log('setting state in show list'));
+
     $.ajax({
       url: '/recommend',
       method: 'GET',
       contentType: 'application/json',
       success: data => {
-        this.setState({shows: data, loaded: 'true'});
+        this.setState({showList: data, loaded: 'true'});
       }
     });
+  }
+
+  componentWillReceiveProps({showList}) {
+    this.setState({showList});
   }
 
   getShowInfo(show) {
@@ -44,7 +50,7 @@ class ShowList extends Component {
     ? 
       <Segment inverted>
     <Grid celled>
-          { this.state.shows.map((show, i) => <ShowEntry show={show} key={i} getShow={this.props.getShow}/>)}
+          { this.state.showList.map((show, i) => <ShowEntry show={show} key={i} getShow={this.props.getShow}/>)}
     </Grid>
       </Segment> 
   : <Segment>

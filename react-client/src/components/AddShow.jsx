@@ -9,19 +9,27 @@ class AddShow extends Component {
     super(props);
     this.state = {
       startDate: moment(),
-      endDate: moment()
+      endDate: moment(),
+      startDatejs: '',
+      endDatejs: ''
     };
   }
 
   handleStartDateChange(date) {
     this.setState({
       startDate: date
+    }, () => {
+      let datejs = this.state.startDate.toDate()
+      this.setState({startDatejs: datejs}, () => console.log(this.state.startDatejs))
     });
   }
 
   handleEndDateChange(date) {
     this.setState({
       endDate: date
+    }, () => {
+      let datejs = this.state.endDate.toDate()
+      this.setState({endDatejs: datejs}, () => console.log(this.state.endDatejs))
     });
   }
 
