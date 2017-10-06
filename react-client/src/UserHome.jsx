@@ -17,7 +17,7 @@ class UserHome extends Component {
       friday: 0,
       saturday: 0,
       sunday: 0,
-      showAdded: 'true'
+      showAdded: 'false'
     };
   }
 
@@ -39,9 +39,8 @@ class UserHome extends Component {
   render () {
     return (<div>
 
-      <Navbar loggedIn='true'/>
+      <Navbar loggedIn='true' changeView={this.props.changeView} getShowList={this.props.getShowList}/>
         <Container>
-        
 
         {this.state.showAdded === 'true' 
         ? <div>
@@ -53,10 +52,6 @@ class UserHome extends Component {
             13 days left!
           </Header>
         </div>
-
-
-
-
 
         : <div>
         <Header as='h3' textAlign='center'>
@@ -72,7 +67,7 @@ class UserHome extends Component {
         </Message>
 
         <AddShow handleDay={this.handleDay.bind(this)}/>
-        <ShowList getShow={this.getShow.bind(this)}/>}
+        <ShowList getShow={this.getShow.bind(this)} showList={this.props.showList} />}
         </div>
         }
       </Container>
