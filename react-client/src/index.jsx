@@ -11,40 +11,34 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      view: 'Home'
+      view: 'Home',
+      username: ''
     };
   }
 
   changeView(option) {
-    console.log(option);
     this.setState({
       view: option
     });
-    // console.log(this.state.view);
+  }
+
+  getUsername(username) {
+    this.setState({username});
   }
 
   getView() {
     if (this.state.view === 'Login') {
-      return <Login changeView={this.changeView.bind(this)}/>
+      return <Login changeView={this.changeView.bind(this)} getUsername={this.getUsername.bind(this)}/>
     } else if (this.state.view === 'Signup') {
       return <Signup />
     } else if (this.state.view === 'UserHome') {
-      return <UserHome loggedIn='true'/>
+      return <UserHome loggedIn='true' username={this.state.username}/>
     } else if (this.state.view === 'Home') {
       return <Home changeView={this.changeView.bind(this)}/>
     }
   }
 
   componentDidMount() {
-    // $.ajax({
-    //   url: '/surveys', 
-    //   success: (data) => {
-    //     console.log(data);
-    //   },
-    //   error: (err) => {
-    //     console.log('err', err);
-    //   }
-    // });
   }
 
   render () {
