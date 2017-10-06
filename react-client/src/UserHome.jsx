@@ -8,7 +8,7 @@ class UserHome extends Component {
   constructor(props) {
   	super(props);
     this.state = {
-      username: '',
+      username: this.props.username,
       show: '',
       monday: 0,
       tuesday: 0,

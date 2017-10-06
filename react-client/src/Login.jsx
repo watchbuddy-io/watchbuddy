@@ -29,8 +29,8 @@ class Login extends Component {
       method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({email: this.state.email, password: this.state.password}),
-      success: () => {
-        this.postLogin();
+      success: (data) => {
+        this.postLogin(data);
       }
     });
   }
@@ -39,8 +39,9 @@ class Login extends Component {
     this.props.changeView('Signup')
   }
 
-  postLogin() {
-    this.props.changeView('UserHome')
+  postLogin(data) {
+    this.props.getUsername(data);
+    this.props.changeView('UserHome');
   }
 
   render() {
