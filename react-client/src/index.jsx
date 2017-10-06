@@ -42,7 +42,7 @@ class App extends React.Component {
     } else if (this.state.view === 'Signup') {
       return <Signup />
     } else if (this.state.view === 'UserHome') {
-      return <UserHome loggedIn='true' username={this.state.username}/>
+      return <UserHome loggedIn='true' username={this.state.username} getShowList={this.getShowList.bind(this)} showList={this.state.showList}/>
     } else if (this.state.view === 'Home') {
       return <Home changeView={this.changeView.bind(this)} getShowList={this.getShowList.bind(this)} showList={this.state.showList}/>
     }

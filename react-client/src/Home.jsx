@@ -9,11 +9,6 @@ class Home extends Component {
     super(props)
   }
 
-  componentWillReceiveProps(nextProps) {
-    // console.log('nextprops', nextProps);
-    
-  }
-
   render () {
     return (<Container fluid>
 
