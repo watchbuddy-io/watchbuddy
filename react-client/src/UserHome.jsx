@@ -16,7 +16,8 @@ class UserHome extends Component {
       thursday: 0,
       friday: 0,
       saturday: 0,
-      sunday: 0
+      sunday: 0,
+      showAdded: 'true'
     };
   }
 
@@ -37,12 +38,30 @@ class UserHome extends Component {
 
   render () {
     return (<div>
+
       <Navbar loggedIn='true'/>
         <Container>
+        
+
+        {this.state.showAdded === 'true' 
+        ? <div>
+        <Header as='h3' textAlign='center'>
+            You are catching up on The Big Bang Theory
+          </Header>
+
+          <Header as='h4' textAlign='center'>
+            13 days left!
+          </Header>
+        </div>
+
+
+
+
+
+        : <div>
         <Header as='h3' textAlign='center'>
           <Icon name='film'/> Welcome!
         </Header>
-
         <Message>
           <Message.Header>
             Get started
@@ -53,7 +72,9 @@ class UserHome extends Component {
         </Message>
 
         <AddShow handleDay={this.handleDay.bind(this)}/>
-        <ShowList getShow={this.getShow.bind(this)}/>
+        <ShowList getShow={this.getShow.bind(this)}/>}
+        </div>
+        }
       </Container>
     </div>);
   }
