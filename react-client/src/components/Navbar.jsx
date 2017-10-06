@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Input, Menu, Button, Icon } from 'semantic-ui-react'
+import { Input, Menu, Button, Icon } from 'semantic-ui-react';
+import $ from 'jquery';
 
 class Navbar extends Component {
   constructor(props) {
