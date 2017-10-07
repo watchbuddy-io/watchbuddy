@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import { Container, Form, Button, Checkbox, Dropdown } from 'semantic-ui-react';
+import { Container, Form, Button, Checkbox, Dropdown, Header } from 'semantic-ui-react';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -172,12 +172,17 @@ class AddShow extends Component {
       <Container>
         <style>{`
           Button,
+          Header,
           Form {
-            padding-top: 10px;
+            padding-top: 20px;
           }
         `}
         </style>
         <Form>
+          <Header as='h4' textAlign='left' inverted color='red'>
+            Where did you leave off?
+          </Header>
+
           <Form.Field>
             <label>Season</label>
             <Dropdown placeholder='Select season' fluid selection 
@@ -211,9 +216,10 @@ class AddShow extends Component {
               />
             </Form.Field>
           </Form.Group>
-          <Form.Field>
-            <label>Which days do you have free?</label>
-          </Form.Field>
+
+          <Header as='h4' textAlign='left' inverted color='red'>
+            Which days are you free?
+          </Header>
 
           <Form.Group widths='equal'>
             <Form.Field>

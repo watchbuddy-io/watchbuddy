@@ -12,7 +12,7 @@ class UserHome extends Component {
       username: this.props.username,
       showId: '',
       showName: '',
-      showAdded: 'false',
+      showSelected: 'false',
       addedShowEpisodes: []
     };
   }
@@ -20,7 +20,7 @@ class UserHome extends Component {
   getShow(showIdAndName){
     let showId = showIdAndName.id;
     let showName = showIdAndName.name;
-    this.setState({showId, showName}, () => console.log(this.state.showName));
+    this.setState({showId, showName, showSelected: 'true'}, () => console.log(this.state.showName));
     $.ajax({
       url: '/add',
       method: 'POST',
@@ -70,6 +70,8 @@ class UserHome extends Component {
             addedShowEpisodes = {this.state.addedShowEpisodes}
             addedShow = {this.state.showName}
             loggedIn = 'true'
+            addShow = {this.props.addShow}
+            showSelected = {this.props.showSelected}
             />
 
             <AddShow

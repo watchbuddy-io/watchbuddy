@@ -17,7 +17,7 @@ class Home extends Component {
         <Header as='h3' icon textAlign='center' inverted color='red'>
           <Header.Content>
             No time to catch up on your favorite TV show?
-            <Header icon textAlign='center'>
+            <Header textAlign='center'>
               WatchBuddy's got you covered
             </Header>
           </Header.Content>
