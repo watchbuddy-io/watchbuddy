@@ -18,7 +18,8 @@ class UserHome extends Component {
       friday: 0,
       saturday: 0,
       sunday: 0,
-      showAdded: 'false'
+      showAdded: 'false',
+      addedShowEpisodes: []
     };
   }
 
@@ -34,14 +35,13 @@ class UserHome extends Component {
   }
 
   getShow(show){
-    // console.log('****show', show);
     this.setState({show}, () => console.log(this.state.show));
     $.ajax({
       url: '/add',
       method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({id: show}),
-      success: data => console.log('data from get show info', data),
+      success: data => this.setState({addedShowEpisodes: data}),
       error: () => console.log('error getting show info')
     });
   }
@@ -76,7 +76,7 @@ class UserHome extends Component {
               </p>
             </Message>
 
-            <AddShow handleDay={this.handleDay.bind(this)}/>
+            <AddShow handleDay={this.handleDay.bind(this)} addedShowEpisodes={this.state.addedShowEpisodes} />
             <ShowList getShow={this.getShow.bind(this)} showList={this.props.showList} />}
             </div>
             }
