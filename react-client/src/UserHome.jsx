@@ -16,8 +16,8 @@ class UserHome extends Component {
     };
   }
 
-  getShow(show){
-    this.setState({show}, () => console.log(this.state.show));
+  getShow(showId){
+    this.setState({showId}, () => console.log(this.state.showId));
     $.ajax({
       url: '/add',
       method: 'POST',
@@ -27,6 +27,7 @@ class UserHome extends Component {
       error: () => console.log('error getting show info')
     });
   }
+
 
   render () {
     return (<div>
@@ -58,12 +59,13 @@ class UserHome extends Component {
               </p>
             </Message>
 
+            <ShowList getShow={this.getShow.bind(this)} showList={this.props.showList} />}
+            
             <AddShow
             showId = {this.state.showId} 
             addedShowEpisodes = {this.state.addedShowEpisodes}
             username = {this.state.username} 
             />
-            <ShowList getShow={this.getShow.bind(this)} showList={this.props.showList} />}
             </div>
             }
           </Container>
