@@ -52,7 +52,20 @@ let search = (title, callback) => {
 	})
 }
 
+let details = (id, callback) => {
+	let options = {
+		url: `https://api.themoviedb.org/3/tv/${id}?api_key=${config.TOKEN}&language=en-US`,
+		headers: {
+			'User-Agent': 'request'
+		}
+	}
+	request(options, (err, res, body) => {
+		callback(body)
+	})
+}
+
 module.exports.getInfoByTitle = getInfoByTitle;
 module.exports.getPopularShows = getPopularShows;
 module.exports.genre = genre;
 module.exports.search = search;
+module.exports.details = details;
