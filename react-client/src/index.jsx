@@ -38,13 +38,28 @@ class App extends React.Component {
 
   getView() {
     if (this.state.view === 'Login') {
-      return <Login changeView={this.changeView.bind(this)} getUsername={this.getUsername.bind(this)}/>
+      return <Login 
+      changeView={this.changeView.bind(this)} 
+      getUsername={this.getUsername.bind(this)}
+      />
     } else if (this.state.view === 'Signup') {
-      return <Signup changeView={this.changeView.bind(this)} getUsername={this.getUsername.bind(this)}/>
+      return <Signup 
+      changeView={this.changeView.bind(this)} 
+      getUsername={this.getUsername.bind(this)
+      }/>
     } else if (this.state.view === 'UserHome') {
-      return <UserHome loggedIn='true' username={this.state.username} getShowList={this.getShowList.bind(this)} showList={this.state.showList}/>
+      return <UserHome 
+      loggedIn='true' 
+      username={this.state.username} 
+      getShowList={this.getShowList.bind(this)} 
+      showList={this.state.showList}
+      />
     } else if (this.state.view === 'Home') {
-      return <Home changeView={this.changeView.bind(this)} getShowList={this.getShowList.bind(this)} showList={this.state.showList}/>
+      return <Home 
+      changeView={this.changeView.bind(this)} 
+      getShowList={this.getShowList.bind(this)} 
+      showList={this.state.showList}
+      />
     }
   }
 
