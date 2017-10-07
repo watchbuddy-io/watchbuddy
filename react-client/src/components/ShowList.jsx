@@ -35,13 +35,14 @@ class ShowList extends Component {
   }
 
   getShowInfo(show) {
-    $.ajax({
-      url: '/add',
-      method: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify({show}),
-      success: data => console.log('data from get show info', data)
-    });
+    console.log(show);
+    // $.ajax({
+    //   url: '/add',
+    //   method: 'POST',
+    //   contentType: 'application/json',
+    //   data: JSON.stringify({show}),
+    //   success: data => console.log('data from get show info', data)
+    // });
   }
 
   render() { 
@@ -50,7 +51,7 @@ class ShowList extends Component {
     ? 
       <Segment inverted>
     <Grid celled>
-          { this.state.showList.map((show, i) => <ShowEntry show={show} key={i} getShow={this.props.getShow}/>)}
+          { this.state.showList.map((show, i) => <ShowEntry show={show} key={i} getShow={this.props.getShow}/>) }
     </Grid>
       </Segment> 
   : <Segment>
