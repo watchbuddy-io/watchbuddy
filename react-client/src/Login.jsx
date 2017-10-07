@@ -7,7 +7,8 @@ class Login extends Component {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      renderErrorMessage: 'false'
     }
   }
 
@@ -32,9 +33,13 @@ class Login extends Component {
       success: (data) => {
         this.postLogin(data);
       },
+<<<<<<< HEAD
       error: (err) => {
         console.log(err)
       }
+=======
+      error: () => this.renderErrorMessage()
+>>>>>>> upstream/master
     });
   }
 
@@ -45,6 +50,10 @@ class Login extends Component {
   postLogin(data) {
     this.props.getUsername(data);
     this.props.changeView('UserHome');
+  }
+
+  renderErrorMessage() {
+    this.setState({renderErrorMessage: 'true'});
   }
 
   render() {
@@ -93,6 +102,16 @@ class Login extends Component {
             <Message>
               New to us? <a onClick={this.changeView.bind(this)}>Sign Up</a>
             </Message>
+
+            <div>
+              {this.state.renderErrorMessage === 'true' 
+              ? <Message negative>
+                <Message.Header>We're sorry</Message.Header>
+                <p>There was a problem with your username or password. Please try again.</p>
+              </Message> 
+              : null}
+            </div>
+            
           </Grid.Column>
         </Grid>
       </div>
