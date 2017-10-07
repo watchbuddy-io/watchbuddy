@@ -31,6 +31,9 @@ class Login extends Component {
       data: JSON.stringify({email: this.state.email, password: this.state.password}),
       success: (data) => {
         this.postLogin(data);
+      },
+      error: (err) => {
+        console.log(err)
       }
     });
   }

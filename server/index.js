@@ -99,7 +99,8 @@ app.post('/logIn', function (req, res){
         // res.send(user);
         // if user does not exist, sends empty array
         if (data.length === 0) {
-            res.send('User does not exist')
+            res.send(400)
+            res.render('error')
         } else {
             // if user does exist, sends password and salt
             hash = data[0].password;
@@ -107,7 +108,8 @@ app.post('/logIn', function (req, res){
             if (utils.compareHash(pw, hash, salt)) {
                 res.send(user);
             } else {
-                res.send('Incorrect Password');
+                res.status(400);
+                res.render('error')
             }
         }
     })
