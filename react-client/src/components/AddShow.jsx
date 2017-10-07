@@ -68,28 +68,11 @@ class AddShow extends Component {
 
   handleSubmit() {
     //make ajax call to add with all info
-    // $.ajax({
-    //   method: 'POST',
-    //   url: '/addshow',
-    //   contentType: 'application/json',
-    //   data: JSON.stringify({
-    //     username: this.state.username,
-    //     show: this.state.showId,
-    //     season: this.state.selectedSeason,
-    //     episode: this.state.selectedEpisode,
-    //     startDate: this.state.startDatejs,
-    //     endDate: this.state.endDatejs,
-    //     monday: this.state.monday,
-    //     tuesday: this.state.tuesday,
-    //     wednesday: this.state.wednesday,
-    //     thursday: this.state.thursday,
-    //     friday: this.state.friday,
-    //     saturday: this.state.saturday,
-    //     sunday: this.state.sunday
-    //   })
-    // });
-
-    console.log({
+    $.ajax({
+      method: 'POST',
+      url: '/addshow',
+      contentType: 'application/json',
+      data: JSON.stringify({
         username: this.state.username,
         show: this.state.showId,
         season: this.state.selectedSeason,
@@ -103,7 +86,24 @@ class AddShow extends Component {
         friday: this.state.friday,
         saturday: this.state.saturday,
         sunday: this.state.sunday
-      });
+      })
+    });
+
+    // console.log({
+    //     username: this.state.username,
+    //     show: this.state.showId,
+    //     season: this.state.selectedSeason,
+    //     episode: this.state.selectedEpisode,
+    //     startDate: this.state.startDatejs,
+    //     endDate: this.state.endDatejs,
+    //     monday: this.state.monday,
+    //     tuesday: this.state.tuesday,
+    //     wednesday: this.state.wednesday,
+    //     thursday: this.state.thursday,
+    //     friday: this.state.friday,
+    //     saturday: this.state.saturday,
+    //     sunday: this.state.sunday
+    //   });
 
   }
 
