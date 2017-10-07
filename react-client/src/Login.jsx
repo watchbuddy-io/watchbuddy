@@ -33,13 +33,7 @@ class Login extends Component {
       success: (data) => {
         this.postLogin(data);
       },
-<<<<<<< HEAD
-      error: (err) => {
-        console.log(err)
-      }
-=======
       error: () => this.renderErrorMessage()
->>>>>>> upstream/master
     });
   }
 
