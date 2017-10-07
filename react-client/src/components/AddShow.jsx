@@ -9,7 +9,7 @@ class AddShow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: '',
+      showId: this.props.showId,
       startDate: moment(),
       endDate: moment(),
       startDatejs: '',
@@ -30,7 +30,14 @@ class AddShow extends Component {
       ],
       originalSeasonObj: {},
       selectedSeason: '',
-      selectedEpisode: ''
+      selectedEpisode: '',
+      monday: 0,
+      tuesday: 0,
+      wednesday: 0,
+      thursday: 0,
+      friday: 0,
+      saturday: 0,
+      sunday: 0,
     };
   }
 
@@ -46,6 +53,17 @@ class AddShow extends Component {
     });
     this.setState({seasonOptions: seasonArr});
     this.setState({episodeOptions: episodeArr});
+  }
+
+  handleDay(day){
+    let setObj = {};
+    if (this.state[day] === 0) {
+      setObj[day] = 1;
+      this.setState(setObj, () => console.log(this.state[day]));
+    } else {
+      setObj[day] = 0;
+      this.setState(setObj, () => console.log(this.state[day]));
+    }
   }
 
   handleSelectedSeason(event, { value }) {
@@ -142,25 +160,25 @@ class AddShow extends Component {
           <p>Which days do you have free?</p>
 
           <Form.Field>
-            <Checkbox label='Monday' onClick={() => this.props.handleDay('monday')}/>
+            <Checkbox label='Monday' onClick={() => this.handleDay('monday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Tuesday' onClick={() => this.props.handleDay('tuesday')}/>
+            <Checkbox label='Tuesday' onClick={() => this.handleDay('tuesday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Wednesday' onClick={() => this.props.handleDay('wednesday')}/>
+            <Checkbox label='Wednesday' onClick={() => this.handleDay('wednesday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Thursday' onClick={() => this.props.handleDay('thursday')}/>
+            <Checkbox label='Thursday' onClick={() => this.handleDay('thursday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Friday' onClick={() => this.props.handleDay('friday')}/>
+            <Checkbox label='Friday' onClick={() => this.handleDay('friday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Saturday' onClick={() => this.props.handleDay('saturday')}/>
+            <Checkbox label='Saturday' onClick={() => this.handleDay('saturday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Sunday' onClick={() => this.props.handleDay('sunday')}/>
+            <Checkbox label='Sunday' onClick={() => this.handleDay('sunday')}/>
           </Form.Field>
           <Button type='submit'>Submit</Button>
         </Form>
