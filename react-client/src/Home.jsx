@@ -14,7 +14,7 @@ class Home extends Component {
 
       <Navbar changeView={this.props.changeView} getShowList={this.props.getShowList}/>
       
-        <Header as='h3' icon textAlign='center' inverted color='green'>
+        <Header as='h3' icon textAlign='center' inverted color='red'>
           <Header.Content>
             No time to catch up on your favorite TV show?
             <Header icon textAlign='center'>
@@ -23,14 +23,14 @@ class Home extends Component {
           </Header.Content>
         </Header>
 
-        <Header as='h3' icon textAlign='center' inverted color='green'>
+        <Header as='h3' icon textAlign='center' inverted color='red'>
           <Icon name='add' circular />
           <Header.Content>
             Add a TV show
           </Header.Content>
         </Header>
 
-        <Header as='h3' icon textAlign='center' inverted color='green'>
+        <Header as='h3' icon textAlign='center' inverted color='red'>
           <Icon name='checked calendar' circular />
           <Header.Content>
             WatchBuddy will find time in your busy schedule so you can get caught up

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
 import { Container, Form, Button, Checkbox, Dropdown } from 'semantic-ui-react';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
@@ -9,7 +10,7 @@ class AddShow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: '',
+      showId: '',
       startDate: moment(),
       endDate: moment(),
       startDatejs: '',
@@ -30,11 +31,28 @@ class AddShow extends Component {
       ],
       originalSeasonObj: {},
       selectedSeason: '',
-      selectedEpisode: ''
+      selectedEpisode: '',
+      monday: 0,
+      tuesday: 0,
+      wednesday: 0,
+      thursday: 0,
+      friday: 0,
+      saturday: 0,
+      sunday: 0,
+      username: ''
     };
   }
 
   componentWillReceiveProps(episodes) {
+    console.log(episodes);
+
+    //handle username
+    this.setState({username: episodes.username});
+
+    //handle showId
+    this.setState({showId: episodes.showId});
+
+    //handle show info
     let seasonsObj = episodes.addedShowEpisodes.seasons;
     this.setState({originalSeasonObj: seasonsObj});
     let seasonArr = [];
@@ -48,8 +66,61 @@ class AddShow extends Component {
     this.setState({episodeOptions: episodeArr});
   }
 
+  handleSubmit() {
+    //make ajax call to add with all info
+    $.ajax({
+      method: 'POST',
+      url: '/addshow',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        username: this.state.username,
+        show: this.state.showId,
+        season: this.state.selectedSeason,
+        episode: this.state.selectedEpisode,
+        startDate: this.state.startDatejs,
+        endDate: this.state.endDatejs,
+        monday: this.state.monday,
+        tuesday: this.state.tuesday,
+        wednesday: this.state.wednesday,
+        thursday: this.state.thursday,
+        friday: this.state.friday,
+        saturday: this.state.saturday,
+        sunday: this.state.sunday
+      })
+    });
+
+    // console.log({
+    //     username: this.state.username,
+    //     show: this.state.showId,
+    //     season: this.state.selectedSeason,
+    //     episode: this.state.selectedEpisode,
+    //     startDate: this.state.startDatejs,
+    //     endDate: this.state.endDatejs,
+    //     monday: this.state.monday,
+    //     tuesday: this.state.tuesday,
+    //     wednesday: this.state.wednesday,
+    //     thursday: this.state.thursday,
+    //     friday: this.state.friday,
+    //     saturday: this.state.saturday,
+    //     sunday: this.state.sunday
+    //   });
+
+  }
+
+  handleDay(day){
+    let setObj = {};
+    if (this.state[day] === 0) {
+      setObj[day] = 1;
+      this.setState(setObj, () => console.log(this.state[day]));
+    } else {
+      setObj[day] = 0;
+      this.setState(setObj, () => console.log(this.state[day]));
+    }
+  }
+
   handleSelectedSeason(event, { value }) {
-    this.setState({ selectedSeason: value }, () => console.log('selectedSeason:', this.state.selectedSeason));
+    let valueNum = parseInt(value);
+    this.setState({ selectedSeason: valueNum }, () => console.log('selectedSeason:', this.state.selectedSeason));
 
     //grab selected season
     let selectedValue = value;
@@ -101,14 +172,6 @@ class AddShow extends Component {
       <Container>
         <Form>
           <Form.Field>
-            <label>Username</label>
-            <input placeholder='Username' />
-          </Form.Field>
-          <Form.Field>
-            <label>Show</label>
-            <input placeholder='Show' />
-          </Form.Field>
-          <Form.Field>
             <label>Season</label>
             <Dropdown placeholder='Select season' fluid selection 
             options={this.state.seasonOptions} 
@@ -142,27 +205,27 @@ class AddShow extends Component {
           <p>Which days do you have free?</p>
 
           <Form.Field>
-            <Checkbox label='Monday' onClick={() => this.props.handleDay('monday')}/>
+            <Checkbox label='Monday' onClick={() => this.handleDay('monday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Tuesday' onClick={() => this.props.handleDay('tuesday')}/>
+            <Checkbox label='Tuesday' onClick={() => this.handleDay('tuesday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Wednesday' onClick={() => this.props.handleDay('wednesday')}/>
+            <Checkbox label='Wednesday' onClick={() => this.handleDay('wednesday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Thursday' onClick={() => this.props.handleDay('thursday')}/>
+            <Checkbox label='Thursday' onClick={() => this.handleDay('thursday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Friday' onClick={() => this.props.handleDay('friday')}/>
+            <Checkbox label='Friday' onClick={() => this.handleDay('friday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Saturday' onClick={() => this.props.handleDay('saturday')}/>
+            <Checkbox label='Saturday' onClick={() => this.handleDay('saturday')}/>
           </Form.Field>
           <Form.Field>
-            <Checkbox label='Sunday' onClick={() => this.props.handleDay('sunday')}/>
+            <Checkbox label='Sunday' onClick={() => this.handleDay('sunday')}/>
           </Form.Field>
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' onClick={this.handleSubmit.bind(this)}>Submit</Button>
         </Form>
       </Container>
   );

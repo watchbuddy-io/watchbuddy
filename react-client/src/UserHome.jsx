@@ -10,48 +10,33 @@ class UserHome extends Component {
   	super(props);
     this.state = {
       username: this.props.username,
-      show: '',
-      monday: 0,
-      tuesday: 0,
-      wednesday: 0,
-      thursday: 0,
-      friday: 0,
-      saturday: 0,
-      sunday: 0,
+      showId: '',
       showAdded: 'false',
       addedShowEpisodes: []
     };
   }
 
-  handleDay(day){
-    let setObj = {};
-    if (this.state[day] === 0) {
-      setObj[day] = 1;
-      this.setState(setObj, () => console.log(this.state[day]));
-    } else {
-      setObj[day] = 0;
-      this.setState(setObj, () => console.log(this.state[day]));
-    }
-  }
-
-  getShow(show){
-    this.setState({show}, () => console.log(this.state.show));
+  getShow(showId){
+    this.setState({showId}, () => console.log(this.state.showId));
     $.ajax({
       url: '/add',
       method: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({id: show}),
-      success: data => this.setState({addedShowEpisodes: data}),
+      data: JSON.stringify({id: showId}),
+      success: data => {this.setState({addedShowEpisodes: data})},
       error: () => console.log('error getting show info')
     });
   }
 
+
   render () {
     return (<div>
 
-      <Navbar loggedIn='true' changeView={this.props.changeView} getShowList={this.props.getShowList}/>
-        <Container>
+      <Navbar loggedIn='true' 
+      changeView={this.props.changeView} 
+      getShowList={this.props.getShowList}/>
 
+        <Container>
         {this.state.showAdded === 'true' 
         ? <div>
         <Header as='h3' textAlign='center'>
@@ -76,8 +61,17 @@ class UserHome extends Component {
               </p>
             </Message>
 
-            <AddShow handleDay={this.handleDay.bind(this)} addedShowEpisodes={this.state.addedShowEpisodes} />
-            <ShowList getShow={this.getShow.bind(this)} showList={this.props.showList} />}
+            <ShowList 
+            getShow={this.getShow.bind(this)} 
+            showList={this.props.showList}
+            addedShowEpisodes = {this.state.addedShowEpisodes}
+            />
+
+            <AddShow
+            showId = {this.state.showId} 
+            addedShowEpisodes = {this.state.addedShowEpisodes}
+            username = {this.state.username} 
+            />
             </div>
             }
           </Container>

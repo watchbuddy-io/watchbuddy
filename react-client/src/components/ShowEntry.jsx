@@ -6,7 +6,7 @@ const ShowEntry = ({ show, getShow }) => (
       <Grid.Column width={3}>
         <Container>
         <Image src={show.image} size='big' />
-        <Button fluid icon size='big' inverted color='green' onClick={() => getShow(show.id)}>
+        <Button fluid icon size='big' inverted color='red' onClick={() => getShow(show.id)}>
           Add show <Icon name='add to calendar'/>
         </Button>
         </Container>

@@ -11,7 +11,6 @@ class Navbar extends Component {
     }
   }
 
-
   componentWillMount() {
     if (this.props.loggedIn === 'true') {
       this.setState({
@@ -49,7 +48,7 @@ class Navbar extends Component {
   render () {
     return (
 
-      <Menu className="ui inverted menu" inverted color='green'>
+      <Menu className="ui inverted menu" inverted color='red'>
 
         <Menu.Item onClick={this.changeViewToUserHome.bind(this)}>
           <h2><Icon name ='film' /> <Icon name='child' /> WatchBuddy</h2>
@@ -65,7 +64,6 @@ class Navbar extends Component {
 
           </Menu.Item>
 
-          
           {this.state.loggedIn === 'true' ? 
             <Menu.Item>
               <Button>Logout</Button>
@@ -76,7 +74,6 @@ class Navbar extends Component {
             </Menu.Item>
           }
           
-
         </Menu.Menu>
 
       </Menu>);
