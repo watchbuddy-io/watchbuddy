@@ -34,12 +34,13 @@ class UserHome extends Component {
   }
 
   getShow(show){
+    // console.log('****show', show);
     this.setState({show}, () => console.log(this.state.show));
     $.ajax({
       url: '/add',
       method: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({show}),
+      data: JSON.stringify({id: show}),
       success: data => console.log('data from get show info', data),
       error: () => console.log('error getting show info')
     });

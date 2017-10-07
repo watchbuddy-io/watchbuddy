@@ -128,6 +128,7 @@ app.post('/add', function (req, res){
 		})
 		detail.seasons = obj;
 		detail.runtime = info.episode_run_time;
+		console.log(detail)
 		res.send(detail)
 	})
 })
