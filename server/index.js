@@ -116,7 +116,7 @@ app.post('/logIn', function (req, res){
   })
 })
 
-app.get('/add', function (req, res){
+app.post('/add', function (req, res){
 	var id = req.body.id
 	moviedb.details(id, (data) => { 
 		console.log(JSON.parse(data))
