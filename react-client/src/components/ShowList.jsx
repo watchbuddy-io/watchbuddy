@@ -44,7 +44,7 @@ class ShowList extends Component {
           <Grid.Row>
             <Grid.Column width={3}>
               <Container>
-              <Button fluid icon size='big' inverted color='green'>
+              <Button fluid icon size='big' inverted color='red'>
                 Added show <Icon name='checked calendar'/>
               </Button>
               </Container>

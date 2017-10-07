@@ -48,7 +48,7 @@ class Navbar extends Component {
   render () {
     return (
 
-      <Menu className="ui inverted menu" inverted color='green'>
+      <Menu className="ui inverted menu" inverted color='red'>
 
         <Menu.Item onClick={this.changeViewToUserHome.bind(this)}>
           <h2><Icon name ='film' /> <Icon name='child' /> WatchBuddy</h2>
