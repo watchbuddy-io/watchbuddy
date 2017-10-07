@@ -52,7 +52,7 @@ class ShowList extends Component {
         ? 
           <Segment inverted>
         <Grid celled>
-              { this.state.showList.map((show, i) => <ShowEntry show={show} key={i} getShow={this.props.getShow}/>) }
+              { this.state.showList.map((show, i) => <ShowEntry show={show} key={i} getShow={this.props.getShow} loggedIn={this.props.loggedIn}/>) }
         </Grid>
           </Segment> 
       : <Segment>
