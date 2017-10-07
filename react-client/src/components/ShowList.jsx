@@ -40,20 +40,12 @@ class ShowList extends Component {
     return (
     <div>{ this.state.showAdded === 'true'
     ? <Segment inverted>
-        <Grid celled>
-          <Grid.Row>
-            <Grid.Column width={3}>
+
               <Container>
               <Button fluid icon size='big' inverted color='red'>
-                Added show <Icon name='checked calendar'/>
+                { this.props.addedShow } <Icon name='checked calendar'/>
               </Button>
               </Container>
-            </Grid.Column>
-            <Grid.Column width={13}>
-            <p>Show info goes here!</p>
-         </Grid.Column>
-        </Grid.Row>
-        </Grid>
           </Segment> 
     : <div>
         {this.state.loaded === 'true' 
