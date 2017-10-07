@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Form, Button, Checkbox } from 'semantic-ui-react';
+import { Container, Form, Button, Checkbox, Dropdown } from 'semantic-ui-react';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -11,7 +11,21 @@ class AddShow extends Component {
       startDate: moment(),
       endDate: moment(),
       startDatejs: '',
-      endDatejs: ''
+      endDatejs: '',
+      seasonOptions: [
+        {
+          text: 'Season 1',
+          value: 'Jenny Hess',
+          image: { avatar: true, src: '/assets/images/avatar/small/jenny.jpg' },
+        }
+      ],
+      episodeOptions: [
+        {
+          text: 'Episode 1',
+          value: 'Jenny Hess',
+          image: { avatar: true, src: '/assets/images/avatar/small/jenny.jpg' },
+        }
+      ]
     };
   }
 
@@ -47,11 +61,11 @@ class AddShow extends Component {
           </Form.Field>
           <Form.Field>
             <label>Season</label>
-            <input placeholder='Season' />
+            <Dropdown placeholder='Select season' fluid selection options={this.state.seasonOptions} />
           </Form.Field>
           <Form.Field>
             <label>Episode</label>
-            <input placeholder='Episode' />
+            <Dropdown placeholder='Select episode' fluid selection options={this.state.episodeOptions} />
           </Form.Field>
           <Form.Field>
             <label>Start date</label>

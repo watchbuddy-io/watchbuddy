@@ -9,7 +9,7 @@ CREATE TABLE user (
   username varchar(255) UNIQUE, -- set username to be unique
   password varchar(64),
   salt varchar(64),
-  showtitle varchar(255),
+  showtitle int,
   season int,
   episode int,
   start DATE,
