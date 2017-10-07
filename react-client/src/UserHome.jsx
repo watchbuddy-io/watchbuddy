@@ -23,7 +23,7 @@ class UserHome extends Component {
       method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({id: showId}),
-      success: data => this.setState({addedShowEpisodes: data}),
+      success: data => {this.setState({addedShowEpisodes: data})},
       error: () => console.log('error getting show info')
     });
   }
@@ -61,7 +61,11 @@ class UserHome extends Component {
               </p>
             </Message>
 
-            <ShowList getShow={this.getShow.bind(this)} showList={this.props.showList} />
+            <ShowList 
+            getShow={this.getShow.bind(this)} 
+            showList={this.props.showList}
+            addedShowEpisodes = {this.state.addedShowEpisodes}
+            />
 
             <AddShow
             showId = {this.state.showId} 
