@@ -10,28 +10,10 @@ class UserHome extends Component {
   	super(props);
     this.state = {
       username: this.props.username,
-      show: '',
-      monday: 0,
-      tuesday: 0,
-      wednesday: 0,
-      thursday: 0,
-      friday: 0,
-      saturday: 0,
-      sunday: 0,
+      showId: '',
       showAdded: 'false',
       addedShowEpisodes: []
     };
-  }
-
-  handleDay(day){
-    let setObj = {};
-    if (this.state[day] === 0) {
-      setObj[day] = 1;
-      this.setState(setObj, () => console.log(this.state[day]));
-    } else {
-      setObj[day] = 0;
-      this.setState(setObj, () => console.log(this.state[day]));
-    }
   }
 
   getShow(show){
@@ -40,7 +22,7 @@ class UserHome extends Component {
       url: '/add',
       method: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({id: show}),
+      data: JSON.stringify({id: showId}),
       success: data => this.setState({addedShowEpisodes: data}),
       error: () => console.log('error getting show info')
     });
@@ -76,7 +58,11 @@ class UserHome extends Component {
               </p>
             </Message>
 
-            <AddShow handleDay={this.handleDay.bind(this)} addedShowEpisodes={this.state.addedShowEpisodes} />
+            <AddShow
+            showId = {this.state.showId} 
+            addedShowEpisodes = {this.state.addedShowEpisodes}
+            username = {this.state.username} 
+            />
             <ShowList getShow={this.getShow.bind(this)} showList={this.props.showList} />}
             </div>
             }

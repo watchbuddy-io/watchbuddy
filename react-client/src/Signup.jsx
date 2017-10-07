@@ -29,9 +29,13 @@ class Signup extends Component {
       url: '/signup',
       method: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({email: this.state.email, password: this.state.password})
+      data: JSON.stringify({email: this.state.email, password: this.state.password}),
+      success: () => {
+        this.setState({showSuccessMessage: 'true'});
+        this.props.changeView('UserHome');
+      }
     });
-    this.setState({showSuccessMessage: 'true'});
+    
   }
 
 
