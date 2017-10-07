@@ -36,7 +36,6 @@ class Signup extends Component {
         this.props.changeView('UserHome');
       }
     });
-    
   }
 
 

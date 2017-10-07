@@ -11,7 +11,6 @@ class Navbar extends Component {
     }
   }
 
-
   componentWillMount() {
     if (this.props.loggedIn === 'true') {
       this.setState({
@@ -65,7 +64,6 @@ class Navbar extends Component {
 
           </Menu.Item>
 
-          
           {this.state.loggedIn === 'true' ? 
             <Menu.Item>
               <Button>Logout</Button>
@@ -76,7 +74,6 @@ class Navbar extends Component {
             </Menu.Item>
           }
           
-
         </Menu.Menu>
 
       </Menu>);
