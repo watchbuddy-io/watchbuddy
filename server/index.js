@@ -73,7 +73,7 @@ app.post('/search', function (req, res) {
 })
 
 
-app.post('/signup', function (req, res) {
+app.post('/signUp', function (req, res) {
   var salt = utils.createRandom32String(); // create salt
   var user = req.body.email;
   var pw = utils.createHash(req.body.password, salt);
@@ -88,7 +88,7 @@ app.post('/signup', function (req, res) {
 })
 
 
-app.post('/login', function (req, res){
+app.post('/logIn', function (req, res){
   var user = req.body.email;
   var pw = req.body.password;
   var salt = '';

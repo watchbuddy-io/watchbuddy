@@ -16,24 +16,27 @@ class UserHome extends Component {
     };
   }
 
-  getShow(show){
-    this.setState({show}, () => console.log(this.state.show));
+  getShow(showId){
+    this.setState({showId}, () => console.log(this.state.showId));
     $.ajax({
       url: '/add',
       method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({id: showId}),
-      success: data => this.setState({addedShowEpisodes: data}),
+      success: data => {this.setState({addedShowEpisodes: data})},
       error: () => console.log('error getting show info')
     });
   }
 
+
   render () {
     return (<div>
 
-      <Navbar loggedIn='true' changeView={this.props.changeView} getShowList={this.props.getShowList}/>
-        <Container>
+      <Navbar loggedIn='true' 
+      changeView={this.props.changeView} 
+      getShowList={this.props.getShowList}/>
 
+        <Container>
         {this.state.showAdded === 'true' 
         ? <div>
         <Header as='h3' textAlign='center'>
@@ -58,12 +61,17 @@ class UserHome extends Component {
               </p>
             </Message>
 
+            <ShowList 
+            getShow={this.getShow.bind(this)} 
+            showList={this.props.showList}
+            addedShowEpisodes = {this.state.addedShowEpisodes}
+            />
+
             <AddShow
             showId = {this.state.showId} 
             addedShowEpisodes = {this.state.addedShowEpisodes}
             username = {this.state.username} 
             />
-            <ShowList getShow={this.getShow.bind(this)} showList={this.props.showList} />}
             </div>
             }
           </Container>

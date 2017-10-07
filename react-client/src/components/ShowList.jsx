@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import { Button, Image, List, Segment, Icon, Loader, Dimmer, Grid } from 'semantic-ui-react'
+import { Button, Image, List, Segment, Icon, Loader, Dimmer, Grid, Container } from 'semantic-ui-react'
 import ShowEntry from './ShowEntry.jsx';
 
 class ShowList extends Component {
@@ -13,12 +13,14 @@ class ShowList extends Component {
         genres: ['Daniel'],
         image: '',
         summary: 'Default summary'
-      }]
+      }],
+      addedShowEpisodes: {},
+      showAdded: 'false'
     };
   }
 
   componentDidMount() {
-    this.setState({showList: this.props.showList}, () => console.log('setting state in show list'));
+    this.setState({showList: this.props.showList});
 
     $.ajax({
       url: '/recommend',
@@ -30,36 +32,46 @@ class ShowList extends Component {
     });
   }
 
-  componentWillReceiveProps({showList}) {
-    this.setState({showList});
-  }
-
-  getShowInfo(show) {
-    console.log(show);
-    // $.ajax({
-    //   url: '/add',
-    //   method: 'POST',
-    //   contentType: 'application/json',
-    //   data: JSON.stringify({show}),
-    //   success: data => console.log('data from get show info', data)
-    // });
+  componentWillReceiveProps({showList, addedShowEpisodes}) {
+    this.setState({showList, addedShowEpisodes, showAdded: 'true'}, console.log(this.state.addedShowEpisodes));
   }
 
   render() { 
-    return (<div>
-    {this.state.loaded === 'true' 
-    ? 
-      <Segment inverted>
-    <Grid celled>
-          { this.state.showList.map((show, i) => <ShowEntry show={show} key={i} getShow={this.props.getShow}/>) }
-    </Grid>
-      </Segment> 
-  : <Segment>
-      <Dimmer active>
-        <Loader size='massive'>Loading</Loader>
-      </Dimmer>
-    </Segment>}
-    </div>)
+    return (
+    <div>{ this.state.showAdded === 'true'
+    ? <Segment inverted>
+        <Grid celled>
+          <Grid.Row>
+            <Grid.Column width={3}>
+              <Container>
+              <Button fluid icon size='big' inverted color='red'>
+                Added show <Icon name='checked calendar'/>
+              </Button>
+              </Container>
+            </Grid.Column>
+            <Grid.Column width={13}>
+            <p>Show info goes here!</p>
+         </Grid.Column>
+        </Grid.Row>
+        </Grid>
+          </Segment> 
+    : <div>
+        {this.state.loaded === 'true' 
+        ? 
+          <Segment inverted>
+        <Grid celled>
+              { this.state.showList.map((show, i) => <ShowEntry show={show} key={i} getShow={this.props.getShow}/>) }
+        </Grid>
+          </Segment> 
+      : <Segment>
+          <Dimmer active>
+            <Loader size='massive'>Loading</Loader>
+          </Dimmer>
+        </Segment>}
+      </div>
+    }      
+    </div>
+    )
   }
 } 
 
