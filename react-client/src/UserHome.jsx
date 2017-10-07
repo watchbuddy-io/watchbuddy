@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
 import ShowList from './components/ShowList.jsx';
 import Navbar from './components/Navbar.jsx';
 import AddShow from './components/AddShow.jsx';
@@ -34,6 +35,14 @@ class UserHome extends Component {
 
   getShow(show){
     this.setState({show}, () => console.log(this.state.show));
+    $.ajax({
+      url: '/add',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({show}),
+      success: data => console.log('data from get show info', data),
+      error: () => console.log('error getting show info')
+    });
   }
 
   render () {
@@ -54,24 +63,25 @@ class UserHome extends Component {
         </div>
 
         : <div>
-        <Header as='h3' textAlign='center'>
-          <Icon name='film'/> Welcome!
-        </Header>
-        <Message>
-          <Message.Header>
-            Get started
-          </Message.Header>
-          <p>
-            We see you haven't added a TV show yet. Search for your favorite TV show and click the calendar icon to add it to your watch list!
-          </p>
-        </Message>
+            <Header as='h3' textAlign='center'>
+              <Icon name='film'/> Welcome!
+            </Header>
+            <Message>
+              <Message.Header>
+                Get started
+              </Message.Header>
+              <p>
+                We see you haven't added a TV show yet. Search for your favorite TV show and click the calendar icon to add it to your watch list!
+              </p>
+            </Message>
 
-        <AddShow handleDay={this.handleDay.bind(this)}/>
-        <ShowList getShow={this.getShow.bind(this)} showList={this.props.showList} />}
+            <AddShow handleDay={this.handleDay.bind(this)}/>
+            <ShowList getShow={this.getShow.bind(this)} showList={this.props.showList} />}
+            </div>
+            }
+          </Container>
         </div>
-        }
-      </Container>
-    </div>);
+    );
   }
 }
 
