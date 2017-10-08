@@ -137,7 +137,12 @@ app.post('/addshow', function(req, res){
 	for (var x in req.body){
 		if (x !== 'username') {
 			if (x === 'startDate') {
-				array.push(null)
+				if (req.body[x] === ''){
+					array.push(null)
+				} else {
+					var start = req.body[x].substr(0, 10);
+					array.push(start)
+				}
 			} else if (x === 'endDate'){
 				var end = req.body[x].substr(0, 10);
 				array.push(end)
