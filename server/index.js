@@ -135,7 +135,19 @@ app.post('/add', function (req, res){
 app.post('/addshow', function(req, res){
 	console.log(req.body)
 	var array = [];
-	
+	for (var x in req.body){
+		console.log(x)
+		if (x !== 'username') {
+			if (x === 'startDate' || x === 'endDate') {
+				array.push(req.body[x].substr(0,10))
+			} else {
+				array.push(req.body[x]);
+			}
+		}
+	}
+	db.addSurveyData(array, (data) => {
+		console.log(data)
+	})
 })
 
 app.listen(3000, function() {
