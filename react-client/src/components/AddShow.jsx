@@ -155,8 +155,8 @@ class AddShow extends Component {
     let newEpisodeArr = [];
     _.times(episodeNum, (index) => {
       let epObj = {};
-      epObj.text = index;
-      epObj.value = index;
+      epObj.text = index + 1;
+      epObj.value = index + 1;
       newEpisodeArr.push(epObj);
     });
     this.setState({episodeOptions: newEpisodeArr}, console.log(this.state.episodeOptions));
