@@ -29,9 +29,21 @@ class AddShow extends Component {
           // image: { avatar: true, src: '/assets/images/avatar/small/jenny.jpg' },
         }
       ],
+      hourOptions: [
+        {text: 1, value: 1},
+        {text: 2, value: 2},
+        {text: 3, value: 3},
+        {text: 4, value: 4},
+        {text: 5, value: 5},
+        {text: 6, value: 6},
+        {text: 7, value: 7},
+        {text: 8, value: 8},
+        {text: 9, value: 9},
+      ],
       originalSeasonObj: {},
       selectedSeason: '',
       selectedEpisode: '',
+      selectedHour: 0,
       monday: 0,
       tuesday: 0,
       wednesday: 0,
@@ -53,17 +65,21 @@ class AddShow extends Component {
     this.setState({showId: episodes.showId});
 
     //handle show info
+    //addedShowEpisodes is an object where each key has an array with elements:
+      //[0] = number of episodes
+      //[1] = season poster
+
     let seasonsObj = episodes.addedShowEpisodes.seasons;
     this.setState({originalSeasonObj: seasonsObj});
     let seasonArr = [];
     let episodeArr = [];
-    console.log(seasonsObj);
+    console.log('seasonsObj', seasonsObj);
     _.each(seasonsObj, (value, key, index) => {
       seasonArr.push({value: key, text: key});
-      episodeArr.push({key: key, value: value, text: value});
+      episodeArr.push({key: key, value: value[0], text: value[0]});
     });
     this.setState({seasonOptions: seasonArr});
-    this.setState({episodeOptions: episodeArr});
+    this.setState({episodeOptions: episodeArr}, () => console.log('ep ops', this.state.episodeOptions));
   }
 
   handleSubmit() {
@@ -85,7 +101,8 @@ class AddShow extends Component {
         thursday: this.state.thursday,
         friday: this.state.friday,
         saturday: this.state.saturday,
-        sunday: this.state.sunday
+        sunday: this.state.sunday,
+        hours: this.state.selectedHour
       })
     });
 
@@ -127,9 +144,10 @@ class AddShow extends Component {
     let episodeNum = 0;
 
     //get the corresponding num of episodes for the selected season
+    console.log('originalSeasonObj', this.state.originalSeasonObj);
     _.each(this.state.originalSeasonObj, (value, key) => {
         if (key === selectedValue) {
-          episodeNum = value;
+          episodeNum = value[0];
         }
     });
 
@@ -146,6 +164,10 @@ class AddShow extends Component {
 
   handleSelectedEpisode(event, { value }) {
     this.setState({ selectedEpisode: value }, () => console.log(this.state.selectedEpisode))
+  }
+
+  handleSelectedHour(event, { value }) {
+    this.setState({ selectedHour: value }, () => console.log(this.state.selectedHour))
   }
 
   handleStartDateChange(date) {
@@ -174,7 +196,7 @@ class AddShow extends Component {
           Button,
           Header,
           Form {
-            padding-top: 20px;
+            padding-top: 10px;
           }
         `}
         </style>
@@ -244,6 +266,19 @@ class AddShow extends Component {
               <Checkbox label='Sunday' onClick={() => this.handleDay('sunday')}/>
           </Form.Field>
           </Form.Group>
+
+          <Header as='h4' textAlign='left' inverted color='red'>
+            How many hours per day?
+          </Header>
+
+          <Form.Field>
+            <label>Hours</label>
+            <Dropdown placeholder='Select number of hours' fluid selection 
+            options={this.state.hourOptions} 
+            onChange={this.handleSelectedHour.bind(this)} 
+            value={currentValues}
+            />
+          </Form.Field>
 
           <Button fluid color='red' type='submit' onClick={this.handleSubmit.bind(this)}>Submit</Button>
         </Form>
