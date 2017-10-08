@@ -26,7 +26,10 @@ class UserHome extends Component {
       method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({id: showId}),
-      success: data => {this.setState({addedShowEpisodes: data})},
+      success: data => {
+        this.setState({addedShowEpisodes: data});
+        console.log(data);
+      },
       error: () => console.log('error getting show info')
     });
   }

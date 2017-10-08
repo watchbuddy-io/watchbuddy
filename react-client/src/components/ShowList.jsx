@@ -14,7 +14,7 @@ class ShowList extends Component {
         image: '',
         summary: 'Default summary'
       }],
-      addedShowEpisodes: {},
+      addedShowEpisodes: [],
       showSelected: 'false'
     };
   }
@@ -33,7 +33,7 @@ class ShowList extends Component {
   }
 
   componentWillReceiveProps({showList, addedShowEpisodes, showSelected}) {
-    this.setState({showList, addedShowEpisodes, showSelected}, console.log(this.state.addedShowEpisodes));
+    this.setState({showList, addedShowEpisodes, showSelected}, console.log('added show eps in showlist', this.state.addedShowEpisodes));
   }
 
   render() { 
