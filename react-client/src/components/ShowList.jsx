@@ -15,7 +15,7 @@ class ShowList extends Component {
         summary: 'Default summary'
       }],
       addedShowEpisodes: {},
-      showAdded: 'false'
+      showSelected: 'false'
     };
   }
 
@@ -32,15 +32,14 @@ class ShowList extends Component {
     });
   }
 
-  componentWillReceiveProps({showList, addedShowEpisodes}) {
-    this.setState({showList, addedShowEpisodes, showAdded: 'true'}, console.log(this.state.addedShowEpisodes));
+  componentWillReceiveProps({showList, addedShowEpisodes, showSelected}) {
+    this.setState({showList, addedShowEpisodes, showSelected}, console.log(this.state.addedShowEpisodes));
   }
 
   render() { 
     return (
-    <div>{ this.state.showAdded === 'true'
+    <div>{ this.state.showSelected === 'true'
     ? <Segment inverted>
-
               <Container>
               <Button fluid icon size='big' inverted color='red'>
                 { this.props.addedShow } <Icon name='checked calendar'/>
@@ -52,7 +51,7 @@ class ShowList extends Component {
         ? 
           <Segment inverted>
         <Grid celled>
-              { this.state.showList.map((show, i) => <ShowEntry show={show} key={i} getShow={this.props.getShow} loggedIn={this.props.loggedIn}/>) }
+              { this.state.showList.map((show, i) => <ShowEntry show={show} key={i} getShow={this.props.getShow} loggedIn={this.props.loggedIn} addShow={this.props.addShow}/>) }
         </Grid>
           </Segment> 
       : <Segment>

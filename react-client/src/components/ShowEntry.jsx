@@ -4,8 +4,6 @@ import { Container, Image, List, Button, Icon, Grid } from 'semantic-ui-react';
 class ShowEntry extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
   }
 
   render() {
@@ -17,6 +15,7 @@ class ShowEntry extends Component {
             {this.props.loggedIn === 'true' 
               ? <Button fluid icon size='big' inverted color='red' 
               onClick={() => {
+                this.props.addShow();
                 let showObj = {};
                 showObj.id = this.props.show.id;
                 showObj.name = this.props.show.name;
@@ -30,10 +29,12 @@ class ShowEntry extends Component {
           </Grid.Column>
 
           <Grid.Column width={13}>
-            <ul>
+            <ul style={{listStyle: 'none'}}>
               <li><h4>{this.props.show.name}</h4></li>
               <ul>{this.props.show.genres.map((genre, i) => <li key={i}>{genre}</li>)}</ul>
+              <p></p>
               <li>{this.props.show.summary}</li>
+              <p></p>
               <li>First aired: {this.props.show.firstAirDate}</li>
             </ul>
        </Grid.Column>

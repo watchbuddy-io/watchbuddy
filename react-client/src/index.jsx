@@ -18,7 +18,8 @@ class App extends React.Component {
         genres: ['Daniel'],
         image: '',
         summary: 'Default summary'
-      }]
+      }],
+      showSelected: 'false'
     };
   }
 
@@ -34,6 +35,10 @@ class App extends React.Component {
 
   getShowList(data){
     this.setState({showList: data}, () => console.log(this.state.showList))
+  }
+
+  addShow() {
+    this.setState({showSelected: 'true'});
   }
 
   getView() {
@@ -53,6 +58,8 @@ class App extends React.Component {
       username={this.state.username} 
       getShowList={this.getShowList.bind(this)} 
       showList={this.state.showList}
+      addShow={this.addShow.bind(this)}
+      showSelected={this.state.showSelected}
       />
     } else if (this.state.view === 'Home') {
       return <Home 
