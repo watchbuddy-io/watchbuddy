@@ -82,8 +82,7 @@ app.post('/signUp', function (req, res) {
   array.push(pw);
   array.push(salt);
   db.createUser(array, (data) => {
-  	console.log('here')
-      res.send(user);
+     res.send(user);
   })
 })
 
@@ -116,22 +115,40 @@ app.post('/logIn', function (req, res){
   })
 })
 
+
 app.post('/add', function (req, res){
 	var id = req.body.id
 	moviedb.details(id, (data) => { 
-		console.log(JSON.parse(data))
 		var info = JSON.parse(data);
 		var detail = {};
 		var obj = {};
 		info.seasons.forEach((el) => {
-			obj[el.season_number + 1] = el.episode_count
+			obj[el.season_number + 1] = [el.episode_count, "https://image.tmdb.org/t/p/w500" + el.poster_path];
 		})
 		detail.seasons = obj;
-		detail.runtime = info.episode_run_time;
+		detail.runtime = info.episode_run_time[0];
 		res.send(detail)
 	})
 })
 
+
+app.post('/addshow', function(req, res){
+	console.log(req.body)
+	var array = [];
+	for (var x in req.body){
+		console.log(x)
+		if (x !== 'username') {
+			if (x === 'startDate' || x === 'endDate') {
+				array.push(req.body[x].substr(0,10))
+			} else {
+				array.push(req.body[x]);
+			}
+		}
+	}
+	db.addSurveyData(array, (data) => {
+		console.log(data)
+	})
+})
 
 app.listen(3000, function() {
   console.log('listening on port 3000!');
