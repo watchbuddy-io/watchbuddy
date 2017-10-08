@@ -133,18 +133,22 @@ app.post('/add', function (req, res){
 
 
 app.post('/addshow', function(req, res){
-	console.log(req.body)
 	var array = [];
 	for (var x in req.body){
-		console.log(x)
 		if (x !== 'username') {
-			if (x === 'startDate' || x === 'endDate') {
-				array.push(req.body[x].substr(0,10))
+			if (x === 'startDate') {
+				array.push(null)
+			} else if (x === 'endDate'){
+				var end = req.body[x].substr(0, 10);
+				array.push(end)
 			} else {
 				array.push(req.body[x]);
 			}
 		}
 	}
+	var user = req.body.username
+	array.push(user);
+	console.log(array)
 	db.addSurveyData(array, (data) => {
 		console.log(data)
 	})
