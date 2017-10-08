@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import { Container, Form, Button, Checkbox, Dropdown } from 'semantic-ui-react';
+import { Container, Form, Button, Checkbox, Dropdown, Header } from 'semantic-ui-react';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -170,7 +170,19 @@ class AddShow extends Component {
     const { currentValues } = this.state
     return (
       <Container>
+        <style>{`
+          Button,
+          Header,
+          Form {
+            padding-top: 20px;
+          }
+        `}
+        </style>
         <Form>
+          <Header as='h4' textAlign='left' inverted color='red'>
+            Where did you leave off?
+          </Header>
+
           <Form.Field>
             <label>Season</label>
             <Dropdown placeholder='Select season' fluid selection 
@@ -187,45 +199,53 @@ class AddShow extends Component {
             value={currentValues}
             />
           </Form.Field>
-          <Form.Field>
-            <label>Start date</label>
-            <DatePicker
-              selected={this.state.startDate}
-              onChange={this.handleStartDateChange.bind(this)}
-            />
-          </Form.Field>
-          <Form.Field>
-            <label>End date</label>
-            <DatePicker
-              selected={this.state.endDate}
-              onChange={this.handleEndDateChange.bind(this)}
-            />
-          </Form.Field>
-          
-          <p>Which days do you have free?</p>
 
-          <Form.Field>
-            <Checkbox label='Monday' onClick={() => this.handleDay('monday')}/>
+          <Form.Group widths='equal'>
+            <Form.Field>
+              <label>Start date</label>
+              <DatePicker
+                selected={this.state.startDate}
+                onChange={this.handleStartDateChange.bind(this)}
+              />
+            </Form.Field>
+            <Form.Field>
+              <label>End date</label>
+              <DatePicker
+                selected={this.state.endDate}
+                onChange={this.handleEndDateChange.bind(this)}
+              />
+            </Form.Field>
+          </Form.Group>
+
+          <Header as='h4' textAlign='left' inverted color='red'>
+            Which days are you free?
+          </Header>
+
+          <Form.Group widths='equal'>
+            <Form.Field>
+              <Checkbox label='Monday' onClick={() => this.handleDay('monday')}/>
+            </Form.Field>
+            <Form.Field>
+              <Checkbox label='Tuesday' onClick={() => this.handleDay('tuesday')}/>
+            </Form.Field>
+            <Form.Field>
+              <Checkbox label='Wednesday' onClick={() => this.handleDay('wednesday')}/>
+            </Form.Field>
+            <Form.Field>
+              <Checkbox label='Thursday' onClick={() => this.handleDay('thursday')}/>
+            </Form.Field>
+            <Form.Field>
+              <Checkbox label='Friday' onClick={() => this.handleDay('friday')}/>
+            </Form.Field>
+            <Form.Field>
+              <Checkbox label='Saturday' onClick={() => this.handleDay('saturday')}/>
+            </Form.Field>
+            <Form.Field>
+              <Checkbox label='Sunday' onClick={() => this.handleDay('sunday')}/>
           </Form.Field>
-          <Form.Field>
-            <Checkbox label='Tuesday' onClick={() => this.handleDay('tuesday')}/>
-          </Form.Field>
-          <Form.Field>
-            <Checkbox label='Wednesday' onClick={() => this.handleDay('wednesday')}/>
-          </Form.Field>
-          <Form.Field>
-            <Checkbox label='Thursday' onClick={() => this.handleDay('thursday')}/>
-          </Form.Field>
-          <Form.Field>
-            <Checkbox label='Friday' onClick={() => this.handleDay('friday')}/>
-          </Form.Field>
-          <Form.Field>
-            <Checkbox label='Saturday' onClick={() => this.handleDay('saturday')}/>
-          </Form.Field>
-          <Form.Field>
-            <Checkbox label='Sunday' onClick={() => this.handleDay('sunday')}/>
-          </Form.Field>
-          <Button type='submit' onClick={this.handleSubmit.bind(this)}>Submit</Button>
+          </Form.Group>
+
+          <Button fluid color='red' type='submit' onClick={this.handleSubmit.bind(this)}>Submit</Button>
         </Form>
       </Container>
   );
