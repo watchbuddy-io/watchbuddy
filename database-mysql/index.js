@@ -29,7 +29,21 @@ var createUser = (params, callback) => {
   });
 };
 
+var addSurveyData = (params, callback) => {
+  var queryStr = 'insert into user(showtitle, season, episode, start, deadline, monday, tuesday, wednesday, \
+    thursday, friday, saturday, sunday, days, hours) value (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  connection.query(queryStr, params, (error, results, fields) => {
+    if (error) {
+      console.log(error);
+    } else {
+      callback(results);
+    }
+  });
+};
+
+
 module.exports = {
   checkUser,
-  createUser
+  createUser,
+  addSurveyData
 };
