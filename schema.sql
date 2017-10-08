@@ -21,7 +21,6 @@ CREATE TABLE user (
   friday int DEFAULT 0,
   saturday int DEFAULT 0,
   sunday int DEFAULT 0,
-  days int,
   hours int,
   PRIMARY KEY (ID)
 );
