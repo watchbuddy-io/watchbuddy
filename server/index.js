@@ -115,6 +115,7 @@ app.post('/logIn', function (req, res){
   })
 })
 
+
 app.post('/add', function (req, res){
 	var id = req.body.id
 	moviedb.details(id, (data) => { 
@@ -131,11 +132,10 @@ app.post('/add', function (req, res){
 })
 
 
-app.post('/survey', function(req, res){
+app.post('/addshow', function(req, res){
+	console.log(req.body)
 	var array = [];
-	db.addSurveyData(array, (data) => {
-		res.send()
-	})
+	
 })
 
 app.listen(3000, function() {
