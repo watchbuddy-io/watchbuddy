@@ -75,7 +75,7 @@ class AddShow extends Component {
     let episodeArr = [];
     console.log('seasonsObj', seasonsObj);
     _.each(seasonsObj, (value, key, index) => {
-      seasonArr.push({value: key, text: key});
+      seasonArr.push({value: key, text: key, image: value[1]});
       episodeArr.push({key: key, value: value[0], text: value[0]});
     });
     this.setState({seasonOptions: seasonArr});
@@ -218,6 +218,7 @@ class AddShow extends Component {
             <Dropdown placeholder='Select episode' fluid selection 
             options={this.state.episodeOptions} 
             onChange={this.handleSelectedEpisode.bind(this)} 
+            image={currentValues}
             value={currentValues}
             />
           </Form.Field>
