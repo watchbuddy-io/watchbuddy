@@ -43,6 +43,7 @@ app.get('/recommend', function (req, res) {
 })
 
 
+
 app.post('/search', function (req, res) {
 	console.log(req.body.term)
 	var title = req.body.term
@@ -76,6 +77,7 @@ app.post('/search', function (req, res) {
 })
 
 
+
 app.post('/signUp', function (req, res) {
   var salt = utils.createRandom32String(); // create salt
   var user = req.body.email;
@@ -88,6 +90,7 @@ app.post('/signUp', function (req, res) {
      res.send(user);
   })
 })
+
 
 
 app.post('/logIn', function (req, res){
@@ -115,6 +118,7 @@ app.post('/logIn', function (req, res){
 })
 
 
+
 app.post('/add', function (req, res){
 	var id = req.body.id
 	moviedb.details(id, (data) => { 
@@ -131,6 +135,7 @@ app.post('/add', function (req, res){
 		res.send(detail)
 	})
 })
+
 
 
 app.post('/addshow', function(req, res){

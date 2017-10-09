@@ -60,7 +60,7 @@ class App extends React.Component {
   }
 
   getPostAddShowData(PostAddShowData) {
-    this.setState({ PostAddShowData });
+    this.setState({ PostAddShowData }, () => console.log(PostAddShowData));
   }
 
   getView() {
