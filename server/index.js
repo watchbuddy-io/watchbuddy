@@ -122,7 +122,9 @@ app.post('/add', function (req, res){
 		var detail = {};
 		var obj = {};
 		info.seasons.forEach((el) => {
-			obj[el.season_number + 1] = [el.episode_count, "https://image.tmdb.org/t/p/w500" + el.poster_path];
+			if (el.season_number !== 0){
+				obj[el.season_number] = [el.episode_count, "https://image.tmdb.org/t/p/w500" + el.poster_path];
+			}
 		})
 		detail.seasons = obj;
 		detail.runtime = info.episode_run_time[0];
@@ -163,7 +165,9 @@ app.post('/addshow', function(req, res){
 			var seasons = JSON.parse(data).seasons
 			var episodes = 0;
 			seasons.forEach((el) => {
-				if (el.season_number >= season - 1) {
+				console.log(el)
+				if (el.season_number >= season) {
+
 					episodes = episodes + el.episode_count
 				}
 			})
