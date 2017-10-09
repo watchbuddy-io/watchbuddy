@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 
-//This function is to retrieve the top 5 recommended shows from the MovieDB api for the front page of WatchBuddy
+//This function is to retrieve the top 5 recommended shows from the MovieDB api for the front page of WatchBuddy.
 app.get('/recommend', function (req, res) {
 	var genres;
 	moviedb.genre((data) => {
@@ -43,7 +43,7 @@ app.get('/recommend', function (req, res) {
 })
 
 
-
+//This function will search for the top 10 results when inputting a term into the MovieDB api.
 app.post('/search', function (req, res) {
 	console.log(req.body.term)
 	var title = req.body.term
@@ -77,7 +77,7 @@ app.post('/search', function (req, res) {
 })
 
 
-
+//This function will create a new row for the users table for new users.
 app.post('/signUp', function (req, res) {
   var salt = utils.createRandom32String(); // create salt
   var user = req.body.email;
@@ -92,7 +92,7 @@ app.post('/signUp', function (req, res) {
 })
 
 
-
+//This function will check whether the password matches for that user.
 app.post('/logIn', function (req, res){
   var user = req.body.email;
   var pw = req.body.password;
@@ -118,7 +118,7 @@ app.post('/logIn', function (req, res){
 })
 
 
-
+//this function will populate the seasons, episodes and runtime of episodes when a show is chosen to place into the schedule
 app.post('/add', function (req, res){
 	var id = req.body.id
 	moviedb.details(id, (data) => { 
@@ -137,7 +137,7 @@ app.post('/add', function (req, res){
 })
 
 
-
+//this function will add show information to the user's database as well as return the information for the current and next episode. This will also return the number of remaining episodes.
 app.post('/addshow', function(req, res){
 	var array = [];
 	for (var x in req.body){
