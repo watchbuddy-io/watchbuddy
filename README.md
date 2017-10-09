@@ -21,7 +21,9 @@
 ## Usage
 
 > new user signs up and creates new account
+
 > existing user logs in with credentials
+>
 > once logged in, user can add a popular show or search for another show
 > if user searches for a show, app returns matches
 > user can add show
