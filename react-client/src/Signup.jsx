@@ -7,21 +7,16 @@ class Signup extends Component {
     super(props);
     this.state = {
       email: '',
-      password: '',
-      showSuccessMessage: 'false'
+      password: ''
     }
   }
 
   handleEmailChange(e) {
-    this.setState({
-      email: e.target.value
-    });
+    this.setState({ email: e.target.value });
   }
 
   handlePasswordChange(e) {
-    this.setState({
-      password: e.target.value
-    });
+    this.setState({ password: e.target.value });
   }
 
   handleSubmit() {
@@ -34,7 +29,7 @@ class Signup extends Component {
         this.setState({showSuccessMessage: 'true'});
         this.props.getUsername(data);
         this.props.changeView('UserHome');
-      }
+        }
     });
   }
 
@@ -58,8 +53,7 @@ class Signup extends Component {
     <Grid
       textAlign='center'
       style={{ height: '100%' }}
-      verticalAlign='middle'
-    >
+      verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as='h2' color='green' textAlign='center'>
           <div><Icon name ='film' /> <Icon name='child' /> WatchBuddy</div>
@@ -79,15 +73,9 @@ class Signup extends Component {
               placeholder='Password'
               type='password'
             />
-
             <Button color='green' fluid size='large' onClick={this.handleSubmit.bind(this)}>Signup</Button>
           </Segment>
         </Form>
-        {this.state.showSuccessMessage === 'true' ? <Message
-            success
-            header='Your user registration was successful'
-            content='You may now log-in with the username you have chosen'
-          /> : null}
       </Grid.Column>
     </Grid>
   </div>)

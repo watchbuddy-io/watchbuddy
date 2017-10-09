@@ -19,14 +19,12 @@ class AddShow extends Component {
         {
           text: 'Season 1',
           value: 'Default value'
-          // image: { avatar: true, src: '/assets/images/avatar/small/jenny.jpg' },
         }
       ],
       episodeOptions: [
         {
           text: 'Episode 1',
           value: 'Default value'
-          // image: { avatar: true, src: '/assets/images/avatar/small/jenny.jpg' },
         }
       ],
       hourOptions: [
@@ -56,8 +54,6 @@ class AddShow extends Component {
   }
 
   componentWillReceiveProps(episodes) {
-    console.log(episodes);
-
     //handle username
     this.setState({username: episodes.username});
 
@@ -105,23 +101,6 @@ class AddShow extends Component {
         hours: this.state.selectedHour
       })
     });
-
-    // console.log({
-    //     username: this.state.username,
-    //     show: this.state.showId,
-    //     season: this.state.selectedSeason,
-    //     episode: this.state.selectedEpisode,
-    //     startDate: this.state.startDatejs,
-    //     endDate: this.state.endDatejs,
-    //     monday: this.state.monday,
-    //     tuesday: this.state.tuesday,
-    //     wednesday: this.state.wednesday,
-    //     thursday: this.state.thursday,
-    //     friday: this.state.friday,
-    //     saturday: this.state.saturday,
-    //     sunday: this.state.sunday
-    //   });
-
   }
 
   handleDay(day){
@@ -208,7 +187,9 @@ class AddShow extends Component {
 
           <Form.Field>
             <label>Season</label>
-            <Dropdown placeholder='Select season' fluid selection 
+            <Dropdown 
+              placeholder='Select season' 
+              fluid selection 
               options={this.state.seasonOptions} 
               onChange={this.handleSelectedSeason.bind(this)} 
               value={currentValues}
@@ -216,7 +197,9 @@ class AddShow extends Component {
           </Form.Field>
           <Form.Field>
             <label>Episode</label>
-            <Dropdown placeholder='Select episode' fluid selection 
+            <Dropdown 
+              placeholder='Select episode' 
+              fluid selection 
               options={this.state.episodeOptions} 
               onChange={this.handleSelectedEpisode.bind(this)} 
               image={currentValues}
@@ -247,25 +230,25 @@ class AddShow extends Component {
 
           <Form.Group widths='equal'>
             <Form.Field>
-              <Checkbox label='Monday' onClick={() => this.handleDay('monday')}/>
+              <Checkbox label='Monday' onClick = { () => this.handleDay('monday') }/>
             </Form.Field>
             <Form.Field>
-              <Checkbox label='Tuesday' onClick={() => this.handleDay('tuesday')}/>
+              <Checkbox label='Tuesday' onClick = { () => this.handleDay('tuesday') }/>
             </Form.Field>
             <Form.Field>
-              <Checkbox label='Wednesday' onClick={() => this.handleDay('wednesday')}/>
+              <Checkbox label='Wednesday' onClick = { () => this.handleDay('wednesday') }/>
             </Form.Field>
             <Form.Field>
-              <Checkbox label='Thursday' onClick={() => this.handleDay('thursday')}/>
+              <Checkbox label='Thursday' onClick = { () => this.handleDay('thursday') }/>
             </Form.Field>
             <Form.Field>
-              <Checkbox label='Friday' onClick={() => this.handleDay('friday')}/>
+              <Checkbox label='Friday' onClick = { () => this.handleDay('friday') }/>
             </Form.Field>
             <Form.Field>
-              <Checkbox label='Saturday' onClick={() => this.handleDay('saturday')}/>
+              <Checkbox label='Saturday' onClick = { () => this.handleDay('saturday') }/>
             </Form.Field>
             <Form.Field>
-              <Checkbox label='Sunday' onClick={() => this.handleDay('sunday')}/>
+              <Checkbox label='Sunday' onClick = { () => this.handleDay('sunday') }/>
             </Form.Field>
           </Form.Group>
 
@@ -276,9 +259,9 @@ class AddShow extends Component {
           <Form.Field>
             <label>Hours</label>
             <Dropdown placeholder='Select number of hours' fluid selection 
-              options={this.state.hourOptions} 
-              onChange={this.handleSelectedHour.bind(this)} 
-              value={currentValues}
+              options = { this.state.hourOptions } 
+              onChange = { this.handleSelectedHour.bind(this) } 
+              value = { currentValues }
             />
           </Form.Field>
 
