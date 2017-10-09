@@ -53,6 +53,7 @@ app.post('/search', function (req, res) {
 			searched.forEach((el) => {
 				var obj = {};
 				obj.name = el.name;
+				obj.id = el.id;
 				var arr = [];
 				el.genre_ids.forEach((int) => {
 					for (var i = 0; i < genres.length; i++) {
