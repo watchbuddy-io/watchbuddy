@@ -128,16 +128,16 @@ class AddShow extends Component {
     let setObj = {};
     if (this.state[day] === 0) {
       setObj[day] = 1;
-      this.setState(setObj, () => console.log(this.state[day]));
+      this.setState(setObj);
     } else {
       setObj[day] = 0;
-      this.setState(setObj, () => console.log(this.state[day]));
+      this.setState(setObj);
     }
   }
 
   handleSelectedSeason(event, { value }) {
     let valueNum = parseInt(value);
-    this.setState({ selectedSeason: valueNum }, () => console.log('selectedSeason:', this.state.selectedSeason));
+    this.setState({ selectedSeason: valueNum });
 
     //grab selected season
     let selectedValue = value;
@@ -159,15 +159,15 @@ class AddShow extends Component {
       epObj.value = index + 1;
       newEpisodeArr.push(epObj);
     });
-    this.setState({episodeOptions: newEpisodeArr}, console.log(this.state.episodeOptions));
+    this.setState({episodeOptions: newEpisodeArr});
   }
 
   handleSelectedEpisode(event, { value }) {
-    this.setState({ selectedEpisode: value }, () => console.log(this.state.selectedEpisode))
+    this.setState({ selectedEpisode: value })
   }
 
   handleSelectedHour(event, { value }) {
-    this.setState({ selectedHour: value }, () => console.log(this.state.selectedHour))
+    this.setState({ selectedHour: value })
   }
 
   handleStartDateChange(date) {
@@ -175,7 +175,7 @@ class AddShow extends Component {
       startDate: date
     }, () => {
       let datejs = this.state.startDate.toDate()
-      this.setState({startDatejs: datejs}, () => console.log(this.state.startDatejs))
+      this.setState({ startDatejs: datejs })
     });
   }
 
@@ -184,7 +184,7 @@ class AddShow extends Component {
       endDate: date
     }, () => {
       let datejs = this.state.endDate.toDate()
-      this.setState({endDatejs: datejs}, () => console.log(this.state.endDatejs))
+      this.setState({ endDatejs: datejs })
     });
   }
 
@@ -192,13 +192,14 @@ class AddShow extends Component {
     const { currentValues } = this.state
     return (
       <Container>
-        <style>{`
-          Button,
-          Header,
-          Form {
-            padding-top: 10px;
-          }
-        `}
+        <style>
+          {`
+            Button,
+            Header,
+            Form {
+              padding-top: 10px;
+            }
+          `}
         </style>
         <Form>
           <Header as='h4' textAlign='left' inverted color='red'>
@@ -208,18 +209,18 @@ class AddShow extends Component {
           <Form.Field>
             <label>Season</label>
             <Dropdown placeholder='Select season' fluid selection 
-            options={this.state.seasonOptions} 
-            onChange={this.handleSelectedSeason.bind(this)} 
-            value={currentValues}
+              options={this.state.seasonOptions} 
+              onChange={this.handleSelectedSeason.bind(this)} 
+              value={currentValues}
             />
           </Form.Field>
           <Form.Field>
             <label>Episode</label>
             <Dropdown placeholder='Select episode' fluid selection 
-            options={this.state.episodeOptions} 
-            onChange={this.handleSelectedEpisode.bind(this)} 
-            image={currentValues}
-            value={currentValues}
+              options={this.state.episodeOptions} 
+              onChange={this.handleSelectedEpisode.bind(this)} 
+              image={currentValues}
+              value={currentValues}
             />
           </Form.Field>
 
@@ -265,7 +266,7 @@ class AddShow extends Component {
             </Form.Field>
             <Form.Field>
               <Checkbox label='Sunday' onClick={() => this.handleDay('sunday')}/>
-          </Form.Field>
+            </Form.Field>
           </Form.Group>
 
           <Header as='h4' textAlign='left' inverted color='red'>
@@ -275,9 +276,9 @@ class AddShow extends Component {
           <Form.Field>
             <label>Hours</label>
             <Dropdown placeholder='Select number of hours' fluid selection 
-            options={this.state.hourOptions} 
-            onChange={this.handleSelectedHour.bind(this)} 
-            value={currentValues}
+              options={this.state.hourOptions} 
+              onChange={this.handleSelectedHour.bind(this)} 
+              value={currentValues}
             />
           </Form.Field>
 
