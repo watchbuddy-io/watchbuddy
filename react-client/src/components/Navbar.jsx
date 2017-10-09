@@ -13,19 +13,15 @@ class Navbar extends Component {
 
   componentWillMount() {
     if (this.props.loggedIn === 'true') {
-      this.setState({
-        loggedIn: 'true'
-      });
+      this.setState({loggedIn: 'true'});
     }
   }
 
   handleChange(event) {
     this.setState({term: event.target.value});
-    console.log(this.state.term);
   }
 
   handleSubmit(event) {
-    console.log('submitting!');
     $.ajax({
       url: '/search',
       method: 'POST',
@@ -36,46 +32,32 @@ class Navbar extends Component {
     });
   }
 
-  changeViewToLogin(){
-    this.props.changeView('Login');
-  }
-
-  changeViewToUserHome() {
-    this.props.changeView('UserHome');
-  }
-
-  changeViewToHome() {
-    this.props.changeView('Home');
-  }
-
-
   render () {
     return (
 
-      <Menu className="ui inverted menu" inverted color='red'>
+      <Menu className = "ui inverted menu" inverted color='red'>
 
-        <Menu.Item onClick={this.changeViewToUserHome.bind(this)}>
-          <h2><Icon name ='film' /> <Icon name='child' /> WatchBuddy</h2>
+        <Menu.Item>
+          <h2><Icon name = 'film' /> <Icon name = 'child' /> WatchBuddy</h2>
         </Menu.Item>
 
-        <Menu.Menu position='right'>
+        <Menu.Menu position = 'right'>
           <Menu.Item>
           
-            <Input placeholder='Search...' onChange={this.handleChange.bind(this)}/>
-            <Button icon color='black'>
-              <Icon name='search' className='icon' onClick={this.handleSubmit.bind(this)}/>
+            <Input placeholder = 'Search...' onChange = { this.handleChange.bind(this) } />
+            <Button icon color = 'black'>
+              <Icon name = 'search' className = 'icon' onClick = { this.handleSubmit.bind(this) } />
             </Button>
 
           </Menu.Item>
 
-          {this.state.loggedIn === 'true' ? 
-            <Menu.Item>
-              <Button onClick={this.changeViewToHome.bind(this)}>Logout</Button>
-            </Menu.Item>
-            : 
-            <Menu.Item>
-              <Button color='black' onClick={this.changeViewToLogin.bind(this)}>Log-in</Button>
-            </Menu.Item>
+          { this.state.loggedIn === 'true' 
+            ? <Menu.Item>
+                <Button onClick = { () => {this.props.changeView('Home')} } >Logout</Button>
+              </Menu.Item>
+            : <Menu.Item>
+                <Button color = 'black' onClick = { () => {this.props.changeView('Login')} }>Log-in</Button>
+              </Menu.Item>
           }
           
         </Menu.Menu>

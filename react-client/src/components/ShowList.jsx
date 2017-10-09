@@ -20,39 +20,33 @@ class ShowList extends Component {
   }
 
   componentDidMount() {
-    this.setState({showList: this.props.showList});
-
+    this.setState({ showList: this.props.showList });
     $.ajax({
       url: '/recommend',
       method: 'GET',
       contentType: 'application/json',
-      success: data => {
-        this.setState({showList: data, loaded: 'true'});
-      }
+      success: data => this.setState({ showList: data, loaded: 'true' })
     });
   }
 
-  componentWillReceiveProps({showList, addedShowEpisodes, showSelected}) {
-    this.setState({showList, addedShowEpisodes, showSelected}, console.log('added show eps in showlist', this.state.addedShowEpisodes));
+  componentWillReceiveProps({ showList, addedShowEpisodes, showSelected }) {
+    this.setState({ showList, addedShowEpisodes, showSelected });
   }
 
   render() { 
-    return (
-    <div>{ this.state.showSelected === 'true'
+    return (<div> { this.state.showSelected === 'true'
     ? <Segment inverted>
-              <Container>
-              <Button fluid icon size='big' inverted color='red'>
-                { this.props.addedShow } <Icon name='checked calendar'/>
-              </Button>
-              </Container>
-          </Segment> 
-    : <div>
-        {this.state.loaded === 'true' 
-        ? 
-          <Segment inverted>
-        <Grid celled>
+        <Container>
+        <Button fluid icon size='big' inverted color='red'>
+          { this.props.addedShow } <Icon name='checked calendar'/>
+        </Button>
+        </Container>
+      </Segment> 
+    : <div> { this.state.loaded === 'true' 
+        ? <Segment inverted>
+            <Grid celled>
               { this.state.showList.map((show, i) => <ShowEntry show={show} key={i} getShow={this.props.getShow} loggedIn={this.props.loggedIn} addShow={this.props.addShow}/>) }
-        </Grid>
+            </Grid>
           </Segment> 
       : <Segment>
           <Dimmer active>
@@ -61,8 +55,7 @@ class ShowList extends Component {
         </Segment>}
       </div>
     }      
-    </div>
-    )
+    </div>)
   }
 } 
 

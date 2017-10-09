@@ -12,18 +12,19 @@ class ShowEntry extends Component {
           <Grid.Column width={3}>
             <Container>
             <Image src={this.props.show.image} size='big' />
-            {this.props.loggedIn === 'true' 
-              ? <Button fluid icon size='big' inverted color='red' 
-              onClick={() => {
-                this.props.addShow();
-                let showObj = {};
-                showObj.id = this.props.show.id;
-                showObj.name = this.props.show.name;
-                this.props.getShow(showObj);
-              }}>
+            {this.props.loggedIn === 'true' && 
+              <Button 
+                fluid icon size='big' 
+                inverted color='red' 
+                onClick={() => {
+                  this.props.addShow();
+                  let showObj = {};
+                  showObj.id = this.props.show.id;
+                  showObj.name = this.props.show.name;
+                  this.props.getShow(showObj);
+                }}>
                 Add show <Icon name='add to calendar'/>
               </Button>
-              : null
             }
             </Container>
           </Grid.Column>
