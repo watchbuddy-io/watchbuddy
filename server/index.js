@@ -133,7 +133,7 @@ app.post('/add', function (req, res){
 app.post('/addshow', function(req, res){
 	var array = [];
 	for (var x in req.body){
-		if (x !== 'username') {
+		if (x !== 'username' && x !== 'showName') {
 			if (x === 'startDate') {
 				console.log(req.body[x])
 				if (req.body[x] === ''){
@@ -151,26 +151,26 @@ app.post('/addshow', function(req, res){
 			}
 		}
 	}
-	var user = req.body.username
-	array.push(user);
+	array.push(req.body.username);
 	db.addSurveyData(array, (data) => {
-		var title = array[0];
+		var titleId = array[0];
 		var season = array[1];
 		var episode = array[2];
+		var title = req.body.showName
 		var object = {};
-		moviedb.episode(title, season, episode, (data) => {
+		moviedb.episode(titleId, season, episode, (data) => {
 			if (JSON.parse(data).status_code !== 34){	
 				var info = JSON.parse(data)
 				var first = [];
-				first.push(info.season_number, info.episode_number, info.name, info.overview);
+				first.push(title, info.season_number, info.episode_number, info.name, info.overview);
 				first.push("https://image.tmdb.org/t/p/w500" + info.still_path)
 				object.first = first;
 				episode++;
-				moviedb.episode(title, season, episode, (data) => {
+				moviedb.episode(titleId, season, episode, (data) => {
 					if (JSON.parse(data).status_code === 34){
 						season++;
 						episode = 1;
-						moviedb.episode(title, season, episode, (data) => {
+						moviedb.episode(titleId, season, episode, (data) => {
 							if (JSON.parse(data).status_code === 34){
 								object.second = 'finished';
 								console.log(object)
@@ -178,7 +178,7 @@ app.post('/addshow', function(req, res){
 							} else {
 								var info = JSON.parse(data)
 								var second = [];
-								second.push(info.season_number, info.episode_number, info.name, info.overview);
+								second.push(title, info.season_number, info.episode_number, info.name, info.overview);
 								second.push("https://image.tmdb.org/t/p/w500" + info.still_path)
 								object.second = second;
 								console.log(object)
@@ -188,7 +188,7 @@ app.post('/addshow', function(req, res){
 					} else {
 						var info = JSON.parse(data)
 						var second = [];
-						second.push(info.season_number, info.episode_number, info.name, info.overview);
+						second.push(title, info.season_number, info.episode_number, info.name, info.overview);
 						second.push("https://image.tmdb.org/t/p/w500" + info.still_path)
 						object.second = second;
 						console.log(object)
@@ -200,6 +200,10 @@ app.post('/addshow', function(req, res){
 			}
 		})
 	})
+})
+
+app.post('/update', function (req, res) {
+
 })
 
 app.listen(3000, function() {

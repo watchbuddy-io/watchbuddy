@@ -10,7 +10,7 @@ class AddShow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showId: '',
+      showId: this.props.showId,
       startDate: moment(),
       endDate: moment(),
       startDatejs: '',
@@ -54,17 +54,19 @@ class AddShow extends Component {
   }
 
   componentWillReceiveProps(episodes) {
+    console.log('episodes', episodes);
+    
     //handle username
     this.setState({username: episodes.username});
 
     //handle showId
-    this.setState({showId: episodes.showId});
+    this.setState({showId: episodes.showId}, () => {console.log('showId', this.state.showId);});
+
 
     //handle show info
     //addedShowEpisodes is an object where each key has an array with elements:
       //[0] = number of episodes
       //[1] = season poster
-
     let seasonsObj = episodes.addedShowEpisodes.seasons;
     this.setState({originalSeasonObj: seasonsObj});
     let seasonArr = [];
@@ -100,7 +102,10 @@ class AddShow extends Component {
         sunday: this.state.sunday,
         hours: this.state.selectedHour
       }),
-      success: data => console.log(data)
+      success: data => {
+        console.log(data);
+        this.props.changeView('DisplaySchedule');
+      }
     });
   }
 
