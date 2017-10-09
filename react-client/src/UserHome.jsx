@@ -9,8 +9,11 @@ class UserHome extends Component {
   	super(props);
     this.state = {
       showSelected: 'false',
-      addedShowEpisodes: [],
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ showId: nextProps.showId });
   }
 
   render () {
@@ -46,8 +49,9 @@ class UserHome extends Component {
             <AddShow
               showId = { this.props.showId } 
               showName = { this.props.showName }
-              addedShowEpisodes = { this.state.addedShowEpisodes }
-              username = { this.props.username } 
+              addedShowEpisodes = { this.props.addedShowEpisodes }
+              username = { this.props.username }
+              changeView = { this.props.changeView }
             />
             </div>
           </Container>

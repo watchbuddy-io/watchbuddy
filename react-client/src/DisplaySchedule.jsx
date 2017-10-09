@@ -14,6 +14,10 @@ class DisplaySchedule extends Component {
 
   render () {
     return (<div>
+      <Navbar
+      loggedIn='true' 
+      changeView = { this.props.changeView } 
+      getShowList = { this.props.getShowList } />
       </div>);
     }
 }
