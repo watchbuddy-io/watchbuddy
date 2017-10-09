@@ -52,6 +52,7 @@ class UserHome extends Component {
               addedShowEpisodes = { this.props.addedShowEpisodes }
               username = { this.props.username }
               changeView = { this.props.changeView }
+              getPostAddShowData = { this.props.getPostAddShowData }
             />
             </div>
           </Container>
