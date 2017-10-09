@@ -4,6 +4,7 @@ import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Home from './Home.jsx';
 import UserHome from './UserHome.jsx';
+import DisplaySchedule from './DisplaySchedule.jsx';
 import $ from 'jquery';
 
 
@@ -21,7 +22,8 @@ class App extends React.Component {
       }],
       showSelected: 'false',
       showId: '',
-      showName: ''
+      showName: '',
+      addedShowEpisodes: []
     };
   }
 
@@ -42,9 +44,11 @@ class App extends React.Component {
   }
 
   getShow(showIdAndName) {
+    console.log('showidandname', showIdAndName);
     let showId = showIdAndName.id;
     let showName = showIdAndName.name;
-    this.setState({ showId, showName, showSelected: 'true' });
+    this.setState({ showId, showName, showSelected: 'true' })
+
     $.ajax({
       url: '/add',
       method: 'POST',
@@ -68,6 +72,20 @@ class App extends React.Component {
       }/>
     } else if (this.state.view === 'UserHome') {
       return <UserHome 
+        loggedIn = 'true' 
+        username = { this.state.username } 
+        getShowList= { this.getShowList.bind(this) } 
+        showList = { this.state.showList }
+        addShow = { this.addShow.bind(this) }
+        showSelected = { this.state.showSelected }
+        changeView = { this.changeView.bind(this) }
+        getShow = { this.getShow.bind(this) }
+        showName = { this.state.showName }
+        showId = { this.state.showId }
+        addedShowEpisodes = { this.state.addedShowEpisodes }
+      />
+    } else if (this.state.view === 'DisplaySchedule') {
+      return <DisplaySchedule 
         loggedIn = 'true' 
         username = { this.state.username } 
         getShowList= { this.getShowList.bind(this) } 
