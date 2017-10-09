@@ -42,53 +42,37 @@ class DisplaySchedule extends Component {
             <Grid.Column width = { 3 } >
               <Container>
               
-              <Image src = { this.props.PostAddShowData.first[5] } size='huge' shape='rounded' verticalAlign='middle' />
+              <Image src = { this.props.PostAddShowData.first[5] } size='huge' verticalAlign='middle' />
               </Container>
             </Grid.Column>
 
             <Grid.Column width = { 13 } >
-              <ul style = {{ listStyle: 'none' }}>
-                <li>
-                  <Header as = 'h4' icon textAlign = 'left' inverted color = 'red'>
-                    <Header.Content textAlign = 'left'>
-                      Current episode: { this.props.PostAddShowData.first[3] }
-                    </Header.Content>
-                  </Header>
-                </li>
-                <li> { this.props.PostAddShowData.first[4] } </li>
-              </ul>
+              <Header as = 'h3' icon textAlign = 'left' inverted color = 'red'>
+                <Header.Content textAlign = 'left'>
+                  Current episode: { this.props.PostAddShowData.first[3] } (Season { this.props.PostAddShowData.first[1] }, Episode { this.props.PostAddShowData.first[2] })
+                </Header.Content>
+              </Header>
+
+              <p>{ this.props.PostAddShowData.first[4] }</p>
             </Grid.Column>
           </Grid.Row>
 
           <Grid.Row>
-            <Grid.Column width = { 3 }>
+            <Grid.Column width = { 3 } >
               <Container>
               
-              <Image 
-                src = { this.props.PostAddShowData.second[5] } 
-                size = 'huge' 
-                shape = 'rounded' 
-                verticalAlign = 'middle' 
-              />
+              <Image src = { this.props.PostAddShowData.second[5] } size='huge' verticalAlign='middle' />
               </Container>
             </Grid.Column>
 
-            <Grid.Column width={13}>
-              <ul style={{listStyle: 'none'}}>
-                <li>
-                  <Header 
-                    as='h4' 
-                    icon 
-                    textAlign='left' 
-                    inverted 
-                    color='red'>
-                    <Header.Content textAlign='left'>
-                      Next episode: { this.props.PostAddShowData.second[3] }
-                    </Header.Content>
-                  </Header>
-                </li>
-                <li> { this.props.PostAddShowData.second[4] } </li>
-              </ul>
+            <Grid.Column width = { 13 } >
+              <Header as = 'h3' icon textAlign = 'left' inverted color = 'red'>
+                <Header.Content textAlign = 'left'>
+                  Next episode: { this.props.PostAddShowData.second[3] } (Season { this.props.PostAddShowData.second[1] }, Episode { this.props.PostAddShowData.second[2] })
+                </Header.Content>
+              </Header>
+
+              <p>{ this.props.PostAddShowData.second[4] }</p>
             </Grid.Column>
           </Grid.Row>
 
