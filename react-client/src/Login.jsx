@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import { Button, Form, Grid, Header, Image, Message, Segment, Icon } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Image, Message, Segment, Icon, Transition } from 'semantic-ui-react';
 
 class Login extends Component {
   constructor(props) {
@@ -49,7 +49,8 @@ class Login extends Component {
   }
 
   render() {
-    return (<div className='login-form'>
+    return (<Transition animation='fade up' duration={1000} transitionOnMount={true}>
+      <div className='login-form'>
         {/*
           Heads up! The styles below are necessary for the correct render of this example.
           You can do same with CSS, the main idea is that all the elements up to the `Grid`
@@ -111,9 +112,10 @@ class Login extends Component {
                 </Message> }
             </div>
             
-          </Grid.Column>
-        </Grid>
-      </div>)
+            </Grid.Column>
+          </Grid>
+        </div>
+      </Transition>)
   }
 }
 
