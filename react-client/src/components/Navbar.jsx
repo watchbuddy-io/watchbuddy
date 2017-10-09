@@ -44,6 +44,10 @@ class Navbar extends Component {
     this.props.changeView('UserHome');
   }
 
+  changeViewToHome() {
+    this.props.changeView('Home');
+  }
+
 
   render () {
     return (
@@ -66,7 +70,7 @@ class Navbar extends Component {
 
           {this.state.loggedIn === 'true' ? 
             <Menu.Item>
-              <Button>Logout</Button>
+              <Button onClick={this.changeViewToHome.bind(this)}>Logout</Button>
             </Menu.Item>
             : 
             <Menu.Item>
