@@ -10,7 +10,7 @@ class ShowEntry extends Component {
     return (<Grid.Row>
         <Grid.Column width={3}>
           <Container>
-          <Image src={this.props.show.image} size='big' />
+          <Image src={this.props.show.image} size='huge' verticalAlign='middle'/>
           { this.props.loggedIn === 'true' && 
             <Button 
               fluid icon size='big' 

@@ -23,7 +23,8 @@ class App extends React.Component {
       showSelected: 'false',
       showId: '',
       showName: '',
-      addedShowEpisodes: []
+      addedShowEpisodes: [],
+      PostAddShowData: {}
     };
   }
 
@@ -59,8 +60,8 @@ class App extends React.Component {
     });
   }
 
-  getPostAddShowData(data) {
-    console.log(data);
+  getPostAddShowData(PostAddShowData) {
+    this.setState({ PostAddShowData });
   }
 
   getView() {
@@ -100,6 +101,7 @@ class App extends React.Component {
         changeView = { this.changeView.bind(this) }
         getShow = { this.getShow.bind(this) }
         showName = { this.state.showName }
+        PostAddShowData = { this.state.PostAddShowData }
       />
     } else if (this.state.view === 'Home') {
       return <Home 
