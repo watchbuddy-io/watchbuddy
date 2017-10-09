@@ -60,6 +60,7 @@ class App extends React.Component {
       showList={this.state.showList}
       addShow={this.addShow.bind(this)}
       showSelected={this.state.showSelected}
+      changeView={this.changeView.bind(this)} 
       />
     } else if (this.state.view === 'Home') {
       return <Home 
