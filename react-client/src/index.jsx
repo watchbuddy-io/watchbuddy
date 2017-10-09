@@ -45,7 +45,6 @@ class App extends React.Component {
   }
 
   getShow(showIdAndName) {
-    console.log('showidandname', showIdAndName);
     let showId = showIdAndName.id;
     let showName = showIdAndName.name;
     this.setState({ showId, showName, showSelected: 'true' })

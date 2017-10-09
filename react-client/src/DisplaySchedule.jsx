@@ -29,28 +29,28 @@ class DisplaySchedule extends Component {
         </Header.Content>
       </Header>
 
-      <Header as='h3' icon textAlign='center' inverted color='red'>
-          <Icon name='checked calendar' circular />
+      <Header as = 'h3' icon textAlign = 'center' inverted color = 'red'>
+          <Icon name = 'checked calendar' circular />
           <Header.Content>
-            { this.props.PostAddShowData.episodesLeft } days left!
+            { this.props.PostAddShowData.episodesLeft } episodes left!
           </Header.Content>
         </Header>
 
       <Segment inverted>
         <Grid celled>
           <Grid.Row>
-            <Grid.Column width={3}>
+            <Grid.Column width = { 3 } >
               <Container>
               
               <Image src = { this.props.PostAddShowData.first[5] } size='huge' shape='rounded' verticalAlign='middle' />
               </Container>
             </Grid.Column>
 
-            <Grid.Column width={13}>
-              <ul style={{listStyle: 'none'}}>
+            <Grid.Column width = { 13 } >
+              <ul style = {{ listStyle: 'none' }}>
                 <li>
-                  <Header as='h4' icon textAlign='left' inverted color='red'>
-                    <Header.Content textAlign='left'>
+                  <Header as = 'h4' icon textAlign = 'left' inverted color = 'red'>
+                    <Header.Content textAlign = 'left'>
                       Current episode: { this.props.PostAddShowData.first[3] }
                     </Header.Content>
                   </Header>
@@ -61,17 +61,27 @@ class DisplaySchedule extends Component {
           </Grid.Row>
 
           <Grid.Row>
-            <Grid.Column width={3}>
+            <Grid.Column width = { 3 }>
               <Container>
               
-              <Image src = { this.props.PostAddShowData.second[5] } size='huge' shape='rounded' verticalAlign='middle' />
+              <Image 
+                src = { this.props.PostAddShowData.second[5] } 
+                size = 'huge' 
+                shape = 'rounded' 
+                verticalAlign = 'middle' 
+              />
               </Container>
             </Grid.Column>
 
             <Grid.Column width={13}>
               <ul style={{listStyle: 'none'}}>
                 <li>
-                  <Header as='h4' icon textAlign='left' inverted color='red'>
+                  <Header 
+                    as='h4' 
+                    icon 
+                    textAlign='left' 
+                    inverted 
+                    color='red'>
                     <Header.Content textAlign='left'>
                       Next episode: { this.props.PostAddShowData.second[3] }
                     </Header.Content>

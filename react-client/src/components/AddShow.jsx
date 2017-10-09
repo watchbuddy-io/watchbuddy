@@ -54,14 +54,11 @@ class AddShow extends Component {
   }
 
   componentWillReceiveProps(episodes) {
-    console.log('episodes', episodes);
-
     //handle username
-    this.setState({username: episodes.username});
+    this.setState({ username: episodes.username });
 
     //handle showId
-    this.setState({showId: episodes.showId}, () => {console.log('showId', this.state.showId);});
-
+    this.setState({ showId: episodes.showId });
 
     //handle show info
     //addedShowEpisodes is an object where each key has an array with elements:
@@ -81,23 +78,6 @@ class AddShow extends Component {
 
   handleSubmit() {
     //make ajax call to add with all info
-
-    // console.log({username: this.state.username,
-    //     showId: this.state.showId,
-    //     showName: this.props.showName,
-    //     season: this.state.selectedSeason,
-    //     episode: this.state.selectedEpisode,
-    //     startDate: this.state.startDatejs,
-    //     endDate: this.state.endDatejs,
-    //     monday: this.state.monday,
-    //     tuesday: this.state.tuesday,
-    //     wednesday: this.state.wednesday,
-    //     thursday: this.state.thursday,
-    //     friday: this.state.friday,
-    //     saturday: this.state.saturday,
-    //     sunday: this.state.sunday,
-    //     hours: this.state.selectedHour});
-
     $.ajax({
       method: 'POST',
       url: '/addshow',
@@ -160,7 +140,7 @@ class AddShow extends Component {
       epObj.value = index + 1;
       newEpisodeArr.push(epObj);
     });
-    this.setState({episodeOptions: newEpisodeArr});
+    this.setState({ episodeOptions: newEpisodeArr });
   }
 
   handleSelectedEpisode(event, { value }) {
@@ -222,10 +202,10 @@ class AddShow extends Component {
             <Dropdown 
               placeholder='Select episode' 
               fluid selection 
-              options={this.state.episodeOptions} 
-              onChange={this.handleSelectedEpisode.bind(this)} 
-              image={currentValues}
-              value={currentValues}
+              options = { this.state.episodeOptions } 
+              onChange = { this.handleSelectedEpisode.bind(this)} 
+              image = { currentValues }
+              value = { currentValues }
             />
           </Form.Field>
 
@@ -233,15 +213,15 @@ class AddShow extends Component {
             <Form.Field>
               <label>Start date</label>
               <DatePicker
-                selected={this.state.startDate}
-                onChange={this.handleStartDateChange.bind(this)}
+                selected = { this.state.startDate }
+                onChange = { this.handleStartDateChange.bind(this) }
               />
             </Form.Field>
             <Form.Field>
               <label>End date</label>
               <DatePicker
-                selected={this.state.endDate}
-                onChange={this.handleEndDateChange.bind(this)}
+                selected = { this.state.endDate }
+                onChange = { this.handleEndDateChange.bind(this) }
               />
             </Form.Field>
           </Form.Group>
@@ -287,7 +267,7 @@ class AddShow extends Component {
             />
           </Form.Field>
 
-          <Button fluid color='red' type='submit' onClick={this.handleSubmit.bind(this)}>Submit</Button>
+          <Button fluid color = 'red' type = 'submit' onClick = { this.handleSubmit.bind(this) }>Submit</Button>
         </Form>
       </Container>
   );
