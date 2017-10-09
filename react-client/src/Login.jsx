@@ -99,8 +99,8 @@ class Login extends Component {
               </Segment>
             </Form>
             <Message>
-              New to us? 
-              <a onClick={this.changeView.bind(this)}>Sign Up</a>
+              New to us?
+              <a onClick={this.changeView.bind(this)}> Sign Up</a>
             </Message>
 
             <div>
