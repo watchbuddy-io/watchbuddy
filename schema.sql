@@ -12,7 +12,7 @@ CREATE TABLE user (
   showtitle int,
   season int,
   episode int,
-  start timestamp not null default now(),
+  start DATE,
   deadline DATE,
   monday int DEFAULT 0,
   tuesday int DEFAULT 0,
