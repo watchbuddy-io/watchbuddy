@@ -30,9 +30,7 @@ class Login extends Component {
       method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({email: this.state.email, password: this.state.password}),
-      success: (data) => {
-        this.postLogin(data);
-      },
+      success: (data) => this.postLogin(data),
       error: () => this.renderErrorMessage()
     });
   }
@@ -51,38 +49,40 @@ class Login extends Component {
   }
 
   render() {
-    return (
-      <div className='login-form'>
+    return (<div className='login-form'>
         {/*
           Heads up! The styles below are necessary for the correct render of this example.
           You can do same with CSS, the main idea is that all the elements up to the `Grid`
           below must have a height of 100%.
         */}
-        <style>{`
-          body > div,
-          body > div > div,
-          body > div > div > div.login-form {
-            height: 100%;
-          }
-        `}</style>
+        <style>
+          {`
+            body > div,
+            body > div > div,
+            body > div > div > div.login-form {
+              height: 100%;
+            }
+          `}
+        </style>
         <Grid
           textAlign='center'
           style={{ height: '100%' }}
-          verticalAlign='middle'
-        >
+          verticalAlign='middle'>
           <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as='h2' color='green' textAlign='center'>
+            <Header as='h2' color='red' textAlign='center'>
               <div><Icon name ='film' /> <Icon name='child' /> WatchBuddy</div>
             </Header>
             <Form size='large'>
               <Segment stacked>
-                <Form.Input onChange={this.handleEmailChange.bind(this)}
+                <Form.Input
+                  onChange={this.handleEmailChange.bind(this)}
                   fluid
                   icon='user'
                   iconPosition='left'
                   placeholder='E-mail address'
                 />
-                <Form.Input onChange={this.handlePasswordChange.bind(this)}
+                <Form.Input 
+                  onChange={this.handlePasswordChange.bind(this)}
                   fluid
                   icon='lock'
                   iconPosition='left'
@@ -90,26 +90,30 @@ class Login extends Component {
                   type='password'
                 />
 
-                <Button color='green' fluid size='large' onClick={this.handleSubmit.bind(this)}>Login</Button>
+                <Button
+                  color = 'red'
+                  fluid size = 'large'
+                  onClick = { this.handleSubmit.bind(this) }>
+                  Login
+                </Button>
               </Segment>
             </Form>
             <Message>
-              New to us? <a onClick={this.changeView.bind(this)}>Sign Up</a>
+              New to us? 
+              <a onClick={this.changeView.bind(this)}>Sign Up</a>
             </Message>
 
             <div>
-              {this.state.renderErrorMessage === 'true' 
-              ? <Message negative>
-                <Message.Header>We're sorry</Message.Header>
-                <p>There was a problem with your username or password. Please try again.</p>
-              </Message> 
-              : null}
+              { this.state.renderErrorMessage === 'true' &&
+                <Message negative>
+                  <Message.Header>We're sorry</Message.Header>
+                  <p>There was a problem with your username or password. Please try again.</p>
+                </Message> }
             </div>
             
           </Grid.Column>
         </Grid>
-      </div>
-    )
+      </div>)
   }
 }
 

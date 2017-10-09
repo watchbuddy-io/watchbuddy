@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Home from './Home.jsx';
@@ -42,29 +41,29 @@ class App extends React.Component {
   getView() {
     if (this.state.view === 'Login') {
       return <Login 
-      changeView = { this.changeView.bind(this) } 
-      getUsername = { this.getUsername.bind(this) }
+        changeView = { this.changeView.bind(this) } 
+        getUsername = { this.getUsername.bind(this) }
       />
     } else if (this.state.view === 'Signup') {
       return <Signup 
-      changeView = { this.changeView.bind(this) } 
-      getUsername = { this.getUsername.bind(this)
+        changeView = { this.changeView.bind(this) } 
+        getUsername = { this.getUsername.bind(this)
       }/>
     } else if (this.state.view === 'UserHome') {
       return <UserHome 
-      loggedIn = 'true' 
-      username = { this.state.username } 
-      getShowList= { this.getShowList.bind(this) } 
-      showList = { this.state.showList }
-      addShow = { this.addShow.bind(this) }
-      showSelected = { this.state.showSelected }
-      changeView = { this.changeView.bind(this) } 
+        loggedIn = 'true' 
+        username = { this.state.username } 
+        getShowList= { this.getShowList.bind(this) } 
+        showList = { this.state.showList }
+        addShow = { this.addShow.bind(this) }
+        showSelected = { this.state.showSelected }
+        changeView = { this.changeView.bind(this) } 
       />
     } else if (this.state.view === 'Home') {
       return <Home 
-      changeView = { this.changeView.bind(this) } 
-      getShowList = { this.getShowList.bind(this) } 
-      showList = { this.state.showList }
+        changeView = { this.changeView.bind(this) } 
+        getShowList = { this.getShowList.bind(this) } 
+        showList = { this.state.showList }
       />
     }
   }
@@ -74,4 +73,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render( <App />, document.getElementById('app') );
