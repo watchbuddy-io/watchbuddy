@@ -96,15 +96,11 @@ app.post('/logIn', function (req, res){
   var hash = '';
   var array = [];
   array.push(user);
-  // array.push(pw); only sending username
-  db.checkUser(array, (data) => { // now only requires user, sends back data only??
-    // res.send(user);
-    // if user does not exist, sends empty array
+  db.checkUser(array, (data) => {
     if (data.length === 0) {
       res.status(400)
       res.send()
     } else {
-      // if user does exist, sends password and salt
       hash = data[0].password;
       salt = data[0].salt;
       if (utils.compareHash(pw, hash, salt)) {
@@ -141,10 +137,8 @@ app.post('/addshow', function(req, res){
 			if (x === 'startDate') {
 				console.log(req.body[x])
 				if (req.body[x] === ''){
-					var current = JSON.stringify(moment());
-					var cur = current.substr(1, 10);
-					console.log(cur)
-					array.push(cur)
+					var current = JSON.stringify(moment()).substr(1, 10);
+					array.push(current)
 				} else {
 					var start = req.body[x].substr(0, 10);
 					array.push(start)
@@ -160,11 +154,64 @@ app.post('/addshow', function(req, res){
 	var user = req.body.username
 	array.push(user);
 	db.addSurveyData(array, (data) => {
-		console.log(req.body)
+		var title = array[0];
+		var season = array[1];
+		var episode = array[2];
+		var object = {};
+		moviedb.episode(title, season, episode, (data) => {
+			if (JSON.parse(data).status_code !== 34){	
+				var info = JSON.parse(data)
+				var first = [];
+				first.push(info.season_number, info.episode_number, info.name, info.overview);
+				first.push("https://image.tmdb.org/t/p/w500" + info.still_path)
+				object.first = first;
+				episode++;
+				moviedb.episode(title, season, episode, (data) => {
+					if (JSON.parse(data).status_code === 34){
+						season++;
+						episode = 1;
+						moviedb.episode(title, season, episode, (data) => {
+							if (JSON.parse(data).status_code === 34){
+								object.second = 'finished';
+								console.log(object)
+								res.send(object)
+							} else {
+								var info = JSON.parse(data)
+								var second = [];
+								second.push(info.season_number, info.episode_number, info.name, info.overview);
+								second.push("https://image.tmdb.org/t/p/w500" + info.still_path)
+								object.second = second;
+								console.log(object)
+								res.send(object)
+							}
+						})
+					} else {
+						var info = JSON.parse(data)
+						var second = [];
+						second.push(info.season_number, info.episode_number, info.name, info.overview);
+						second.push("https://image.tmdb.org/t/p/w500" + info.still_path)
+						object.second = second;
+						console.log(object)
+						res.send(object)
+					}
+				})
+			} else {
+				res.send('That episode has not aired yet')
+			}
+		})
 	})
 })
 
 app.listen(3000, function() {
   console.log('listening on port 3000!');
 })
+
+
+
+
+
+
+
+
+
 
