@@ -20,15 +20,13 @@ class UserHome extends Component {
   getShow(showIdAndName){
     let showId = showIdAndName.id;
     let showName = showIdAndName.name;
-    this.setState({showId, showName, showSelected: 'true'});
+    this.setState({ showId, showName, showSelected: 'true' });
     $.ajax({
       url: '/add',
       method: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({id: showId}),
-      success: data => {
-        this.setState({addedShowEpisodes: data});
-      },
+      data: JSON.stringify({ id: showId }),
+      success: data => this.setState({ addedShowEpisodes: data }),
       error: () => console.log('error getting show info')
     });
   }
@@ -36,24 +34,13 @@ class UserHome extends Component {
 
   render () {
     return (<div>
-
-      <Navbar loggedIn='true' 
+      <Navbar
+      loggedIn='true' 
       changeView = { this.props.changeView } 
       getShowList = { this.props.getShowList } />
 
         <Container>
-        { this.state.showAdded === 'true' 
-        ? <div>
-          <Header as='h3' textAlign='center'>
-            You are catching up on The Big Bang Theory
-          </Header>
-
-          <Header as='h4' textAlign='center'>
-            13 days left!
-          </Header>
-          </div>
-
-        : <div>
+          <div>
             <Header as='h3' textAlign='center'>
               <Icon name='film'/> Welcome!
             </Header>
@@ -81,7 +68,6 @@ class UserHome extends Component {
               username = { this.state.username } 
             />
             </div>
-            }
           </Container>
         </div>);
   }
