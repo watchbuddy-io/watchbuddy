@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 
+//This function is to retrieve the top 5 recommended shows from the MovieDB api for the front page of WatchBuddy
 app.get('/recommend', function (req, res) {
 	var genres;
 	moviedb.genre((data) => {
@@ -121,7 +122,9 @@ app.post('/add', function (req, res){
 		var detail = {};
 		var obj = {};
 		info.seasons.forEach((el) => {
-			obj[el.season_number + 1] = [el.episode_count, "https://image.tmdb.org/t/p/w500" + el.poster_path];
+			if (el.season_number !== 0){
+				obj[el.season_number] = [el.episode_count, "https://image.tmdb.org/t/p/w500" + el.poster_path];
+			}
 		})
 		detail.seasons = obj;
 		detail.runtime = info.episode_run_time[0];
@@ -158,46 +161,59 @@ app.post('/addshow', function(req, res){
 		var episode = array[2];
 		var title = req.body.showName
 		var object = {};
-		moviedb.episode(titleId, season, episode, (data) => {
-			if (JSON.parse(data).status_code !== 34){	
-				var info = JSON.parse(data)
-				var first = [];
-				first.push(title, info.season_number, info.episode_number, info.name, info.overview);
-				first.push("https://image.tmdb.org/t/p/w500" + info.still_path)
-				object.first = first;
-				episode++;
-				moviedb.episode(titleId, season, episode, (data) => {
-					if (JSON.parse(data).status_code === 34){
-						season++;
-						episode = 1;
-						moviedb.episode(titleId, season, episode, (data) => {
-							if (JSON.parse(data).status_code === 34){
-								object.second = 'finished';
-								console.log(object)
-								res.send(object)
-							} else {
-								var info = JSON.parse(data)
-								var second = [];
-								second.push(title, info.season_number, info.episode_number, info.name, info.overview);
-								second.push("https://image.tmdb.org/t/p/w500" + info.still_path)
-								object.second = second;
-								console.log(object)
-								res.send(object)
-							}
-						})
-					} else {
-						var info = JSON.parse(data)
-						var second = [];
-						second.push(title, info.season_number, info.episode_number, info.name, info.overview);
-						second.push("https://image.tmdb.org/t/p/w500" + info.still_path)
-						object.second = second;
-						console.log(object)
-						res.send(object)
-					}
-				})
-			} else {
-				res.send('That episode has not aired yet')
-			}
+		moviedb.details(titleId, (data) => {
+			var seasons = JSON.parse(data).seasons
+			var episodes = 0;
+			seasons.forEach((el) => {
+				console.log(el)
+				if (el.season_number >= season) {
+
+					episodes = episodes + el.episode_count
+				}
+			})
+			episodes = episodes - episode + 1
+			object.episodesLeft = episodes;
+			moviedb.episode(titleId, season, episode, (data) => {
+				if (JSON.parse(data).status_code !== 34){	
+					var info = JSON.parse(data)
+					var first = [];
+					first.push(title, info.season_number, info.episode_number, info.name, info.overview);
+					first.push("https://image.tmdb.org/t/p/w500" + info.still_path)
+					object.first = first;
+					episode++;
+					moviedb.episode(titleId, season, episode, (data) => {
+						if (JSON.parse(data).status_code === 34){
+							season++;
+							episode = 1;
+							moviedb.episode(titleId, season, episode, (data) => {
+								if (JSON.parse(data).status_code === 34){
+									object.second = 'finished';
+									console.log(object)
+									res.send(object)
+								} else {
+									var info = JSON.parse(data)
+									var second = [];
+									second.push(title, info.season_number, info.episode_number, info.name, info.overview);
+									second.push("https://image.tmdb.org/t/p/w500" + info.still_path)
+									object.second = second;
+									console.log(object)
+									res.send(object)
+								}
+							})
+						} else {
+							var info = JSON.parse(data)
+							var second = [];
+							second.push(title, info.season_number, info.episode_number, info.name, info.overview);
+							second.push("https://image.tmdb.org/t/p/w500" + info.still_path)
+							object.second = second;
+							console.log(object)
+							res.send(object)
+						}
+					})
+				} else {
+					res.send('That episode has not aired yet')
+				}
+			})
 		})
 	})
 })
