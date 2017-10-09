@@ -21,30 +21,36 @@
 ## Usage
 
 > new user signs up and creates new account
-
+>
 > existing user logs in with credentials
 >
 > once logged in, user can add a popular show or search for another show
+>
 > if user searches for a show, app returns matches
+>
 > user can add show
+>
 > adding show will allow user to enter survey data, including the last
+>
 > season user was watching, episode, date user would like to begin
+>
 > watching show, last date available for viewing show, check off
+>
 > days user has available for viewing, and number of hours per days
+>
 > user has free
+>
 > upon clicking submit, user will see the season and episode selected
+>
 > from the survey along with the following episode
 
 ## Requirements
 
-- angular: 1.6.3
 - body-parser: 1.17.2
 - crypto: 1.0.1
 - express: 4.15.0
-- imdb-api: 3.1.1
 - jquery: 3.1.1
 - moment: 2.18.1
-- mongoose: 4.8.6
 - mysql: 2.13.0
 - react: 15.4.2
 - react-datepicker: 0.55.0
