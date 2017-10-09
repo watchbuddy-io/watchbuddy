@@ -45,6 +45,7 @@ class UserHome extends Component {
 
             <AddShow
               showId = { this.props.showId } 
+              showName = { this.props.showName }
               addedShowEpisodes = { this.state.addedShowEpisodes }
               username = { this.props.username } 
             />

@@ -69,13 +69,12 @@ class AddShow extends Component {
     this.setState({originalSeasonObj: seasonsObj});
     let seasonArr = [];
     let episodeArr = [];
-    console.log('seasonsObj', seasonsObj);
     _.each(seasonsObj, (value, key, index) => {
       seasonArr.push({value: key, text: key, image: value[1]});
       episodeArr.push({key: key, value: value[0], text: value[0]});
     });
     this.setState({seasonOptions: seasonArr});
-    this.setState({episodeOptions: episodeArr}, () => console.log('ep ops', this.state.episodeOptions));
+    this.setState({episodeOptions: episodeArr});
   }
 
   handleSubmit() {
@@ -86,7 +85,8 @@ class AddShow extends Component {
       contentType: 'application/json',
       data: JSON.stringify({
         username: this.state.username,
-        show: this.state.showId,
+        showId: this.state.showId,
+        showName: this.props.showName,
         season: this.state.selectedSeason,
         episode: this.state.selectedEpisode,
         startDate: this.state.startDatejs,
@@ -124,7 +124,6 @@ class AddShow extends Component {
     let episodeNum = 0;
 
     //get the corresponding num of episodes for the selected season
-    console.log('originalSeasonObj', this.state.originalSeasonObj);
     _.each(this.state.originalSeasonObj, (value, key) => {
         if (key === selectedValue) {
           episodeNum = value[0];
