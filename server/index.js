@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const moment = require('moment');
 const db = require('../database-mysql');
 const moviedb = require('../helper/moviedb.js');
 const utils = require('./hashUtils.js')
@@ -53,6 +54,7 @@ app.post('/search', function (req, res) {
 			searched.forEach((el) => {
 				var obj = {};
 				obj.name = el.name;
+				obj.id = el.id;
 				var arr = [];
 				el.genre_ids.forEach((int) => {
 					for (var i = 0; i < genres.length; i++) {
@@ -137,8 +139,12 @@ app.post('/addshow', function(req, res){
 	for (var x in req.body){
 		if (x !== 'username') {
 			if (x === 'startDate') {
+				console.log(req.body[x])
 				if (req.body[x] === ''){
-					array.push(null)
+					var current = JSON.stringify(moment());
+					var cur = current.substr(1, 10);
+					console.log(cur)
+					array.push(cur)
 				} else {
 					var start = req.body[x].substr(0, 10);
 					array.push(start)
@@ -153,9 +159,8 @@ app.post('/addshow', function(req, res){
 	}
 	var user = req.body.username
 	array.push(user);
-	console.log(array)
 	db.addSurveyData(array, (data) => {
-		console.log(data)
+		console.log(req.body)
 	})
 })
 
