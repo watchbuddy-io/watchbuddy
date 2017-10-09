@@ -38,7 +38,7 @@ class ShowList extends Component {
     ? <Segment inverted>
         <Container>
         <Button fluid icon size='big' inverted color='red'>
-          { this.props.addedShow } <Icon name='checked calendar'/>
+          { this.props.showName } <Icon name='checked calendar'/>
         </Button>
         </Container>
       </Segment> 

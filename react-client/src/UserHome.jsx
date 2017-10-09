@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
 import ShowList from './components/ShowList.jsx';
 import Navbar from './components/Navbar.jsx';
 import AddShow from './components/AddShow.jsx';
@@ -9,28 +8,10 @@ class UserHome extends Component {
   constructor(props) {
   	super(props);
     this.state = {
-      username: this.props.username,
-      showId: '',
-      showName: '',
       showSelected: 'false',
-      addedShowEpisodes: []
+      addedShowEpisodes: [],
     };
   }
-
-  getShow(showIdAndName){
-    let showId = showIdAndName.id;
-    let showName = showIdAndName.name;
-    this.setState({ showId, showName, showSelected: 'true' });
-    $.ajax({
-      url: '/add',
-      method: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify({ id: showId }),
-      success: data => this.setState({ addedShowEpisodes: data }),
-      error: () => console.log('error getting show info')
-    });
-  }
-
 
   render () {
     return (<div>
@@ -53,19 +34,19 @@ class UserHome extends Component {
             </Message>
 
             <ShowList 
-              getShow = { this.getShow.bind(this) } 
+              getShow = { this.props.getShow } 
               showList = { this.props.showList }
               addedShowEpisodes = { this.state.addedShowEpisodes }
-              addedShow = { this.state.showName }
+              showName = { this.props.showName }
               loggedIn = 'true'
               addShow = { this.props.addShow }
               showSelected = { this.props.showSelected }
             />
 
             <AddShow
-              showId = { this.state.showId } 
+              showId = { this.props.showId } 
               addedShowEpisodes = { this.state.addedShowEpisodes }
-              username = { this.state.username } 
+              username = { this.props.username } 
             />
             </div>
           </Container>

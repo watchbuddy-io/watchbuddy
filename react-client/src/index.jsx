@@ -4,6 +4,7 @@ import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Home from './Home.jsx';
 import UserHome from './UserHome.jsx';
+import $ from 'jquery';
 
 
 class App extends React.Component {
@@ -18,7 +19,9 @@ class App extends React.Component {
         image: '',
         summary: 'Default summary'
       }],
-      showSelected: 'false'
+      showSelected: 'false',
+      showId: '',
+      showName: ''
     };
   }
 
@@ -36,6 +39,20 @@ class App extends React.Component {
 
   addShow() {
     this.setState({ showSelected: 'true' });
+  }
+
+  getShow(showIdAndName) {
+    let showId = showIdAndName.id;
+    let showName = showIdAndName.name;
+    this.setState({ showId, showName, showSelected: 'true' });
+    $.ajax({
+      url: '/add',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({ id: showId }),
+      success: data => this.setState({ addedShowEpisodes: data }),
+      error: () => console.log('error getting show info')
+    });
   }
 
   getView() {
@@ -57,7 +74,9 @@ class App extends React.Component {
         showList = { this.state.showList }
         addShow = { this.addShow.bind(this) }
         showSelected = { this.state.showSelected }
-        changeView = { this.changeView.bind(this) } 
+        changeView = { this.changeView.bind(this) }
+        getShow = { this.getShow.bind(this) }
+        showName = { this.state.showName }
       />
     } else if (this.state.view === 'Home') {
       return <Home 
