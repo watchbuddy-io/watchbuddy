@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ShowList from './components/ShowList.jsx';
 import Navbar from './components/Navbar.jsx';
 import AddShow from './components/AddShow.jsx';
-import { Container, Header, Icon, Message } from 'semantic-ui-react'
+import { Container, Header, Icon, Message, Transition } from 'semantic-ui-react'
 
 class UserHome extends Component {
   constructor(props) {
@@ -17,7 +17,8 @@ class UserHome extends Component {
   }
 
   render () {
-    return (<div>
+    return (<Transition animation='fade up' duration={1000} transitionOnMount={true}>
+      <div>
       <Navbar
       loggedIn='true' 
       changeView = { this.props.changeView } 
@@ -55,8 +56,9 @@ class UserHome extends Component {
               getPostAddShowData = { this.props.getPostAddShowData }
             />
             </div>
-          </Container>
-        </div>);
+            </Container>
+          </div>
+        </Transition>);
   }
 }
 

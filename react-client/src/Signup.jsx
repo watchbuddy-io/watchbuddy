@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import { Button, Form, Grid, Header, Segment, Icon } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Segment, Icon, Transition } from 'semantic-ui-react';
 
 class Signup extends Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class Signup extends Component {
   }
 
   render() {
-    return (
+    return (<Transition animation='fade up' duration={1000} transitionOnMount={true}>
       <div className='login-form'>
         {/*
           Heads up! The styles below are necessary for the correct render of this example.
@@ -84,7 +84,8 @@ class Signup extends Component {
             </Form>
           </Grid.Column>
         </Grid>
-      </div>)
+        </div>
+      </Transition>)
     }
 } 
 
