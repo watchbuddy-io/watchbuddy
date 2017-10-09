@@ -99,7 +99,8 @@ class AddShow extends Component {
         saturday: this.state.saturday,
         sunday: this.state.sunday,
         hours: this.state.selectedHour
-      })
+      }),
+      success: data => console.log(data)
     });
   }
 
