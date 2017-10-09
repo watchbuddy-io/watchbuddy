@@ -59,6 +59,10 @@ class App extends React.Component {
     });
   }
 
+  getPostAddShowData(data) {
+    console.log(data);
+  }
+
   getView() {
     if (this.state.view === 'Login') {
       return <Login 
@@ -83,6 +87,7 @@ class App extends React.Component {
         showName = { this.state.showName }
         showId = { this.state.showId }
         addedShowEpisodes = { this.state.addedShowEpisodes }
+        getPostAddShowData = { this.getPostAddShowData.bind(this) }
       />
     } else if (this.state.view === 'DisplaySchedule') {
       return <DisplaySchedule 
