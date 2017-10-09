@@ -55,7 +55,7 @@ class AddShow extends Component {
 
   componentWillReceiveProps(episodes) {
     console.log('episodes', episodes);
-    
+
     //handle username
     this.setState({username: episodes.username});
 
@@ -81,6 +81,23 @@ class AddShow extends Component {
 
   handleSubmit() {
     //make ajax call to add with all info
+
+    console.log({username: this.state.username,
+        showId: this.state.showId,
+        showName: this.props.showName,
+        season: this.state.selectedSeason,
+        episode: this.state.selectedEpisode,
+        startDate: this.state.startDatejs,
+        endDate: this.state.endDatejs,
+        monday: this.state.monday,
+        tuesday: this.state.tuesday,
+        wednesday: this.state.wednesday,
+        thursday: this.state.thursday,
+        friday: this.state.friday,
+        saturday: this.state.saturday,
+        sunday: this.state.sunday,
+        hours: this.state.selectedHour});
+    
     $.ajax({
       method: 'POST',
       url: '/addshow',
