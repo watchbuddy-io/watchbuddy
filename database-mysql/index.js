@@ -41,9 +41,20 @@ var addSurveyData = (params, callback) => {
   });
 };
 
+var modifySeasonInfo = (params, callback) => {
+  var queryStr = 'update user set season = ?, episode = ? where username = ?';
+  connection.queryStr(queryStr, params, (error, results, fields) => {
+    if (error) {
+      console.log(error);
+    } else {
+      callback(results);
+    }
+  });
+};
 
 module.exports = {
   checkUser,
   createUser,
-  addSurveyData
+  addSurveyData,
+  modifySeasonInfo
 };
