@@ -11,18 +11,18 @@ import {
   SwipeDeck 
 } from 'react-native-elements';
 
-const SCREEN_WIDTH = 250;
-const SCREEN_HEIGHT = 250;
+const SCREEN_WIDTH = 400;
+const SCREEN_HEIGHT = 500;
 
 // test data
 const DATA = [
-  { id: 1, text: 'Amanda', age: 28, uri: 'http://f9view.com/wp-content/uploads/2013/10/American-Beautiful-Girls-Wallpapers-Hollywood-Celebs-1920x1200px.jpg' },
-  { id: 2, text: 'Emma', age: 29, uri: 'https://i.imgur.com/FHxVpN4.jpg' },
-  { id: 3, text: 'Scarlett', age: 25, uri: 'https://i.ytimg.com/vi/GOJZ5TIlc3M/maxresdefault.jpg' },
-  { id: 4, text: 'Keira', age: 27, uri: 'http://www.bdprimeit.com/wp-content/uploads/Keira-Knightley-Most-beautiful-Hollywood-actress.jpg' },
-  { id: 5, text: 'Ashley', age: 30, uri: 'https://s-media-cache-ak0.pinimg.com/736x/4c/89/67/4c8967fac1822eeddf09670565430fd5.jpg' },
-  { id: 6, text: 'Jennifer', age: 24, uri: 'https://2.bp.blogspot.com/-Vy0NVWhQfKo/Ubma2Mx2YTI/AAAAAAAAH3s/LC_u8LRfm8o/s1600/aimee-teegarden-04.jpg' },
-  { id: 7, text: 'Sarah', age: 28, uri: 'https://s-media-cache-ak0.pinimg.com/736x/41/75/26/4175268906d97492e4a3175eab95c0f5.jpg' },
+  { id: 1, text: 'Joe', age: 25, uri: 'https://ca.slack-edge.com/T6EQHDY58-U6R9RCMRB-3cc279101242-1024' },
+  { id: 2, text: 'Joe', age: 25, uri: 'https://ca.slack-edge.com/T6EQHDY58-U6R9RCMRB-3cc279101242-1024' },
+  { id: 3, text: 'Joe', age: 25, uri: 'https://ca.slack-edge.com/T6EQHDY58-U6R9RCMRB-3cc279101242-1024' },
+  { id: 4, text: 'Joe', age: 25, uri: 'https://ca.slack-edge.com/T6EQHDY58-U6R9RCMRB-3cc279101242-1024' },
+  { id: 5, text: 'Joe', age: 25, uri: 'https://ca.slack-edge.com/T6EQHDY58-U6R9RCMRB-3cc279101242-1024' },
+  { id: 6, text: 'Joe', age: 25, uri: 'https://ca.slack-edge.com/T6EQHDY58-U6R9RCMRB-3cc279101242-1024' },
+  { id: 7, text: 'Joe', age: 25, uri: 'https://ca.slack-edge.com/T6EQHDY58-U6R9RCMRB-3cc279101242-1024' }
 ];
 
 export default class HomeCarousel extends Component {
@@ -35,11 +35,11 @@ export default class HomeCarousel extends Component {
     return (
       <Card
         key={card.id}
-        containerStyle={{borderRadius: 10, width: SCREEN_WIDTH * 0.92, height: SCREEN_HEIGHT - 165}}
+        containerStyle={{borderRadius: 10, flex: 1}}
         featuredTitle={`${card.text}, ${card.age}`}
         featuredTitleStyle={{position: 'absolute', left: 15, bottom: 10, fontSize: 30 }}
         image={{ uri: card.uri }}
-        imageStyle={{borderRadius: 10, width: SCREEN_WIDTH * 0.915, height: SCREEN_HEIGHT - 165}}
+        imageStyle={{borderRadius: 10, flex: 1}}
       />
     )
   }
@@ -55,11 +55,11 @@ export default class HomeCarousel extends Component {
   renderNoMoreCards() {
     return (
       <Card
-        containerStyle={{borderRadius: 10, width: SCREEN_WIDTH * 0.92, height: SCREEN_HEIGHT - 165}}
+        containerStyle={{borderRadius: 10, flex: 1}}
         featuredTitle="No more cards"
         featuredTitleStyle={{fontSize: 25}}
         image={{ uri: 'https://i.imgflip.com/1j2oed.jpg' }}
-        imageStyle={{borderRadius: 10, width: SCREEN_WIDTH * 0.915, height: SCREEN_HEIGHT - 165}}
+        imageStyle={{borderRadius: 10, flex: 1}}
       />
     )
   }
