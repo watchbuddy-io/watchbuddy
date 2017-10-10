@@ -17,7 +17,7 @@ import {
   Carousel,
   Spinner
 } from 'nachos-ui';
-
+import HomeCarousel from './HomeCarousel';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -49,9 +49,7 @@ export default class App extends Component<{}> {
   render() {
     return (
         <View style={styles.container}>
-          <Carousel
-            images={this.state.carouselImages}
-          />
+          <HomeCarousel />
         </View>
     );
   }
