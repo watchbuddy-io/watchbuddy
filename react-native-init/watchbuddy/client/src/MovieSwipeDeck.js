@@ -43,7 +43,7 @@ const SCREEN_RATIOS = {
   MARGIN_TOP: .05
 }
 
-export default class HomeCarousel extends Component {
+export default class MovieSwipeDeck extends Component {
   constructor() {
     super()
 
