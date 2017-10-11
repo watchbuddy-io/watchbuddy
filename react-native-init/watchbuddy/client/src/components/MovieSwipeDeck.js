@@ -1,61 +1,64 @@
+import MovieSwipeDeckButtons from './MovieSwipeDeckButtons';
 import React, { Component } from 'react';
 
 import {
   Dimensions,
-  Platform,
-  StyleSheet,
-  Text,
-  View
+  Image,
+  Text
 } from 'react-native';
 
 import {
-  Button, 
+  View, 
+  DeckSwiper,
   Card,
-  SwipeDeck 
-} from 'react-native-elements';
+  CardItem,
+} from 'native-base';
 
-const SCREEN_RATIOS = {
-  CONTAINER_HEIGHT: .75,
-  CONTAINER_WIDTH: .92,
-  IMAGE_HEIGHT: .92,
-  IMAGE_WIDTH: .915,
-  MARGIN_TOP: .05
+const COMPONENT_WIDTH_RATIOS = {
+  cardWidth: .92
+}
+
+const COMPONENT_HEIGHT_RATIOS = {
+  movieSwipeDeck: .85,
+  movieSwipeDeckButtons: .15
 }
 
 export default class MovieSwipeDeck extends Component {
   constructor() {
     super()
 
-    this.state = {
-      SCREEN_HEIGHT: Dimensions.get('window').height,
-      SCREEN_WIDTH : Dimensions.get('window').width     
-    }
-
     this.liked = [];
     this.disliked = [];
     this.unwatched = [];
   }
 
-  renderCard(card) {
-    let SCREEN_HEIGHT = this.state.SCREEN_HEIGHT;
-    let SCREEN_WIDTH = this.state.SCREEN_WIDTH;
+  _renderPoster(card) {
+    return (
+      <CardItem cardBody>
+        <Image 
+          style={{ 
+            height: this.props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck,
+            width: this.props.style.width * COMPONENT_WIDTH_RATIOS.cardWidth
+          }}
+          source={{ 
+            uri: card.posterUrl 
+          }} 
+        />
+      </CardItem>
+    );
+  }
 
+  renderCard(card) {
     return (
       <Card
-        key={card.id}
-        containerStyle={{
-          height: SCREEN_HEIGHT * SCREEN_RATIOS.CONTAINER_HEIGHT,
-          width: SCREEN_WIDTH * SCREEN_RATIOS.CONTAINER_WIDTH,
-          marginTop: SCREEN_HEIGHT * SCREEN_RATIOS.MARGIN_TOP
+        style={{
+          height: this.props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck,
+          width: this.props.style.width * COMPONENT_WIDTH_RATIOS.cardWidth,
+          alignSelf: "center"
         }}
-        featuredTitle={`${card.title}`}
-        featuredTitleStyle={{position: 'absolute', left: 15, bottom: 10, fontSize: 30 }}
-        image={{ uri: card.uri }}
-        imageStyle={{
-          height: SCREEN_HEIGHT * SCREEN_RATIOS.CONTAINER_HEIGHT,
-          width: SCREEN_WIDTH * SCREEN_RATIOS.IMAGE_WIDTH
-        }}
-      />
+      >
+        {this._renderPoster(card)}
+      </Card>
     )
   }
 
@@ -69,40 +72,50 @@ export default class MovieSwipeDeck extends Component {
     this.disliked.push(card);
   }
 
-  renderNoMoreCards() {
-    let SCREEN_HEIGHT = this.state.SCREEN_HEIGHT;
-    let SCREEN_WIDTH = this.state.SCREEN_WIDTH;
+  triggerSwipeRight() {
+    let card = this._deckSwiper._root.state.selectedItem;
+    this._deckSwiper._root.swipeRight();
+    this.onSwipeRight(card);
+  }
 
+  triggerSwipeLeft() {
+    let card = this._deckSwiper._root.state.selectedItem;
+    this._deckSwiper._root.swipeLeft();
+    this.onSwipeLeft(card);
+  }
+
+  renderEmpty() {
     return (
-      <Card
-        containerStyle={{
-          height: SCREEN_HEIGHT * SCREEN_RATIOS.CONTAINER_HEIGHT,
-          width: SCREEN_WIDTH * SCREEN_RATIOS.CONTAINER_WIDTH,
-          marginTop: SCREEN_HEIGHT * SCREEN_RATIOS.MARGIN_TOP,
-          backgroundColor: 'aqua'
-        }}
-        featuredTitle="You're all set!"
-        featuredTitleStyle={{fontSize: 25}}
-        image={{}}
-        imageStyle={{
-          height: SCREEN_HEIGHT * SCREEN_RATIOS.CONTAINER_HEIGHT,
-          width: SCREEN_WIDTH * SCREEN_RATIOS.IMAGE_WIDTH,
-        }}
-      />
+      <View style={{ 
+        height: this.props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck, 
+        width: this.props.style.width * COMPONENT_WIDTH_RATIOS.cardWidth,
+        alignSelf: "center", backgroundColor: "#fdd835" 
+      }}>
+        <Text>Building your recommendations...</Text>
+      </View>
     )
   }
 
   render() {
-    let SCREEN_HEIGHT = this.state.SCREEN_HEIGHT;
-
     return (
-      <View>
-        <SwipeDeck
-          data={this.props.data}
-          renderCard={this.renderCard.bind(this)}
-          renderNoMoreCards={this.renderNoMoreCards.bind(this)}
-          onSwipeRight={this.onSwipeRight.bind(this)}
-          onSwipeLeft={this.onSwipeLeft.bind(this)}
+      <View style={{ height: this.props.style.height, flexDirection: 'column' }}>
+        <View style={{ height: this.props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck }}> 
+          <DeckSwiper
+            ref={(c) => this._deckSwiper = c}
+            dataSource={this.props.data}
+            renderItem={this.renderCard.bind(this)}
+            renderEmpty={this.renderEmpty.bind(this)}
+            onSwipeRight={this.onSwipeRight.bind(this)}
+            onSwipeLeft={this.onSwipeLeft.bind(this)}
+            looping={false}
+          />
+        </View>
+        <MovieSwipeDeckButtons 
+          style={{
+            height: this.props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeckButtons
+          }}
+          handleRightButtonPress={this.triggerSwipeRight.bind(this)}
+          handleLeftButtonPress={this.triggerSwipeLeft.bind(this)}
         />
       </View>
     );
