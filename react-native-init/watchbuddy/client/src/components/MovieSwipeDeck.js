@@ -2,6 +2,7 @@ import MovieSwipeDeckButtons from './MovieSwipeDeckButtons';
 import React, { Component } from 'react';
 
 import {
+  Animated,
   Dimensions,
   Image,
   Text
@@ -54,7 +55,7 @@ export default class MovieSwipeDeck extends Component {
         style={{
           height: this.props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck,
           width: this.props.style.width * COMPONENT_WIDTH_RATIOS.cardWidth,
-          alignSelf: "center"
+          alignSelf: 'center'
         }}
       >
         {this._renderPoster(card)}
@@ -86,12 +87,23 @@ export default class MovieSwipeDeck extends Component {
 
   renderEmpty() {
     return (
-      <View style={{ 
-        height: this.props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck, 
-        width: this.props.style.width * COMPONENT_WIDTH_RATIOS.cardWidth,
-        alignSelf: "center", backgroundColor: "#fdd835" 
-      }}>
-        <Text>Building your recommendations...</Text>
+      <View
+        animationIn={'fadeIn'} 
+        style={{ 
+          height: this.props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck, 
+          width: this.props.style.width * COMPONENT_WIDTH_RATIOS.cardWidth,
+          alignSelf: 'center', 
+          backgroundColor: '#29b6f6',
+          flexDirection: 'column',
+          justifyContent: 'center'
+        }}
+      >
+        <Text style={{
+          color: '#FFF',
+          textAlign: 'center'
+        }}>
+          Building your recommendations...
+        </Text>
       </View>
     )
   }
@@ -110,7 +122,7 @@ export default class MovieSwipeDeck extends Component {
             looping={false}
           />
         </View>
-        <MovieSwipeDeckButtons 
+        <MovieSwipeDeckButtons
           style={{
             height: this.props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeckButtons
           }}

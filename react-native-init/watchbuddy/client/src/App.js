@@ -50,8 +50,7 @@ export default class App extends Component<{}> {
   constructor() {
     super();
     this.state = {
-      swipeDeckImages: [],
-      surveyComplete: false,
+      view: 'MoviePreferenceSurvey',
       screenHeight: Dimensions.get('window').height,
       screenWidth : Dimensions.get('window').width    
     }
@@ -64,8 +63,6 @@ export default class App extends Component<{}> {
     })
     .catch(err => console.log(err));
   }
-
-  updateSurveyCompletion
 
   render() {
     let screenHeight = this.state.screenHeight;
