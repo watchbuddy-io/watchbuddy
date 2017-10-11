@@ -17,7 +17,7 @@ import {
   Carousel,
   Spinner
 } from 'nachos-ui';
-import MovieSwipeDeck from './MovieSwipeDeck';
+import MoviePreferenceSurvey from './MoviePreferenceSurvey';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -48,8 +48,8 @@ export default class App extends Component<{}> {
 
   render() {
     return (
-        <View >
-          <MovieSwipeDeck />
+        <View>
+          <MoviePreferenceSurvey />
         </View>
     );
   }
