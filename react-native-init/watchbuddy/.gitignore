@@ -35,6 +35,7 @@ local.properties
 node_modules/
 npm-debug.log
 yarn-error.log
+backc-73ac68e09be6.json
 
 # BUCK
 buck-out/
