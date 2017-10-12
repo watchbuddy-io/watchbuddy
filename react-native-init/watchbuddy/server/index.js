@@ -20,6 +20,10 @@ app.get('/', (req, res) => {
      ]})
 })
 
+/*
+	ALL CODE BELOW IS COPIED FROM LEGACY...
+*/
+
 //This function is to retrieve the top 5 recommended shows from the MovieDB api for the front page of WatchBuddy.
 app.get('/recommend', function (req, res) {
 	var genres;
