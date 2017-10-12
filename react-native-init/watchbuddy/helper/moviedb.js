@@ -1,5 +1,6 @@
 const request = require('request');
-const config = require('../config.js');
+const config = require('../server/config.js');
+const strictUriEncode = require('strict-uri-encode');
 
 
 let getInfoByTitle = (title, callback) => {
@@ -25,6 +26,26 @@ let getPopularShows = (callback) => {
   }
 	request(options, (err, res, body) => {
 		callback(body)
+	})
+}
+
+
+let discoverMoviesByGenre = (genres, callback) => {
+	let uriString = strictUriEncode(genres.join(','));
+
+	let options = {
+    url: `https://api.themoviedb.org/3/discover/movie?api_key=${config.TOKEN}&&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${uriString}`,
+    headers: {
+      'User-Agent': 'request'
+    }
+  }
+
+	request(options, (err, res, body) => {
+		if (err) {
+			console.log('error in GET request to movieDB API on discoverMoviesByGenre in moviedb.js', err)
+		} else {
+			callback(err, body)
+		}
 	})
 }
 
@@ -86,3 +107,4 @@ module.exports.genre = genre;
 module.exports.search = search;
 module.exports.details = details;
 module.exports.episode = episode;
+module.exports.discoverMoviesByGenre = discoverMoviesByGenre;

@@ -4,13 +4,136 @@ const moment = require('moment');
 const db = require('../database-mysql');
 const moviedb = require('../helper/moviedb.js');
 const utils = require('./hashUtils.js')
+const googleTrainAI = require('../helper/googleTrainAI.js');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../react-client/dist'));
 
-const port = 1338;
+const port = 1339;
+
+const prediction = require('@google-cloud/prediction')({
+  projectId: 'backc-179222',
+  keyFilename: '../backc-73ac68e09be6.json'
+});
+
+var model = prediction.model('movie-prefers');
+
+// model.query('', function(err, results) {
+//   if (err) {
+//   	console.log('error in query', err)
+//   } else {
+//   	console.log('successful query', results)
+//     // results.winner == 'english' 
+//     // results.scores == [ 
+//     //   { 
+//     //     label: 'english', 
+//     //     score: 1 
+//     //   }, 
+//     //   { 
+//     //     label: 'spanish', 
+//     //     score: 0 
+//     //   } 
+//     // ] 
+//   } 
+// });
+
+// var stream = model.createWriteStream('Crime');
+
+// stream
+//   .on('error', function(err) {
+//     // Uh oh, an error occurred!
+//   })
+//   .on('finish', function() {
+//     // The model will now be processing the new data.
+//   });
+
+// stream.write("John Wick is forced out of retirement by a former associate looking to seize control of a shadowy international assassins’ guild. Bound by a blood oath to aid him, Wick travels to Rome and does battle against some of the world’s most dangerous killers.");
+// stream.end();
+
+model.train('Crime', 'John Wick is forced out of retirement by a former associate looking to seize control of a shadowy international assassins’ guild. Bound by a blood oath to aid him, Wick travels to Rome and does battle against some of the world’s most dangerous killers.').then(function(data) {
+  var apiResponse = data[0];
+});
+
+model.analyze().then(function(data) {
+  var analysis = data[0];
+  var apiResponse = data[1];
+});
+
+model.query('').then(function(data) {
+	console.log('QUERY', data[0])
+})
+
+
+// var gcs = require('@google-cloud/storage')({
+// 	projectId: 'backc-179222'	
+// })
+// var bucket = gcs.bucket('quickstart-1507740010');
+// var modelDataJson = bucket.file('google-ai-mapping1.json');
+
+// prediction.createModel('testjson1').then(function(data) {
+//   var model = data;
+//   var apiResponse = data[1];
+//   // console.log(model);
+//   // console.log(apiResponse)
+// });
+
+// prediction.getModels(function(err, models) {
+//   if (!err) {
+//     // `models` is an array of Model objects. 
+//     // console.log(models)
+//   }
+// });
+
+// prediction.createModel('testjson2', {
+//   data: modelDataJson
+// }, function(err, model, apiResponse) {
+// 	console.log('err', err);
+// 	console.log('model', model);
+// 	console.log('apiResponse', apiResponse)
+// });
+
+
+
+// prediction.createModel('test-model', (err, model, apiResponse) => {
+// 	console.log('err', err);
+// 	console.log('model', model);
+// 	console.log('apiResponse', apiResponse)
+// })
+
+// var model = prediction.model('language-identifier');
+
+// model.train('greek', 'привет', function(err) {if(err) console.log('err in train',err)});
+
+// // Query a model. 
+// model.query('привет', function(err, results) {
+//   if (err) {
+//   	console.log('error in query', err)
+//   } else {
+//   	console.log('successful query', results.scores)
+//     // results.winner == 'english' 
+//     // results.scores == [ 
+//     //   { 
+//     //     label: 'english', 
+//     //     score: 1 
+//     //   }, 
+//     //   { 
+//     //     label: 'spanish', 
+//     //     score: 0 
+//     //   } 
+//     // ] 
+//   } 
+// });
+
+// prediction.getModels(function(err, models) {
+//   if (err) {
+//     console.log('error in getModels', err)
+//   } else {
+//     // `models` is an array of Model objects. 
+//   	console.log('these models:',models)
+//   }
+// });
 
 app.get('/', (req, res) => {
   console.log('inside get on server!')
@@ -20,10 +143,41 @@ app.get('/', (req, res) => {
      ]})
 })
 
+// get movies by genre(s)
+// moviedb.discoverMoviesByGenre(console.log, "80,16")
+
+
+app.post('/userprefs', (req, res) => {
+	// req.body.prefs should have query I will use for AI
+	model.query(req.body.prefs).then(function(data) {
+		// data[0].scores gives us an array in order
+		// we take data[0].scores[0].label, data[0].scores[1].label, data[0].scores[2].label
+		let userGenrePrefs = [data[0].scores[0].label, data[0].scores[1].label]
+		// we call moviedb.getMoviesByGenre with: 
+		
+			// 1: those labels as args
+			// find what "Crime" maps to in object stored in moviedb
+			// loop thru args on moviedb and make api call w/ uri encode
+
+			// 2: a callback
+			// get the data from api and send to client the entire page (currenlty mix of genres, instead of 3 sep calls)
+			// asynchronosuly (or after res.send), train our model (write stream/.train)
+				// seaprate out into diff file
+				// call the function here with the entire response (1 page)
+					// parse the page, have the object that maps genres with names and add to our AI
+		moviedb.discoverMoviesByGenre(userGenrePrefs, (err, apiData) => {
+			googleTrainAI.googleTrain(apiData);
+			res.send(apiData);
+		})
+
+	})
+})
+
 /*
 	ALL CODE BELOW IS COPIED FROM LEGACY...
 */
 
+/*
 //This function is to retrieve the top 5 recommended shows from the MovieDB api for the front page of WatchBuddy.
 app.get('/recommend', function (req, res) {
 	var genres;
@@ -240,16 +394,8 @@ app.post('/update', function (req, res) {
 
 })
 
+*/
+
 app.listen(process.env.PORT || port, function() {
   console.log(`listening on port ${port}!`);
 })
-
-
-
-
-
-
-
-
-
-
