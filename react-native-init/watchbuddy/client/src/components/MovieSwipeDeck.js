@@ -1,5 +1,5 @@
 import MovieSwipeDeckButtons from './MovieSwipeDeckButtons';
-import React, { Component } from 'react';
+import React from 'react';
 
 import {
   Animated,
@@ -24,22 +24,18 @@ const COMPONENT_HEIGHT_RATIOS = {
   movieSwipeDeckButtons: .15
 }
 
-export default class MovieSwipeDeck extends Component {
-  constructor() {
-    super()
+export default MovieSwipeDeck = (props) => {
+  this.liked = [];
+  this.disliked = [];
+  this.unwatched = [];
 
-    this.liked = [];
-    this.disliked = [];
-    this.unwatched = [];
-  }
-
-  _renderPoster(card) {
+  this._renderPoster = (card) => {
     return (
       <CardItem cardBody>
         <Image 
           style={{ 
-            height: this.props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck,
-            width: this.props.style.width * COMPONENT_WIDTH_RATIOS.cardWidth
+            height: props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck,
+            width: props.style.width * COMPONENT_WIDTH_RATIOS.cardWidth
           }}
           source={{ 
             uri: card.posterUrl 
@@ -49,12 +45,12 @@ export default class MovieSwipeDeck extends Component {
     );
   }
 
-  renderCard(card) {
+  this.renderCard = (card) => {
     return (
       <Card
         style={{
-          height: this.props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck,
-          width: this.props.style.width * COMPONENT_WIDTH_RATIOS.cardWidth,
+          height: props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck,
+          width: props.style.width * COMPONENT_WIDTH_RATIOS.cardWidth,
           alignSelf: 'center'
         }}
       >
@@ -63,36 +59,46 @@ export default class MovieSwipeDeck extends Component {
     )
   }
 
-  onSwipeRight(card) {
+  this.onSwipeRight = (card) => {
     console.log("Movie liked: " + card.title);
     this.liked.push(card);
   }
 
-  onSwipeLeft(card) {
+  this.onSwipeLeft = (card) => {
     console.log("Movie disliked: " + card.title);
     this.disliked.push(card);
   }
 
-  triggerSwipeRight() {
+  this.onUnwatched = (card) => {
+    console.log("Movie unwatched: " + card.title);
+    this.unwatched.push(card);
+  }
+
+  this.triggerSwipeRight = () => {
     let card = this._deckSwiper._root.state.selectedItem;
     this._deckSwiper._root.swipeRight();
     this.onSwipeRight(card);
   }
 
-  triggerSwipeLeft() {
+  this.triggerSwipeLeft = () => {
     let card = this._deckSwiper._root.state.selectedItem;
     this._deckSwiper._root.swipeLeft();
     this.onSwipeLeft(card);
   }
 
-  renderEmpty() {
+  this.triggerUnwatched = () => {
+    let card = this._deckSwiper._root.state.selectedItem;
+    this._deckSwiper._root.swipeLeft();
+    this.onUnwatched(card);
+  }
+
+  renderEmpty = () => {
     return (
       <View
-        animationIn={'fadeIn'} 
-        style={{ 
-          height: this.props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck, 
-          width: this.props.style.width * COMPONENT_WIDTH_RATIOS.cardWidth,
-          alignSelf: 'center', 
+        style={{
+          height: props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck,
+          width: props.style.width * COMPONENT_WIDTH_RATIOS.cardWidth,
+          alignSelf: 'center',
           backgroundColor: '#29b6f6',
           flexDirection: 'column',
           justifyContent: 'center'
@@ -108,28 +114,27 @@ export default class MovieSwipeDeck extends Component {
     )
   }
 
-  render() {
-    return (
-      <View style={{ height: this.props.style.height, flexDirection: 'column' }}>
-        <View style={{ height: this.props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck }}> 
-          <DeckSwiper
-            ref={(c) => this._deckSwiper = c}
-            dataSource={this.props.data}
-            renderItem={this.renderCard.bind(this)}
-            renderEmpty={this.renderEmpty.bind(this)}
-            onSwipeRight={this.onSwipeRight.bind(this)}
-            onSwipeLeft={this.onSwipeLeft.bind(this)}
-            looping={false}
-          />
-        </View>
-        <MovieSwipeDeckButtons
-          style={{
-            height: this.props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeckButtons
-          }}
-          handleRightButtonPress={this.triggerSwipeRight.bind(this)}
-          handleLeftButtonPress={this.triggerSwipeLeft.bind(this)}
+  return (
+    <View style={{ height: props.style.height, flexDirection: 'column' }}>
+      <View style={{ height: props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck }}> 
+        <DeckSwiper
+          ref={(c) => this._deckSwiper = c}
+          dataSource={props.data}
+          renderItem={this.renderCard.bind(this)}
+          renderEmpty={this.renderEmpty.bind(this)}
+          onSwipeRight={this.onSwipeRight.bind(this)}
+          onSwipeLeft={this.onSwipeLeft.bind(this)}
+          looping={false}
         />
       </View>
-    );
-  }
+      <MovieSwipeDeckButtons
+        style={{
+          height: props.style.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeckButtons
+        }}
+        handleRightButtonPress={this.triggerSwipeRight.bind(this)}
+        handleUnwatchedButtonPress={this.triggerUnwatched.bind(this)}
+        handleLeftButtonPress={this.triggerSwipeLeft.bind(this)}
+      />
+    </View>
+  );
 }
