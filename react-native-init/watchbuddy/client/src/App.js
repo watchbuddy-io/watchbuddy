@@ -1,86 +1,66 @@
 import axios from 'axios';
-import dummyData from './data/dummyData'
-import MovieGridList from './components/MovieGridList';
-import MovieSwipeDeck from './components/MovieSwipeDeck';
+import content from './utils/content';
+import dummyData from './data/dummyData';
 import Nav from './components/Nav';
-import React, { Component } from 'react';
+import React from 'react';
+import screen from './utils/screen';
+import views from './utils/views';
+
+import { 
+  Spinner
+} from 'nachos-ui';
 
 import { 
   Container, 
 } from 'native-base';
 
-import { 
-  Spinner
-} from 'nachos-ui';
+import {
+  Component
+} from 'react';
 
 import {
   Dimensions,
   View
 } from 'react-native';
 
-const COMPONENT_HEIGHT_PROPORTIONS = {
-  header: .1,
-  content: .9
-}
-
 export default class App extends Component<{}> {
   constructor() {
     super();
+
     this.state = {
-      view: 'MovieGridList',
-      screenHeight: Dimensions.get('window').height,
-      screenWidth : Dimensions.get('window').width    
+      view: 'MovieSwipeDeck',
+      data: dummyData.data,
+      screenDimensions: screen.getScreenDimensions()
     }
-    this.getMovieData();
   }
 
-  getMovieData() {
-    axios.get('http://127.0.0.1:1338').then(data => {
-      this.setState({swipeDeckImages: data});
-    })
-    .catch(err => console.log(err));
+  changeView(view) {
+    this.setState({ view: view });
   }
 
-  changeView(option) {
-    this.setState({ view: option });
+  renderView(data) {
+    var Content = views[this.state.view];
+
+    return (
+      <Content
+        data={data}
+        changeView={this.changeView.bind(this)}
+        dimensions={content.getContentDimensions(this.state.screenDimensions)}
+      />
+    );
   }
 
-  getView() {
-    let screenHeight = this.state.screenHeight;
-    let screenWidth = this.state.screenWidth;
-    let view = this.state.view;
-
-    if (view === 'MovieSwipeDeck') {
-      return (
-        <MovieSwipeDeck 
-          data={dummyData.data}
-          style={{ 
-            height: screenHeight * COMPONENT_HEIGHT_PROPORTIONS.content,
-            width: screenWidth
-          }} 
-        />
-      );
-    } else if (view === 'MovieGridList') {
-      return (
-        <MovieGridList
-          data={dummyData.data}
-          style={{ 
-            height: screenHeight * COMPONENT_HEIGHT_PROPORTIONS.content,
-            width: screenWidth
-          }}
-        />
-      );
-    }
+  renderNav() {
+    return (
+      <Nav dimensions={content.getNavDimensions(this.state.screenDimensions)} />
+    );
   }
 
   render() {
-    let screenHeight = this.state.screenHeight;
-    let screenWidth = this.state.screenWidth;
-
     return (
       <Container style={{ flexDirection: "column" }}>
-        <Nav height={screenHeight * COMPONENT_HEIGHT_PROPORTIONS.header} />
-        {this.getView()}
+        {this.renderNav()}
+        {this.renderView(this.state.data)}
       </Container>
     );
   }
