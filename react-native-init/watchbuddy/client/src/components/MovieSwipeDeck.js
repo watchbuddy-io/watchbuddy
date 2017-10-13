@@ -1,6 +1,7 @@
 import MovieSwipeDeckButtons from './MovieSwipeDeckButtons';
 import movieSwipeDeckStyles from '../styles/movieSwipeDeck';
 import React from 'react';
+import _ from 'underscore';
 
 import {
   Animated,
@@ -122,6 +123,10 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
     );
   }
 
+  this.throttleButtonPresses = _.throttle((event) => {
+    event();
+  }, 500).bind(this);
+
   return (
     <View 
       style={{
@@ -142,9 +147,9 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
       </View>
       <MovieSwipeDeckButtons
         dimensions={{ height: dimensions.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeckButtons }}
-        handleRightButtonPress={this.triggerSwipeRight.bind(this)}
-        handleUnwatchedButtonPress={this.triggerUnwatched.bind(this)}
-        handleLeftButtonPress={this.triggerSwipeLeft.bind(this)}
+        handleRightButtonPress={() => this.throttleButtonPresses(this.triggerSwipeRight)}
+        handleUnwatchedButtonPress={() => this.throttleButtonPresses(this.triggerUnwatched)}
+        handleLeftButtonPress={() => this.throttleButtonPresses(this.triggerSwipeLeft)}
       />
     </View>
   );
