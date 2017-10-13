@@ -1,7 +1,6 @@
 import axios from 'axios';
 import content from './utils/content';
 import dummyData from './data/dummyData';
-import dummyRequestData from './data/dummyRequestData';
 import Nav from './components/Nav';
 import React from 'react';
 import screen from './utils/screen';
@@ -30,7 +29,7 @@ export default class App extends Component<{}> {
 
     this.state = {
       view: 'MovieSwipeDeck',
-      data: dummyRequestData.data,
+      data: dummyData.data,
       screenDimensions: screen.getScreenDimensions()
     }
   }
@@ -45,8 +44,8 @@ export default class App extends Component<{}> {
     return (
       <Content
         data={data}
-        dimensions={content.getContentDimensions(this.state.screenDimensions)}
         changeView={this.changeView.bind(this)}
+        dimensions={content.getContentDimensions(this.state.screenDimensions)}
       />
     );
   }

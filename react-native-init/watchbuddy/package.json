@@ -12,7 +12,6 @@
     "axios": "^0.16.2",
     "express": "^4.16.2",
     "install": "^0.10.1",
-    "jquery": "^3.2.1",
     "moment": "^2.18.1",
     "mysql": "^2.13.0",
     "nachos-ui": "^0.1.2",
@@ -25,8 +24,7 @@
     "react-native-linear-gradient": "^2.3.0",
     "react-native-vector-icons": "^4.4.2",
     "request": "^2.83.0",
-    "strict-uri-encode": "^2.0.0",
-    "underscore": "^1.8.3"
+    "strict-uri-encode": "^2.0.0"
   },
   "devDependencies": {
     "babel-jest": "21.2.0",
