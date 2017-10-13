@@ -44,8 +44,8 @@ export default class App extends Component<{}> {
     return (
       <Content
         data={data}
-        changeView={this.changeView.bind(this)}
         dimensions={content.getContentDimensions(this.state.screenDimensions)}
+        changeView={this.changeView.bind(this)}
       />
     );
   }

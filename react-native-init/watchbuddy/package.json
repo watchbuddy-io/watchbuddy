@@ -25,6 +25,7 @@
     "react-native-vector-icons": "^4.4.2",
     "request": "^2.83.0",
     "strict-uri-encode": "^2.0.0"
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-jest": "21.2.0",
