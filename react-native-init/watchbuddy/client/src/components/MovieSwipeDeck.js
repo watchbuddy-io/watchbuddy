@@ -1,3 +1,4 @@
+import googleApiRequests from '../utils/googleApiRequests';
 import MovieSwipeDeckButtons from './MovieSwipeDeckButtons';
 import movieSwipeDeckStyles from '../styles/movieSwipeDeck';
 import React from 'react';
@@ -31,6 +32,7 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
   this.disliked = [];
   this.unwatched = [];
   this.styles = movieSwipeDeckStyles.getStyles(dimensions);
+  this.numRenderEmptyCalls = 0;
 
   this.onSwipeRight = (card) => {
     console.log("Movie liked: " + card.title);
@@ -65,7 +67,7 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
     this.onUnwatched(card);
   }
 
-  this._renderPoster = (card) => {
+  this.renderCardPoster = (card) => {
     return (
       <CardItem cardBody>
         <Image 
@@ -79,13 +81,24 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
   this.renderCard = (card) => {
     return (
       <Card style={this.styles.Card}>
-        {this._renderPoster(card)}
+        {this.renderCardPoster(card)}
       </Card>
     )
   }
 
   this.renderEmpty = () => {
-    setTimeout(() => changeView('MovieGridList'), 2000);
+    if (this.numRenderEmptyCalls > 1) {
+      googleApiRequests.queryGoogleApi(this.liked)
+        .then(data => {
+          console.log(data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      setTimeout(() => changeView('MovieGridList'), 2000);
+    }
+
+    this.numRenderEmptyCalls++;
 
     return (
       <View style={this.styles.View}>
@@ -94,33 +107,6 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
         </Text>
       </View>
     )
-  }
-
-  this.renderDeckSwiper = () => {
-    return (
-      <View style={this.styles.DeckSwiper}> 
-        <DeckSwiper
-          ref={(c) => this._deckSwiper = c}
-          dataSource={data}
-          renderItem={this.renderCard.bind(this)}
-          renderEmpty={this.renderEmpty.bind(this)}
-          onSwipeRight={this.onSwipeRight.bind(this)}
-          onSwipeLeft={this.onSwipeLeft.bind(this)}
-          looping={false}
-        />
-      </View>
-    );
-  }
-
-  this.renderMovieDeckSwipeButtons = () => {
-    return (
-      <MovieSwipeDeckButtons
-        style={this.styles.MovieSwipeDeckButtons}
-        handleRightButtonPress={this.triggerSwipeRight.bind(this)}
-        handleUnwatchedButtonPress={this.triggerUnwatched.bind(this)}
-        handleLeftButtonPress={this.triggerSwipeLeft.bind(this)}
-      />
-    );
   }
 
   this.throttleButtonPresses = _.throttle((event) => {

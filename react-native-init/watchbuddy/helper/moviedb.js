@@ -33,8 +33,10 @@ let getPopularShows = (callback) => {
 let discoverMoviesByGenre = (genres, callback) => {
 	let uriString = strictUriEncode(genres.join(','));
 
+	console.log(uriString)
+
 	let options = {
-    url: `https://api.themoviedb.org/3/discover/movie?api_key=${config.TOKEN}&&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${uriString}`,
+    url: `https://api.themoviedb.org/3/discover/movie?api_key=${config.TOKEN}&&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=80`,
     headers: {
       'User-Agent': 'request'
     }

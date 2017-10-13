@@ -148,6 +148,7 @@ app.get('/', (req, res) => {
 
 
 app.post('/userprefs', (req, res) => {
+	console.log('RECEIVING POST REQUEST', req.body.prefs);
 	// req.body.prefs should have query I will use for AI
 	model.query(req.body.prefs).then(function(data) {
 		// data[0].scores gives us an array in order
@@ -166,7 +167,8 @@ app.post('/userprefs', (req, res) => {
 				// call the function here with the entire response (1 page)
 					// parse the page, have the object that maps genres with names and add to our AI
 		moviedb.discoverMoviesByGenre(userGenrePrefs, (err, apiData) => {
-			googleTrainAI.googleTrain(apiData);
+			console.log('API DATA from DB: ', apiData);
+			googleTrainAI.googleTrain(JSON.parse(apiData));
 			res.send(apiData);
 		})
 
