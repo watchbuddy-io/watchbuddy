@@ -169,7 +169,7 @@ app.post('/userprefs', (req, res) => {
 		moviedb.discoverMoviesByGenre(userGenrePrefs, (err, apiData) => {
 			console.log('API DATA from DB: ', apiData);
 			googleTrainAI.googleTrain(JSON.parse(apiData));
-			res.send(apiData);
+			res.json(apiData);
 		})
 
 	})
