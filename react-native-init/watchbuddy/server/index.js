@@ -66,9 +66,24 @@ app.get('/', (req, res) => {
 })
 
 app.post('/click', (req, res) => {
-  db.addToClickHistory([req.body.user_id, req.body.movie_id], results => {
-    console.log('click added: ', results);
-    res.status(200).send();
+  db.addToClickHistory([req.body.user_id, req.body.movie_id], (err, results) => {
+    if (err) {
+      console.log('error in adding click: ', err);
+      res.status(400).send('error in adding click');
+    } else {
+      res.status(200).send();
+    }
+  });
+});
+
+app.post('/favorite', (req, res) => {
+  db.addToFavorites([req.body.user_id, req.body.movie_id], (err, results) => {
+    if (err) {
+      console.log('error in adding favorite: ', err);
+      res.status(400).send('error in adding favorite');
+    } else {
+      res.status(200).send();
+    }
   });
 });
 
@@ -76,6 +91,7 @@ app.get('/movie/:id', (req, res) => {
   moviedb.getMovieDetailsById(req.params.id, (err, results) => {
     if (err) {
       console.log('error in getting stuff: ', err);
+      res.status(400).send('no such movie');
     } else {
       res.status(200).send(results);
     }
