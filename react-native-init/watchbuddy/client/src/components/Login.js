@@ -8,6 +8,7 @@ import {
   Text,
   View,
   TextInput,
+  TouchableHighlight,
   ScrollView
 } from 'react-native';
 
@@ -27,17 +28,26 @@ export default class Login extends Component<{}> {
   render() {
     return (
       <ScrollView>
+        <Text>{'username'}</Text>
         <View>
           <TextInput
             style={this.styles.TextInput}
           />
         </View>
+        <Text>{'login'}</Text>
         <View>
           <TextInput
             secureTextEntry={true}
             style={this.styles.TextInput}
           />
         </View>
+        <TouchableHighlight
+          underlayColor={'#EEE'}
+          onPress={() => this.props.changeView('MovieSwipeDeck')} 
+          style={this.styles.Button}
+        >
+          <Text style={this.styles.Text}>{'login'}</Text>
+        </TouchableHighlight>
       </ScrollView>
     );
   }
