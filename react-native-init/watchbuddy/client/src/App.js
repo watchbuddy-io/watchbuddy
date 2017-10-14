@@ -29,7 +29,7 @@ export default class App extends Component<{}> {
     super();
 
     this.state = {
-      view: 'Welcome',
+      view: 'WelcomeFB',
       data: dummyRequestData.data,
       screenDimensions: screen.getScreenDimensions()
     }
