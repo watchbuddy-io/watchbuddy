@@ -1,6 +1,7 @@
 const request = require('request');
 const config = require('../server/config.js');
 const strictUriEncode = require('strict-uri-encode');
+const genreNames = require('../data/genreNames.js');
 
 
 let getInfoByTitle = (title, callback) => {
@@ -31,12 +32,20 @@ let getPopularShows = (callback) => {
 
 
 let discoverMoviesByGenre = (genres, callback) => {
-	let uriString = strictUriEncode(genres.join(','));
+	console.log('OBJECT IMPORT', genreNames)
+	let uriString = '';
+	genres.forEach(genre => {
+		console.log('GENRE LOOP',genre);
+		console.log('GENRE NAMES OBJECT', genreNames[genre])
+		uriString += genreNames[genre] + ','; 
+	})
+
+	uriString = strictUriEncode(uriString.slice(0, uriString.length - 1))
 
 	console.log(uriString)
 
 	let options = {
-    url: `https://api.themoviedb.org/3/discover/movie?api_key=${config.TOKEN}&&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=80`,
+    url: `https://api.themoviedb.org/3/discover/movie?api_key=${config.TOKEN}&&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${uriString}`,
     headers: {
       'User-Agent': 'request'
     }

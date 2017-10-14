@@ -9,7 +9,7 @@ var buildQuery = function(movies) {
 export default googleApiRequests = {
   queryGoogleApi: function(movies) {
     console.log('CALLING AXIOS');
-    return axios.post('http://localhost:1339/userprefs', 
+    return axios.post('http://localhost:1391/userprefs', 
     {
       prefs: buildQuery(movies)
     });
