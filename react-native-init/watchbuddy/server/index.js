@@ -8,8 +8,6 @@ const googleTrainAI = require('../helper/googleTrainAI.js');
 const amazonKeys = require('../keys/amazon-api.js');
 const amazon = require('amazon-product-api');
 const googleProjectId = require('../keys/google-project-id.js');
-const rottenKey = require('../keys/rotten-api.js');
-const rotten = require('rotten-api')(rottenKey);
 
 const app = express();
 
@@ -18,7 +16,7 @@ app.use(bodyParser.json());
 /* static files served ONLY for web version
   app.use(express.static(__dirname + '/../react-client/dist'));
 */
-console.log(googleProjectId)
+// console.log(googleProjectId)
 const port = 1391;
 
 const prediction = require('@google-cloud/prediction')({
@@ -66,6 +64,23 @@ app.get('/', (req, res) => {
      'https://i.pinimg.com/564x/9f/c0/5a/9fc05a1f97f1a77ff5f2af13434a4271--funny-photography-white-photography.jpg'
      ]})
 })
+
+app.post('/click', (req, res) => {
+  db.addToClickHistory([req.body.user_id, req.body.movie_id], results => {
+    console.log('click added: ', results);
+    res.status(200).send();
+  });
+});
+
+app.get('/movie/:id', (req, res) => {
+  moviedb.getMovieDetailsById(req.params.id, (err, results) => {
+    if (err) {
+      console.log('error in getting stuff: ', err);
+    } else {
+      res.status(200).send(results);
+    }
+  });
+});
 
 app.post('/userprefs', (req, res) => {
 	console.log('RECEIVING POST REQUEST', req.body.prefs);

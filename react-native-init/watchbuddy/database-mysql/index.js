@@ -7,6 +7,17 @@ var connection = mysql.createConnection({
   database : 'watchbuddy'
 });
 
+var addToClickHistory = (params, cb) => {
+  connection.query('insert into clicks (user_id, movie_id) values (?, ?)', params, (err, results) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(results);
+    }
+  });
+};
+
+
 var checkUser = (params, callback) => {
   // select password and salt for hash comparision
   connection.query('select password, salt from user where username = ?', params, (error, results, fields) => {
@@ -57,5 +68,6 @@ module.exports = {
   checkUser,
   createUser,
   addSurveyData,
-  modifySeasonInfo
+  modifySeasonInfo,
+  addToClickHistory
 };
