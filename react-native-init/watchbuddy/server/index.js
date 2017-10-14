@@ -63,7 +63,27 @@ app.get('/', (req, res) => {
     'https://community.cadence.com/resized-image/__size/940x0/__key/communityserver-blogs-components-weblogfiles/00-00-00-01-06/4544.kitten.jpg',
      'https://i.pinimg.com/564x/9f/c0/5a/9fc05a1f97f1a77ff5f2af13434a4271--funny-photography-white-photography.jpg'
      ]})
-})
+});
+
+app.get('/click', (req, res) => {
+  db.getFavorites([req.body.user_id], (err, results) => {
+    if (err) {
+      res.status(400).send('error in getting clicks');
+    } else {
+      res.status(200).send(results);
+    }
+  });
+});
+
+app.get('/favorite', (req, res) => {
+  db.getFavorites([req.body.user_id], (err, faves) => {
+    if (err) {
+      res.status(400).send('error in getting favorites');
+    } else {
+      res.status(200).send(faves);
+    }
+  });
+});
 
 app.post('/click', (req, res) => {
   db.addToClickHistory([req.body.user_id, req.body.movie_id], (err, results) => {

@@ -7,6 +7,27 @@ var connection = mysql.createConnection({
   database : 'watchbuddy'
 });
 
+
+var getFavorites = (params, cb) => {
+  connection.query('select * from favorites where user_id = ? order by time desc', params, (err, favorites) => {
+    if(err) {
+      cb(err, null);
+    } else {
+      cb(null, favorites);
+    }
+  });
+};
+
+var getRecentlyClicked = (params, cb) => {
+  connection.query('select * from clicks where user_id = ? order by time desc', params, (err, clicked) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, clicked);
+    }
+  });
+};
+
 var addToFavorites = (params, cb) => {
   connection.query('insert into favorites (user_id, movie_id) values (?, ?)', params, (err, results) => {
     if (err) {
@@ -79,5 +100,7 @@ module.exports = {
   addSurveyData,
   modifySeasonInfo,
   addToClickHistory,
-  addToFavorites
+  addToFavorites,
+  getFavorites,
+  getRecentlyClicked
 };
