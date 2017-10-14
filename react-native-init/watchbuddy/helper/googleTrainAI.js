@@ -1,7 +1,9 @@
 const genreImportedIds = require('../data/genreIds.js');
+const googleProjectId = require('../keys/google-project-id.js');
+
 const prediction = require('@google-cloud/prediction')({
-  projectId: 'backc-179222',
-  keyFilename: '../backc-73ac68e09be6.json'
+  projectId: '' + googleProjectId,
+  keyFilename: '../keys/backc-73ac68e09be6.json'
 });
 
 var model = prediction.model('movie-prefers');
