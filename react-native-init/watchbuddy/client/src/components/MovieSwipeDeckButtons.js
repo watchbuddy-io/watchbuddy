@@ -28,7 +28,7 @@ export default MovieSwipeDeckButtons = ({ dimensions, handleLeftButtonPress, han
           rounded
           disabled={buttonsDisabled}
           onPress={handleUnwatchedButtonPress} 
-          icon={{ name: 'eye-with-line', type: 'entypo', size: ICON_STYLES.size, color: ICON_STYLES.color }} 
+          icon={{ name: 'md-eye-off', type: 'ionicon', size: ICON_STYLES.size, color: ICON_STYLES.color }} 
           buttonStyle={{ backgroundColor: '#fdd835' }}
         />
         <Button
