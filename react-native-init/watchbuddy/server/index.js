@@ -5,135 +5,57 @@ const db = require('../database-mysql');
 const moviedb = require('../helper/moviedb.js');
 const utils = require('./hashUtils.js')
 const googleTrainAI = require('../helper/googleTrainAI.js');
+const amazonKeys = require('../keys/amazon-api.js');
+const amazon = require('amazon-product-api');
+const googleProjectId = require('../keys/google-project-id.js');
 
 const app = express();
 
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/../react-client/dist'));
 
-const port = 1339;
+/* static files served ONLY for web version
+  app.use(express.static(__dirname + '/../react-client/dist'));
+*/
+
+const port = 1391;
 
 const prediction = require('@google-cloud/prediction')({
-  projectId: 'backc-179222',
-  keyFilename: '../backc-73ac68e09be6.json'
+  projectId: googleProjectId,
+  keyFilename: '../keys/backc-73ac68e09be6.json'
 });
 
 var model = prediction.model('movie-prefers');
 
-// model.query('', function(err, results) {
-//   if (err) {
-//   	console.log('error in query', err)
-//   } else {
-//   	console.log('successful query', results)
-//     // results.winner == 'english' 
-//     // results.scores == [ 
-//     //   { 
-//     //     label: 'english', 
-//     //     score: 1 
-//     //   }, 
-//     //   { 
-//     //     label: 'spanish', 
-//     //     score: 0 
-//     //   } 
-//     // ] 
-//   } 
-// });
-
-// var stream = model.createWriteStream('Crime');
-
-// stream
-//   .on('error', function(err) {
-//     // Uh oh, an error occurred!
-//   })
-//   .on('finish', function() {
-//     // The model will now be processing the new data.
-//   });
-
-// stream.write("John Wick is forced out of retirement by a former associate looking to seize control of a shadowy international assassins’ guild. Bound by a blood oath to aid him, Wick travels to Rome and does battle against some of the world’s most dangerous killers.");
-// stream.end();
-
-model.train('Crime', 'John Wick is forced out of retirement by a former associate looking to seize control of a shadowy international assassins’ guild. Bound by a blood oath to aid him, Wick travels to Rome and does battle against some of the world’s most dangerous killers.').then(function(data) {
-  var apiResponse = data[0];
-});
-
+ /*Google AI
+// model analysis
 model.analyze().then(function(data) {
+  console.log('ANAL',data)
   var analysis = data[0];
   var apiResponse = data[1];
 });
 
+// example query
 model.query('').then(function(data) {
 	console.log('QUERY', data[0])
 })
+*/
 
+/* Amazon Product API
+const AmazonClient = amazon.createClient({
+  awsId: amazonKeys.awsId,
+  awsSecret: amazonKeys.awsSecret,
+  awsTag: amazonKeys.awsTag
+});
 
-// var gcs = require('@google-cloud/storage')({
-// 	projectId: 'backc-179222'	
-// })
-// var bucket = gcs.bucket('quickstart-1507740010');
-// var modelDataJson = bucket.file('google-ai-mapping1.json');
-
-// prediction.createModel('testjson1').then(function(data) {
-//   var model = data;
-//   var apiResponse = data[1];
-//   // console.log(model);
-//   // console.log(apiResponse)
-// });
-
-// prediction.getModels(function(err, models) {
-//   if (!err) {
-//     // `models` is an array of Model objects. 
-//     // console.log(models)
-//   }
-// });
-
-// prediction.createModel('testjson2', {
-//   data: modelDataJson
-// }, function(err, model, apiResponse) {
-// 	console.log('err', err);
-// 	console.log('model', model);
-// 	console.log('apiResponse', apiResponse)
-// });
-
-
-
-// prediction.createModel('test-model', (err, model, apiResponse) => {
-// 	console.log('err', err);
-// 	console.log('model', model);
-// 	console.log('apiResponse', apiResponse)
-// })
-
-// var model = prediction.model('language-identifier');
-
-// model.train('greek', 'привет', function(err) {if(err) console.log('err in train',err)});
-
-// // Query a model. 
-// model.query('привет', function(err, results) {
-//   if (err) {
-//   	console.log('error in query', err)
-//   } else {
-//   	console.log('successful query', results.scores)
-//     // results.winner == 'english' 
-//     // results.scores == [ 
-//     //   { 
-//     //     label: 'english', 
-//     //     score: 1 
-//     //   }, 
-//     //   { 
-//     //     label: 'spanish', 
-//     //     score: 0 
-//     //   } 
-//     // ] 
-//   } 
-// });
-
-// prediction.getModels(function(err, models) {
-//   if (err) {
-//     console.log('error in getModels', err)
-//   } else {
-//     // `models` is an array of Model objects. 
-//   	console.log('these models:',models)
-//   }
-// });
+AmazonClient.itemSearch({
+  keywords: 'Minions',
+  searchIndex: 'DVD'
+}).then(function(results){
+  console.log('amazon res:',results);
+}).catch(function(err){
+  console.log('aamzon err:',err);
+});
+*/
 
 app.get('/', (req, res) => {
   console.log('inside get on server!')
@@ -142,9 +64,6 @@ app.get('/', (req, res) => {
      'https://i.pinimg.com/564x/9f/c0/5a/9fc05a1f97f1a77ff5f2af13434a4271--funny-photography-white-photography.jpg'
      ]})
 })
-
-// get movies by genre(s)
-// moviedb.discoverMoviesByGenre(console.log, "80,16")
 
 
 app.post('/userprefs', (req, res) => {
@@ -177,9 +96,7 @@ app.post('/userprefs', (req, res) => {
 
 /*
 	ALL CODE BELOW IS COPIED FROM LEGACY...
-*/
 
-/*
 //This function is to retrieve the top 5 recommended shows from the MovieDB api for the front page of WatchBuddy.
 app.get('/recommend', function (req, res) {
 	var genres;
