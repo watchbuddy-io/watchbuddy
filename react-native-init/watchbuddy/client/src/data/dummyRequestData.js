@@ -4,8 +4,8 @@ export default dummyRequestData = {
     {
       id: 1,
       genre: 'sci-fi',
-      title: 'Back to the Future',
-      posterUrl: 'https://images-na.ssl-images-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SY1000_CR0,0,643,1000_AL_.jpg'
+      title: 'Blade Runner 2049',
+      posterUrl: 'https://pbs.twimg.com/media/DH9QvgAUQAAZANa.jpg:large'
     },
     {
       id: 2,
