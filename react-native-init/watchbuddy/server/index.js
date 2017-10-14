@@ -65,6 +65,28 @@ model.query('').then(function(data) {
 	console.log('QUERY', data[0])
 })
 
+/// AMAZON
+
+var amazon = require('amazon-product-api');
+
+var AmazonClient = amazon.createClient({
+  awsId: "AKIAIOQ26KJVDJDAXB6Q",
+  awsSecret: "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",
+  awsTag: "booleanscht-20"
+});
+
+AmazonClient.itemSearch({
+	keywords: 'Minions',
+  searchIndex: 'DVD'
+}).then(function(results){
+  console.log('amazon res:',results);
+}).catch(function(err){
+  console.log('aamzon err:',err);
+});
+
+
+/// ABOVE
+
 
 // var gcs = require('@google-cloud/storage')({
 // 	projectId: 'backc-179222'	
@@ -168,8 +190,8 @@ app.post('/userprefs', (req, res) => {
 					// parse the page, have the object that maps genres with names and add to our AI
 		moviedb.discoverMoviesByGenre(userGenrePrefs, (err, apiData) => {
 			console.log('API DATA from DB: ', apiData);
-			googleTrainAI.googleTrain(JSON.parse(apiData));
-			res.send(apiData);
+      googleTrainAI.googleTrain(JSON.parse(apiData));
+      res.json(apiData);
 		})
 
 	})

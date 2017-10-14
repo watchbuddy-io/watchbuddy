@@ -9,6 +9,7 @@
   "dependencies": {
     "@google-cloud/prediction": "^0.6.2",
     "@google-cloud/storage": "^1.4.0",
+    "amazon-product-api": "^0.4.4",
     "axios": "^0.16.2",
     "express": "^4.16.2",
     "install": "^0.10.1",
