@@ -140,4 +140,4 @@ const styles = StyleSheet.create({
 
 // fb
 
-AppRegistry.registerComponent('watchbuddy', () => fbAuthComponent);
+AppRegistry.registerComponent('watchbuddy', () => App);
