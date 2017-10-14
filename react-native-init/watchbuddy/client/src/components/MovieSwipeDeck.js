@@ -90,12 +90,13 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
     if (this.numRenderEmptyCalls > 1) {
       googleApiRequests.queryGoogleApi(this.liked)
         .then(data => {
-          console.log(data);
+          console.log(JSON.parse(data.data).results);
+          changeView('MovieGridList', JSON.parse(data.data).results);
         })
         .catch(err => {
           console.log(err);
+          changeView('MovieGridList')
         });
-      setTimeout(() => changeView('MovieGridList'), 2000);
     }
 
     this.numRenderEmptyCalls++;

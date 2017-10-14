@@ -52,7 +52,7 @@ export default class MovieGridList extends Component<{}> {
       movie ?
         <TouchableHighlight onPress={this.onPosterPress.bind({context: this, movie: movie})}>
           <Image
-            source={{ height: this.props.dimensions.height / 2, width: this.props.dimensions.width / 2, uri: movie.posterUrl }}
+            source={{ height: this.props.dimensions.height / 2, width: this.props.dimensions.width / 2, uri: `https://image.tmdb.org/t/p/w500/${movie.poster_path}` }}
           />
         </TouchableHighlight>
         : null

@@ -29,14 +29,17 @@ export default class App extends Component<{}> {
     super();
 
     this.state = {
-      view: 'Welcome',
+      view: 'MovieSwipeDeck',
       data: dummyRequestData.data,
       screenDimensions: screen.getScreenDimensions()
     }
   }
 
-  changeView(view) {
+  changeView(view, data) {
     this.setState({ view: view });
+    if (data) {
+      this.setState({data: data});
+    }
   }
 
   renderView(data) {
