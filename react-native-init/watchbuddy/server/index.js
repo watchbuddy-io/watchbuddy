@@ -16,11 +16,11 @@ app.use(bodyParser.json());
 /* static files served ONLY for web version
   app.use(express.static(__dirname + '/../react-client/dist'));
 */
-
+console.log(googleProjectId)
 const port = 1391;
 
 const prediction = require('@google-cloud/prediction')({
-  projectId: googleProjectId,
+  projectId: '' + googleProjectId,
   keyFilename: '../keys/backc-73ac68e09be6.json'
 });
 
