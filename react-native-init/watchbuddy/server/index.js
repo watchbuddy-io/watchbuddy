@@ -8,6 +8,8 @@ const googleTrainAI = require('../helper/googleTrainAI.js');
 const amazonKeys = require('../keys/amazon-api.js');
 const amazon = require('amazon-product-api');
 const googleProjectId = require('../keys/google-project-id.js');
+const rottenKey = require('../keys/rotten-api.js');
+const rotten = require('rotten-api')(rottenKey);
 
 const app = express();
 
@@ -64,7 +66,6 @@ app.get('/', (req, res) => {
      'https://i.pinimg.com/564x/9f/c0/5a/9fc05a1f97f1a77ff5f2af13434a4271--funny-photography-white-photography.jpg'
      ]})
 })
-
 
 app.post('/userprefs', (req, res) => {
 	console.log('RECEIVING POST REQUEST', req.body.prefs);
