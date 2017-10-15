@@ -4,6 +4,23 @@ const strictUriEncode = require('strict-uri-encode');
 const genreNames = require('../data/genreNames.js');
 
 
+let getMovieDetailsById = (id, cb) => {
+  let options = {
+    url: `https://api.themoviedb.org/3/movie/${id}?api_key=${config.TOKEN}`,
+    headers: {
+      'User-Agent': 'request'
+    }
+  };
+  request(options, (err, res, body) => {
+    if(err) {
+      cb(err, null);
+    } else {
+      cb(null, body);
+    }
+  });
+};
+
+
 let getInfoByTitle = (title, callback) => {
 	let options = {
 		url: `https://api.themoviedb.org/3/find/en/${title}?api_key=${config.TOKEN}&external_source=freebase_id`,
@@ -109,10 +126,13 @@ let episode = (id, season, episode, callback) => {
 	})
 }
 
-module.exports.getInfoByTitle = getInfoByTitle;
-module.exports.getPopularShows = getPopularShows;
-module.exports.genre = genre;
-module.exports.search = search;
-module.exports.details = details;
-module.exports.episode = episode;
-module.exports.discoverMoviesByGenre = discoverMoviesByGenre;
+module.exports = {
+  getInfoByTitle,
+  getPopularShows,
+  genre,
+  search,
+  details,
+  episode,
+  discoverMoviesByGenre,
+  getMovieDetailsById  
+}
