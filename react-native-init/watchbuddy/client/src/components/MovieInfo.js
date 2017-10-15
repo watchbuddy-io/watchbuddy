@@ -25,9 +25,11 @@ export default MovieSwipeDeckButtons = ({ dimensions, changeView, movie }) => {
     <View>
       <View style={{height: dimensions.height / 2, width: dimensions.width}}>
         {this.getMoviePoster(movie)}
+        <View>
         <Text style={{ position: 'absolute', bottom: 0, fontSize: 24, color: '#FFF', backgroundColor: 'rgba(0,0,0,.5)' }}>
           {movie.title}
         </Text>
+        </View>
       </View>
       <Text style={{ fontSize: 16 }}>
         {movie.overview}
