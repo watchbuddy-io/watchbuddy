@@ -29,14 +29,17 @@ var getRecentlyClicked = (params, cb) => {
 };
 
 var addToFavorites = (params, cb) => {
-  connection.query('insert into favorites (user_id, movie_id) values (?, ?)', params, (err, results) => {
-    if (err) {
-      cb(err, null);
-    } else {
-      cb(null, results);
-    }
+  connection.query('insert into favorites (user_id, movie_id) values (?, ?)', [params[0], params[1]], () => {
+    connection.query('insert into userProfile (user_id, description) values (?, ?) on duplicate key update description=concat(description, " ", ?)', [params[0], params[2], params[2]], (err, results) => {
+      if (err) {
+        cb(err, null);
+      } else {
+        cb(null, results);
+      }
+    });
   });
 };
+
 var addToClickHistory = (params, cb) => {
   connection.query('insert into clicks (user_id, movie_id) values (?, ?)', params, (err, results) => {
     if (err) {
