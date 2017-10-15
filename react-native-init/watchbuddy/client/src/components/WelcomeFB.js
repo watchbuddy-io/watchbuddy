@@ -11,18 +11,16 @@ import {
 import FBSDK, { LoginManager, LoginButton, AccessToken } from 'react-native-fbsdk';
 
 
-export default class fbAuthComponent extends Component<{}> {
+export default class WelcomeFB extends Component<{}> {
 
-  _fbAuth() {
-    LoginManager.logInWithReadPermissions(['public_profile']).then(function(result) {
-      if (result.isCancelled) {
-        console.log('Login Cancelled', result);
-      } else {
-        console.log('login success: ', result)
-      }
-    }, function(error) {
-      console.log('An error occured: ', error)
-    })
+  constructor(props) {
+    super(props)
+  }
+
+  componentWillMount() {
+    AccessToken.getCurrentAccessToken().then(data => {
+      this.props.changeView('MovieSwipeDeck')
+    }).catch(err => console.log('err', err))
   }
 
   render() {
@@ -61,7 +59,7 @@ export default class fbAuthComponent extends Component<{}> {
 
           You'll start by simply choosing the movies you like, dislike or haven't watched yet. Let our AI do the rest of the work!
         </Text>
-        <Image style={styles.image} source={require('./client/assets/welcome2.jpg')} />
+        <Image style={styles.image} source={require('../../assets/welcome2.jpg')} />
         <View style={styles.button}>
           <LoginButton
             publishPermissions={["publish_actions"]}
@@ -74,7 +72,9 @@ export default class fbAuthComponent extends Component<{}> {
                 } else {
                   AccessToken.getCurrentAccessToken().then(
                     (data) => {
-                      console.log(data)
+                      if (data) {
+                        console.log('teststtt', AccessToken.getCurrentAccessToken())
+                      }
                     }
                   )
                 }

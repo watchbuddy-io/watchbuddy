@@ -7,6 +7,8 @@ import React from 'react';
 import screen from './utils/screen';
 import views from './utils/views';
 
+import FBSDK, { LoginManager, LoginButton, AccessToken } from 'react-native-fbsdk';
+
 import { 
   Spinner
 } from 'nachos-ui';
@@ -31,12 +33,25 @@ export default class App extends Component<{}> {
     this.state = {
       view: 'WelcomeFB',
       data: dummyRequestData.data,
-      screenDimensions: screen.getScreenDimensions()
+      screenDimensions: screen.getScreenDimensions(),
+      loginInfoLoaded: false
     }
+
+    this.userLoggedin = false;
+
+    AccessToken.getCurrentAccessToken().then(data => {
+      this.loggedIn = data ? true : false;
+      this.setState({
+        loginInfoLoaded: true
+      });
+    }).catch(err => console.log('err', err));
   }
 
-  changeView(view) {
+  changeView(view, data) {
     this.setState({ view: view });
+    if (data) {
+      this.setState({data: data});
+    }
   }
 
   renderView(data) {
@@ -45,7 +60,7 @@ export default class App extends Component<{}> {
     return (
       <Content
         data={data}
-        dimensions={(this.state.view !== 'Welcome') ? content.getContentDimensions(this.state.screenDimensions) : this.state.screenDimensions}
+        dimensions={(this.state.view !== 'WelcomeFB') ? content.getContentDimensions(this.state.screenDimensions) : this.state.screenDimensions}
         changeView={this.changeView.bind(this)}
       />
     );
@@ -58,11 +73,23 @@ export default class App extends Component<{}> {
   }
 
   render() {
-    return (
-      <Container style={{ flexDirection: "column" }}>
-        {(this.state.view !== 'Welcome') ? this.renderNav() : null}
-        {this.renderView(this.state.data)}
-      </Container>
-    );
+    if (this.state.view !== 'WelcomeFB') {
+      return (
+        <Container style={{ flexDirection: "column" }}>
+          {this.renderNav()}
+          {this.renderView(this.state.data)}
+        </Container>
+      );
+    } else if (this.state.loginInfoLoaded && !this.userLoggedIn) {
+      return (
+        <Container style={{ flexDirection: "column" }}>
+          {this.renderView(this.state.data)}
+        </Container>
+      );
+    } else {
+      return (
+        null
+      );
+    }
   }
 }

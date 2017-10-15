@@ -10,5 +10,6 @@ export default views = {
   MovieSwipeDeck: MovieSwipeDeck,
   MovieGridList: MovieGridList,
   MovieInfo: MovieInfo,
-  Welcome: Welcome
+  Welcome: Welcome,
+  WelcomeFB
 }
