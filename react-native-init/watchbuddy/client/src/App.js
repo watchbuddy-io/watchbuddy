@@ -7,6 +7,8 @@ import React from 'react';
 import screen from './utils/screen';
 import views from './utils/views';
 
+import FBSDK, { LoginManager, LoginButton, AccessToken } from 'react-native-fbsdk';
+
 import { 
   Spinner
 } from 'nachos-ui';
@@ -29,7 +31,7 @@ export default class App extends Component<{}> {
     super();
 
     this.state = {
-      view: 'MovieSwipeDeck',
+      view: 'WelcomeFB',
       data: dummyRequestData.data,
       screenDimensions: screen.getScreenDimensions()
     }
@@ -48,7 +50,7 @@ export default class App extends Component<{}> {
     return (
       <Content
         data={data}
-        dimensions={(this.state.view !== 'Welcome') ? content.getContentDimensions(this.state.screenDimensions) : this.state.screenDimensions}
+        dimensions={(this.state.view !== 'WelcomeFB') ? content.getContentDimensions(this.state.screenDimensions) : this.state.screenDimensions}
         changeView={this.changeView.bind(this)}
       />
     );
@@ -63,7 +65,7 @@ export default class App extends Component<{}> {
   render() {
     return (
       <Container style={{ flexDirection: "column" }}>
-        {(this.state.view !== 'Welcome') ? this.renderNav() : null}
+        {(this.state.view !== 'WelcomeFB') ? this.renderNav() : null}
         {this.renderView(this.state.data)}
       </Container>
     );
