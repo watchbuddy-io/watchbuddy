@@ -11,6 +11,10 @@ import {
   Button
 } from 'react-native-elements';
 
+import {
+  Separator
+} from 'native-base'
+
 const COMPONENT_WIDTH_RATIOS = {
   cardWidth: .92
 }
@@ -36,30 +40,42 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie }) => {
         </Text>
         </View>
       </View>
-      <View style={{ flexDirection: "row", justifyContent: 'space-between', paddingTop: 10, paddingBottom: 10 }}>
+      <Separator bordered>
+        <Text>{movie.title} | Rating: {movie.vote_average} </Text>
+      </Separator>
+      <View style={{ display: 'flex', alignItems: 'stretch', flexDirection: 'row', paddingTop: 5, width: dimensions.width}}>
         <Button 
-          rounded
-          onPress={() => {}}
-          title={`rating: ${movie.vote_average}`} 
-          buttonStyle={styles.Button} 
-        />
-        <Button 
-          rounded
           onPress={() => {}} 
-          title={'watch now'}
-          buttonStyle={styles.Button}
+          title={'Watch Now'}
+          buttonStyle={{
+            width: dimensions.width / 2.5,
+            backgroundColor: '#29b6f6'
+          }}
         />
         <Button
-          rounded
           onPress={() => {}} 
-          title={'save'}
-          buttonStyle={styles.Button} 
+          title={'Save'}
+          buttonStyle={{
+            width: dimensions.width / 2.5,
+            backgroundColor: '#29b6f6'
+          }}
         />
       </View>
-      <Text style={{fontSize: 16, fontWeight: 'bold', textDecoration: 'underline'}}>
-        Synopsis
+      <Text style={{
+        fontWeight: 'bold',
+        fontSize: 20,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 5
+      }}>
+        Critics Description:
       </Text>
-      <Text style={{ fontSize: 16 }}>
+      <Text style={{ 
+        fontSize: 16,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 5
+       }}>
         {movie.overview}
       </Text>
     </View>
@@ -68,8 +84,8 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie }) => {
 
 const styles = {
   Button: {
-    padding: 10,
-    borderRadius: 10,
+    width: '100%',
+    flexGrow: 1,
     backgroundColor: '#29b6f6'
   }
 }

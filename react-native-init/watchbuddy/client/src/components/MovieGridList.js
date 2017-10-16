@@ -49,7 +49,11 @@ export default class MovieGridList extends Component<{}> {
     axios.post('http://localhost:1391/click', 
     {
       movie_title: this.movie.title
-    })
+    }).then(data =>
+      console.log(data)
+    ).catch(error => 
+      console.log(error)
+    );
 
     this.context.setState({selectedMovie: this.movie});
   }
