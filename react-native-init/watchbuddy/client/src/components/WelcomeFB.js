@@ -1,4 +1,3 @@
-// fb
 import React, { Component } from 'react';
 import {
   Platform,
@@ -12,7 +11,6 @@ import FBSDK, { LoginManager, LoginButton, AccessToken } from 'react-native-fbsd
 
 
 export default class WelcomeFB extends Component<{}> {
-
   constructor(props) {
     super(props)
   }
@@ -35,34 +33,32 @@ export default class WelcomeFB extends Component<{}> {
           style={{
             color: "rgba(255,255,255,1)",
             position: "absolute",
-            top: 138.79,
-            left: 6.79,
-            width: 359.88,
-            height: 74.53,
+            top: this.props.dimensions.height * .25,
+            width: this.props.dimensions.width,
+            textAlign: "center",
             backgroundColor: "transparent",
             fontSize: 55,
             zIndex: 2
           }}
         >
-          watchbuddy.io
+          watchbuddy
         </Text>
         <Text style={{
-          zIndex: 10,
           color: "rgba(255,255,255,1)",
           position: "absolute",
-          top: 300,
-          left: 6.79,
-          width: 359.88,
-          height: 200.53,
+          width: this.props.dimensions.width * .8,
           backgroundColor: "transparent",
           fontSize: 20,
+          zIndex: 2,
         }}>
-          We use complex machine learning algorithms to help you watch the best movie, for your mood at the time. {"\n\n"}
-
-          You'll start by simply choosing the movies you like, dislike or haven't watched yet. Let our AI do the rest of the work!
+          Pick the movies you like and let our AI build recommendations according to your tastes!
         </Text>
         <Image style={styles.image} source={require('../../assets/welcome2.jpg')} />
-        <View style={styles.button}>
+        <View style={{
+          position: 'absolute',
+          bottom: this.props.dimensions.height * .1,
+          zIndex: 2
+        }}>
           <LoginButton
             publishPermissions={["publish_actions"]}
             onLoginFinished={
@@ -98,7 +94,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     zIndex: 2,
-    opacity: 0.2,
+    opacity: 0.25,
     backgroundColor: 'black',
     position: 'absolute',
     width: '100%',
