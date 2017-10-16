@@ -97,7 +97,7 @@ app.post('/click', (req, res) => {
 });
 
 app.post('/favorite', (req, res) => {
-  db.addToFavorites([req.body.user_id, req.body.movie_id], (err, results) => {
+  db.addToFavorites([req.body.user_id, req.body.movie_id, req.body.prefs], (err, results) => {
     if (err) {
       console.log('error in adding favorite: ', err);
       res.status(400).send('error in adding favorite');

@@ -41,6 +41,12 @@ CREATE TABLE favorites (
   PRIMARY KEY (ID)
 );
 
+CREATE TABLE userProfile (
+  user_id int NOT NULL,
+  description varchar(5000) NOT NULL,
+  PRIMARY KEY (user_id)
+);
+
 -- CREATE TABLE shows (
 --   show_id int NOT NULL AUTO_INCREMENT,
 --   title varchar(255),
