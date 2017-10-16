@@ -42,20 +42,22 @@ model.query('').then(function(data) {
 
  // Amazon Product API
 const AmazonClient = amazon.createClient({
-  awsId: amazonKeys.awsId,
+  awsId: amazonKeys.awsId, 
   awsSecret: amazonKeys.awsSecret,
   awsTag: amazonKeys.awsTag
 });
 
-AmazonClient.itemSearch({
-  keywords: 'Minions', // req.body.movieTitle
-  searchIndex: 'DVD'
-}).then(function(results){
-  console.log('amazon res:',results[0].DetailPageURL[0]);
-}).catch(function(err){
-  console.log('aamzon err:',err);
-});
 
+// AmazonClient.itemSearch({
+//   keywords: 'Minions', // req.body.movieTitle
+//   searchIndex: 'DVD'
+// }).then(function(results){
+//   console.log('amazon res:',results[0].DetailPageURL[0]);
+//   return results[0].DetailPageURL[0];
+// }).catch(function(err){
+//   console.log('aamzon err:',err);
+//   console.log('amazon err: ', err.Error[0]);
+// });
 
 app.get('/', (req, res) => {
   console.log('inside get on server!')
@@ -91,7 +93,13 @@ app.post('/click', (req, res) => {
       console.log('error in adding click: ', err);
       res.status(400).send('error in adding click');
     } else {
-      res.status(200).send();
+      AmazonClient.itemSearch({
+        keywords: req.body.movie_title,
+        searchIndex: 'DVD'
+      }).then(hits => {
+        res.amazon = hits[0].DetailPageURL[0];
+        res.status(200).send();
+      });
     }
   });
 });
