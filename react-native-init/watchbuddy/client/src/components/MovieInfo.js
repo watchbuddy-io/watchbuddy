@@ -36,26 +36,29 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie }) => {
         </Text>
         </View>
       </View>
-      <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
+      <View style={{ flexDirection: "row", justifyContent: 'space-between', paddingTop: 10, paddingBottom: 10 }}>
         <Button 
           rounded
           onPress={() => {}}
-          title={'rating:'} 
+          title={`rating: ${movie.vote_average}`} 
           buttonStyle={styles.Button} 
         />
         <Button 
           rounded
           onPress={() => {}} 
-          title={'add'}
+          title={'watch now'}
           buttonStyle={styles.Button}
         />
         <Button
           rounded
           onPress={() => {}} 
-          title={'view'}
+          title={'save'}
           buttonStyle={styles.Button} 
         />
       </View>
+      <Text style={{fontSize: 16, fontWeight: 'bold', textDecoration: 'underline'}}>
+        Synopsis
+      </Text>
       <Text style={{ fontSize: 16 }}>
         {movie.overview}
       </Text>
@@ -66,7 +69,6 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie }) => {
 const styles = {
   Button: {
     padding: 10,
-    backgroundColor: 'transparent',
     borderRadius: 10,
     backgroundColor: '#29b6f6'
   }
