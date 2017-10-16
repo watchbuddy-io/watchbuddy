@@ -58,11 +58,15 @@ export default class App extends Component<{}> {
 
   renderNav() {
     return (
-      <Nav dimensions={content.getNavDimensions(this.state.screenDimensions)} />
+      <Nav 
+        dimensions={content.getNavDimensions(this.state.screenDimensions)}
+        changeView={this.changeView.bind(this)}
+      />
     );
   }
 
   render() {
+    console.log(this.state.view);
     return (
       <Container style={{ flexDirection: "column" }}>
         {(this.state.view !== 'WelcomeFB') ? this.renderNav() : null}

@@ -59,6 +59,12 @@ export default class MovieGridList extends Component<{}> {
     );    
   }
 
+  componentWillUpdate() {
+    if (this.state.selectedMovie) {
+      this.setState({ selectedMovie: null });
+    }
+  }
+
   render() {
     return (
       (!this.state.selectedMovie) ?

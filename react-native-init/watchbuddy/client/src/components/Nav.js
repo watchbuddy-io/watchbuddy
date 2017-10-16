@@ -14,12 +14,12 @@ const BUTTON_STYLES = {
   backgroundColor: 'none'
 }
 
-export default Nav = ({ dimensions }) => {
+export default Nav = ({ dimensions, changeView }) => {
   return (
     <Header style={{ height: dimensions.height, flexDirection: "row", justifyContent: 'space-between' }}
       leftComponent={<Button icon={{ name: 'menu', size: ICON_STYLES.size, color: ICON_STYLES.color }} buttonStyle={{ backgroundColor: '#FFF' }} />}
       centerComponent={<Button title={'watchbuddy.io'} buttonStyle={{ backgroundColor: '#FFF' }} textStyle={{ color: '#444', fontSize: 20 }} />}
-      rightComponent={<Button icon={{ name: 'home', size: ICON_STYLES.size, color: ICON_STYLES.color }} buttonStyle={{ backgroundColor: '#FFF' }} />}
+      rightComponent={<Button icon={{ name: 'home', size: ICON_STYLES.size, color: ICON_STYLES.color }} buttonStyle={{ backgroundColor: '#FFF' }} onPress={() => changeView('MovieGridList')} />}
     />
   );
 }
