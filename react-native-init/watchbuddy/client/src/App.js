@@ -33,18 +33,8 @@ export default class App extends Component<{}> {
     this.state = {
       view: 'WelcomeFB',
       data: dummyRequestData.data,
-      screenDimensions: screen.getScreenDimensions(),
-      loginInfoLoaded: false
+      screenDimensions: screen.getScreenDimensions()
     }
-
-    this.userLoggedin = false;
-
-    AccessToken.getCurrentAccessToken().then(data => {
-      this.loggedIn = data ? true : false;
-      this.setState({
-        loginInfoLoaded: true
-      });
-    }).catch(err => console.log('err', err));
   }
 
   changeView(view, data) {
@@ -73,23 +63,11 @@ export default class App extends Component<{}> {
   }
 
   render() {
-    if (this.state.view !== 'WelcomeFB') {
-      return (
-        <Container style={{ flexDirection: "column" }}>
-          {this.renderNav()}
-          {this.renderView(this.state.data)}
-        </Container>
-      );
-    } else if (this.state.loginInfoLoaded && !this.userLoggedIn) {
-      return (
-        <Container style={{ flexDirection: "column" }}>
-          {this.renderView(this.state.data)}
-        </Container>
-      );
-    } else {
-      return (
-        null
-      );
-    }
+    return (
+      <Container style={{ flexDirection: "column" }}>
+        {(this.state.view !== 'WelcomeFB') ? this.renderNav() : null}
+        {this.renderView(this.state.data)}
+      </Container>
+    );
   }
 }

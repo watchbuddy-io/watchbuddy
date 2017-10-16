@@ -40,7 +40,7 @@ model.query('').then(function(data) {
 })
 */
 
-/* Amazon Product API
+ // Amazon Product API
 const AmazonClient = amazon.createClient({
   awsId: amazonKeys.awsId,
   awsSecret: amazonKeys.awsSecret,
@@ -48,14 +48,14 @@ const AmazonClient = amazon.createClient({
 });
 
 AmazonClient.itemSearch({
-  keywords: 'Minions',
+  keywords: 'Minions', // req.body.movieTitle
   searchIndex: 'DVD'
 }).then(function(results){
-  console.log('amazon res:',results);
+  console.log('amazon res:',results[0].DetailPageURL[0]);
 }).catch(function(err){
   console.log('aamzon err:',err);
 });
-*/
+
 
 app.get('/', (req, res) => {
   console.log('inside get on server!')

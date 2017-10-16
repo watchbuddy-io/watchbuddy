@@ -19,7 +19,9 @@ export default class WelcomeFB extends Component<{}> {
 
   componentWillMount() {
     AccessToken.getCurrentAccessToken().then(data => {
-      this.props.changeView('MovieSwipeDeck')
+      if (data) {
+        this.props.changeView('MovieSwipeDeck')
+      }
     }).catch(err => console.log('err', err))
   }
 
@@ -73,6 +75,7 @@ export default class WelcomeFB extends Component<{}> {
                   AccessToken.getCurrentAccessToken().then(
                     (data) => {
                       if (data) {
+                        this.props.changeView('MovieSwipeDeck')
                         console.log('teststtt', AccessToken.getCurrentAccessToken())
                       }
                     }
