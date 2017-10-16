@@ -11,6 +11,10 @@ import {
   Button
 } from 'react-native-elements';
 
+import {
+  Separator
+} from 'native-base'
+
 const COMPONENT_WIDTH_RATIOS = {
   cardWidth: .92
 }
@@ -36,27 +40,36 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie }) => {
         </Text>
         </View>
       </View>
-      <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
+      <Separator bordered>
+        <Text>{movie.title} | Rating: 7.5 </Text>
+      </Separator>
+      <View style={{ display: 'flex', alignItems: 'stretch', flexDirection: 'row', paddingTop: 5, width: dimensions.width}}>
         <Button 
-          rounded
-          onPress={() => {}}
-          title={'rating:'} 
-          buttonStyle={styles.Button} 
-        />
-        <Button 
-          rounded
           onPress={() => {}} 
-          title={'add'}
+          title={'Watch Now'}
           buttonStyle={styles.Button}
         />
         <Button
-          rounded
           onPress={() => {}} 
-          title={'view'}
+          title={'Save'}
           buttonStyle={styles.Button} 
         />
       </View>
-      <Text style={{ fontSize: 16 }}>
+      <Text style={{
+        fontWeight: 'bold',
+        fontSize: 20,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 5
+      }}>
+        Critics Description:
+      </Text>
+      <Text style={{ 
+        fontSize: 16,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 5
+       }}>
         {movie.overview}
       </Text>
     </View>
@@ -65,9 +78,8 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie }) => {
 
 const styles = {
   Button: {
-    padding: 10,
-    backgroundColor: 'transparent',
-    borderRadius: 10,
+    width: '100%',
+    flexGrow: 1,
     backgroundColor: '#29b6f6'
   }
 }
