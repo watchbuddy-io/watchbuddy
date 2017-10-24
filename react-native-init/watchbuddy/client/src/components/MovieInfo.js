@@ -13,13 +13,18 @@ import {
 
 import {
   Separator
-} from 'native-base'
+} from 'native-base';
+
+// Code from Seva, you can delete this or modularize as needed (also adding get request on click of SAVE button)
+import axios from 'axios';
+import { AccessToken } from 'react-native-fbsdk'
+// finish from Seva
 
 const COMPONENT_WIDTH_RATIOS = {
   cardWidth: .92
 }
 
-export default MovieSwipeDeckButtons = ({ dimensions, movie }) => {
+export default MovieSwipeDeckButtons = ({ dimensions, movie, movieUrl }) => {
   this.getMoviePoster = (movie) => {
     return (
       movie ?
@@ -42,12 +47,20 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie }) => {
       </Separator>
       <View style={{ display: 'flex', flexDirection: 'row', paddingTop: 5, width: 400}}>
         <Button 
-          onPress={() => {}} 
+          onPress={() => {Linking.openURL(movieUrl)}} 
           title={'Watch Now'}
           buttonStyle={styles.Button1}
         />
         <Button
-          onPress={() => {}} 
+          onPress={() => {
+            AccessToken.getCurrentAccessToken().then(data => {
+              axios.post('http://13.57.94.147:3000/favorites', {token: data.accessToken, savedMovie: movie})
+                // axios.post('http://13.57.94.147:3000/favorites', {data.accessToken:movie})
+                  .then(data => console.log('clicked Saved GET success: ',data))
+                  .catch(err => console.log('clicked Saved GET ERROR: ',err))
+              })
+              .catch(err => console.log('err', err))
+          }} 
           title={'Save'}
           buttonStyle={styles.Button2} 
         />

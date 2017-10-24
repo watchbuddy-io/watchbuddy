@@ -67,6 +67,22 @@ app.get('/', (req, res) => {
      ]})
 });
 
+app.post('/selectMovie', (req, res) => {
+  console.log('sleceted movie')
+  AmazonClient.itemSearch({
+  keywords: req.body.movie,
+  searchIndex: 'DVD'
+}).then(function(results){
+  // console.log('amazon res:',results[0].DetailPageURL[0]);
+  // return results[0].DetailPageURL[0];\
+  console.log('AMAZON URL', results[0].DetailPageURL[0])
+  res.send({movieUrl: results[0].DetailPageURL[0]})
+}).catch(function(err){
+  console.log('aamzon err:',err);
+  console.log('amazon err: ', err.Error[0]);
+});
+})
+
 app.get('/click', (req, res) => {
   db.getFavorites([req.body.user_id], (err, results) => {
     if (err) {
@@ -130,6 +146,7 @@ app.post('/userprefs', (req, res) => {
 	console.log('RECEIVING POST REQUEST', req.body.prefs);
 	// req.body.prefs should have query I will use for AI
 	model.query(req.body.prefs).then(function(data) {
+    console.log(data[0].scores)
 		// data[0].scores gives us an array in order
 		// we take data[0].scores[0].label, data[0].scores[1].label, data[0].scores[2].label
 		let userGenrePrefs = [data[0].scores[0].label, data[0].scores[1].label]
