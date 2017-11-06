@@ -43,7 +43,7 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie, movieUrl, fbToken }
         </View>
       </View>
       <Separator bordered>
-        <Text>{movie.title} | Rating: 7.5 </Text>
+        <Text>{movie.title} | Rating: {movie.vote_average} </Text>
       </Separator>
       <View style={{ display: 'flex', flexDirection: 'row', paddingTop: 5, width: 400}}>
         <Button 

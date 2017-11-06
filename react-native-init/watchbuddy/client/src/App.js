@@ -66,6 +66,7 @@ export default class App extends Component<{}> {
     return (
       <Nav 
         dimensions={content.getNavDimensions(this.state.screenDimensions)}
+        currentView={this.state.view}
         changeView={this.changeView.bind(this)}
         fbToken={this.fbToken}
       />

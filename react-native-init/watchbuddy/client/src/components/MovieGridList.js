@@ -1,3 +1,4 @@
+import axios from 'axios';
 import MovieGridListButtons from './MovieGridListButtons';
 import MovieInfo from './MovieInfo';
 import React, { Component } from 'react';
@@ -48,6 +49,16 @@ export default class MovieGridList extends Component<{}> {
 
   onPosterPress(event) {
     console.log(this.movie);
+
+    axios.post('http://localhost:1391/click', 
+    {
+      movie_title: this.movie.title
+    }).then(data =>
+      console.log(data)
+    ).catch(error => 
+      console.log(error)
+    );
+
     this.context.setState({selectedMovie: this.movie});
     // axios.post('http://localhost:1391/selectMovie', {movie: this.movie})
     // .then(data => this.setState({movieUrl:data.data.movieUrl})) // data.data.movieUrl 

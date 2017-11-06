@@ -10,5 +10,5 @@ export default selectionDescriptionMap = {
   '4': 'This user only likes psychological thrillers.',
   '5': 'This user only likes sci-fi science fiction movies.',
   '6': 'This user only likes comic book movies.',
-  '': 'This user does not like movies in the selection'
+  '': 'This user might like popular movies such as action and adventure.'
 }
