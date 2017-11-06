@@ -3,8 +3,6 @@ import MovieGridListButtons from './MovieGridListButtons';
 import MovieInfo from './MovieInfo';
 import React, { Component } from 'react';
 
-import axios from 'axios';
-
 import {
   Content
 } from 'native-base';
