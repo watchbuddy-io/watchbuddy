@@ -24,7 +24,7 @@ const COMPONENT_WIDTH_RATIOS = {
   cardWidth: .92
 }
 
-export default MovieSwipeDeckButtons = ({ dimensions, movie, movieUrl }) => {
+export default MovieSwipeDeckButtons = ({ dimensions, movie, movieUrl, fbToken }) => {
   this.getMoviePoster = (movie) => {
     return (
       movie ?
@@ -53,13 +53,10 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie, movieUrl }) => {
         />
         <Button
           onPress={() => {
-            AccessToken.getCurrentAccessToken().then(data => {
-              axios.post('http://13.57.94.147:3000/favorites', {token: data.accessToken, savedMovie: movie})
-                // axios.post('http://13.57.94.147:3000/favorites', {data.accessToken:movie})
-                  .then(data => console.log('clicked Saved GET success: ',data))
-                  .catch(err => console.log('clicked Saved GET ERROR: ',err))
-              })
-              .catch(err => console.log('err', err))
+            console.log('insideasdfsdaf', fbToken)
+            axios.post('http://13.57.94.147:3000/favorites', {fbToken: fbToken.userID, favoriteMovies: JSON.stringify(movie)})
+                .then(data => console.log('clicked Saved GET success: ',data))
+                .catch(err => console.log('clicked Saved GET ERROR: ',err))
           }} 
           title={'Save'}
           buttonStyle={styles.Button2} 

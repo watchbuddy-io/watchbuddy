@@ -49,7 +49,7 @@ export default class MovieGridList extends Component<{}> {
   onPosterPress(event) {
     console.log(this.movie);
     this.context.setState({selectedMovie: this.movie});
-    axios.post('http://localhost:1391/selectMovie', {movie: this.movie})
+    // axios.post('http://localhost:1391/selectMovie', {movie: this.movie})
     // .then(data => this.setState({movieUrl:data.data.movieUrl})) // data.data.movieUrl 
   }
 
@@ -101,7 +101,7 @@ export default class MovieGridList extends Component<{}> {
         </Content>
       :
         <Content>
-          <MovieInfo movieUrl={this.state.movieUrl} dimensions={this.props.dimensions} movie={this.state.selectedMovie} />
+          <MovieInfo fbToken={this.props.fbToken} movieUrl={this.state.movieUrl} dimensions={this.props.dimensions} movie={this.state.selectedMovie} />
         </Content>
     );
   }
