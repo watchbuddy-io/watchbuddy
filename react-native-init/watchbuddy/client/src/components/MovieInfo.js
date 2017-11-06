@@ -13,13 +13,18 @@ import {
 
 import {
   Separator
-} from 'native-base'
+} from 'native-base';
+
+// Code from Seva, you can delete this or modularize as needed (also adding get request on click of SAVE button)
+import axios from 'axios';
+import { AccessToken } from 'react-native-fbsdk'
+// finish from Seva
 
 const COMPONENT_WIDTH_RATIOS = {
   cardWidth: .92
 }
 
-export default MovieSwipeDeckButtons = ({ dimensions, movie }) => {
+export default MovieSwipeDeckButtons = ({ dimensions, movie, movieUrl, fbToken }) => {
   this.getMoviePoster = (movie) => {
     return (
       movie ?
@@ -35,24 +40,26 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie }) => {
       <View style={{height: dimensions.height / 2, width: dimensions.width}}>
         {this.getMoviePoster(movie)}
         <View>
-        <Text style={{ position: 'absolute', width: dimensions.width, bottom: 0, fontSize: 24, color: '#FFF', backgroundColor: 'rgba(0,0,0,.5)' }}>
-          {movie.title}
-        </Text>
         </View>
       </View>
       <Separator bordered>
         <Text>{movie.title} | Rating: 7.5 </Text>
       </Separator>
-      <View style={{ display: 'flex', alignItems: 'stretch', flexDirection: 'row', paddingTop: 5, width: dimensions.width}}>
+      <View style={{ display: 'flex', flexDirection: 'row', paddingTop: 5, width: 400}}>
         <Button 
-          onPress={() => {}} 
+          onPress={() => {Linking.openURL(movieUrl)}} 
           title={'Watch Now'}
-          buttonStyle={styles.Button}
+          buttonStyle={styles.Button1}
         />
         <Button
-          onPress={() => {}} 
+          onPress={() => {
+            console.log('insideasdfsdaf', fbToken)
+            axios.post('http://13.57.94.147:3000/favorites', {fbToken: fbToken.userID, favoriteMovies: JSON.stringify(movie)})
+                .then(data => console.log('clicked Saved GET success: ',data))
+                .catch(err => console.log('clicked Saved GET ERROR: ',err))
+          }} 
           title={'Save'}
-          buttonStyle={styles.Button} 
+          buttonStyle={styles.Button2} 
         />
       </View>
       <Text style={{
@@ -77,9 +84,13 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie }) => {
 }
 
 const styles = {
-  Button: {
-    width: '100%',
-    flexGrow: 1,
-    backgroundColor: '#29b6f6'
+  Button1: {
+    width: 160,
+    backgroundColor: '#29b6f6',
+  },
+  Button2: {
+    width: 160,
+    backgroundColor: '#29b6f6',
   }
+
 }

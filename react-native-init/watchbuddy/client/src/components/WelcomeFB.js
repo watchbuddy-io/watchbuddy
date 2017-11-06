@@ -24,8 +24,6 @@ export default class WelcomeFB extends Component<{}> {
   }
 
   render() {
-    console.log(AccessToken)
-    console.log(AccessToken.getCurrentAccessToken().then(data => console.log('data', data)).catch(err => console.log('err', err)))
     return (
       <View style={styles.container}>
       <View style={styles.overlay} />
@@ -37,7 +35,7 @@ export default class WelcomeFB extends Component<{}> {
             width: this.props.dimensions.width,
             textAlign: "center",
             backgroundColor: "transparent",
-            fontSize: 55,
+            fontSize: this.props.dimensions.width / 6.8,
             zIndex: 2
           }}
         >
@@ -48,7 +46,7 @@ export default class WelcomeFB extends Component<{}> {
           position: "absolute",
           width: this.props.dimensions.width * .8,
           backgroundColor: "transparent",
-          fontSize: 20,
+          fontSize: this.props.dimensions.width / 18.75,
           zIndex: 2,
         }}>
           Pick the movies you like and let our AI build recommendations according to your tastes!
@@ -72,7 +70,6 @@ export default class WelcomeFB extends Component<{}> {
                     (data) => {
                       if (data) {
                         this.props.changeView('MovieSwipeDeck')
-                        console.log('teststtt', AccessToken.getCurrentAccessToken())
                       }
                     }
                   )

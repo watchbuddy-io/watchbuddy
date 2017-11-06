@@ -22,13 +22,15 @@ export default MovieSwipeDeckButtons = ({ dimensions, handleLeftButtonPress, han
           disabled={buttonsDisabled}
           onPress={handleLeftButtonPress}
           icon={{ name: 'thumb-down', size: ICON_STYLES.size, color: ICON_STYLES.color }} 
-          buttonStyle={{ backgroundColor: '#ff5722' }} 
+          buttonStyle={{ backgroundColor: '#ff5722' }}
+          iconStyle={{position:'relative', right:"50px"}}
         />
         <Button 
           rounded
+          icon
           disabled={buttonsDisabled}
           onPress={handleUnwatchedButtonPress} 
-          icon={{ name: 'md-eye-off', type: 'ionicon', size: ICON_STYLES.size, color: ICON_STYLES.color }} 
+          icon={{ name: 'md-eye-off', type: 'ionicon', size: ICON_STYLES.size, color: ICON_STYLES.color, position: 'relative', top: '50px' }} 
           buttonStyle={{ backgroundColor: '#fdd835' }}
         />
         <Button

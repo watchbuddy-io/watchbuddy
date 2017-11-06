@@ -31,10 +31,15 @@ export default class App extends Component<{}> {
     super();
 
     this.state = {
-      view: 'MovieSwipeDeck',
+      view: 'WelcomeFB',
       data: dummyRequestData.data,
       screenDimensions: screen.getScreenDimensions()
     }
+    this.fbToken = AccessToken.getCurrentAccessToken().then(data => {
+      if (data) {
+        this.fbToken = data;
+      }
+    }).catch(err => console.log('Error in App.js FB Access Token', err))
   }
 
   changeView(view, data) {
@@ -52,6 +57,7 @@ export default class App extends Component<{}> {
         data={data}
         dimensions={(this.state.view !== 'WelcomeFB') ? content.getContentDimensions(this.state.screenDimensions) : this.state.screenDimensions}
         changeView={this.changeView.bind(this)}
+        fbToken={this.fbToken}
       />
     );
   }
@@ -61,11 +67,13 @@ export default class App extends Component<{}> {
       <Nav 
         dimensions={content.getNavDimensions(this.state.screenDimensions)}
         changeView={this.changeView.bind(this)}
+        fbToken={this.fbToken}
       />
     );
   }
 
   render() {
+
     console.log(this.state.view);
     return (
       <Container style={{ flexDirection: "column" }}>

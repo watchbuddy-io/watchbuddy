@@ -63,6 +63,8 @@
 		C47194531F92C5F000F0556D /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C471944E1F92C58700F0556D /* FBSDKCoreKit.framework */; };
 		C47194541F92C5F000F0556D /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C471944D1F92C58600F0556D /* FBSDKLoginKit.framework */; };
 		C47194551F92C5F000F0556D /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C471944F1F92C58800F0556D /* FBSDKShareKit.framework */; };
+		C4835DB41FA0F496002163DD /* Images-2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4835DB31FA0F496002163DD /* Images-2.xcassets */; };
+		C4C368D81FAE2A9700080FE8 /* libRNMail.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C368D41FAE2A3700080FE8 /* libRNMail.a */; };
 		C8D5DDDEE1C14F708BB50601 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148BABA5A2454906A454378C /* MaterialIcons.ttf */; };
 		DACD65CCB82E476A9DF54F37 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9BFF4B327E43FD821CE6D3 /* libRCTFBSDK.a */; };
 		DBCCBA09D9D945B9BA1EA3AF /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18D388BC053B406BBD470720 /* Roboto.ttf */; };
@@ -343,6 +345,20 @@
 			remoteGlobalIDString = 9350E0F11CE3B0920041D815;
 			remoteInfo = RCTFBSDK;
 		};
+		C4C368D31FAE2A3700080FE8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4C368AA1FAE2A3700080FE8 /* RNMail.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 46FEDE7F1AFF192F00D3261C;
+			remoteInfo = RNMail;
+		};
+		C4C368D51FAE2A3700080FE8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4C368AA1FAE2A3700080FE8 /* RNMail.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 46FEDE8A1AFF192F00D3261C;
+			remoteInfo = RNMailTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -399,6 +415,8 @@
 		C471944D1F92C58600F0556D /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		C471944E1F92C58700F0556D /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		C471944F1F92C58800F0556D /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		C4835DB31FA0F496002163DD /* Images-2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Images-2.xcassets"; path = "watchbuddy/Images-2.xcassets"; sourceTree = "<group>"; };
+		C4C368AA1FAE2A3700080FE8 /* RNMail.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNMail.xcodeproj; path = "../node_modules/react-native-mail/RNMail.xcodeproj"; sourceTree = "<group>"; };
 		C92DE2FA68D14F349A9C99C7 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		C99AC2B4FF844069AE781944 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 		CCFB73B7063A4D0887703377 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -419,6 +437,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4C368D81FAE2A9700080FE8 /* libRNMail.a in Frameworks */,
 				C47194521F92C5F000F0556D /* Bolts.framework in Frameworks */,
 				C47194531F92C5F000F0556D /* FBSDKCoreKit.framework in Frameworks */,
 				C47194541F92C5F000F0556D /* FBSDKLoginKit.framework in Frameworks */,
@@ -556,6 +575,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				C4835DB31FA0F496002163DD /* Images-2.xcassets */,
 			);
 			name = watchbuddy;
 			sourceTree = "<group>";
@@ -600,6 +620,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				C4C368AA1FAE2A3700080FE8 /* RNMail.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -740,6 +761,15 @@
 			path = Frameworks;
 			sourceTree = "<group>";
 		};
+		C4C368AB1FAE2A3700080FE8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C4C368D41FAE2A3700080FE8 /* libRNMail.a */,
+				C4C368D61FAE2A3700080FE8 /* RNMailTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -826,10 +856,13 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 4W7VRS65AA;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 7ZPX4249L6;
+						DevelopmentTeam = 4W7VRS65AA;
+						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -909,6 +942,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = C4C368AB1FAE2A3700080FE8 /* Products */;
+					ProjectRef = C4C368AA1FAE2A3700080FE8 /* RNMail.xcodeproj */;
 				},
 				{
 					ProductGroup = C47193FF1F92C48600F0556D /* Products */;
@@ -1185,6 +1222,20 @@
 			remoteRef = C47194491F92C4E900F0556D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		C4C368D41FAE2A3700080FE8 /* libRNMail.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNMail.a;
+			remoteRef = C4C368D31FAE2A3700080FE8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C4C368D61FAE2A3700080FE8 /* RNMailTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RNMailTests.xctest;
+			remoteRef = C4C368D51FAE2A3700080FE8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1213,6 +1264,7 @@
 				2FE0B3DCB2854211B0974A44 /* SimpleLineIcons.ttf in Resources */,
 				6E0C16E00F304291B2212D09 /* Zocial.ttf in Resources */,
 				78D1563D7EB34059907F371F /* Entypo.ttf in Resources */,
+				C4835DB41FA0F496002163DD /* Images-2.xcassets in Resources */,
 				B9995D3E87B44B1481CA4FE1 /* EvilIcons.ttf in Resources */,
 				10F225B67DF14A25A6B487DA /* FontAwesome.ttf in Resources */,
 				758FCD1A9708440B9609C7DB /* Foundation.ttf in Resources */,
@@ -1342,6 +1394,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Seva Mouler (KZ2DREH8PD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4W7VRS65AA;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1366,6 +1422,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/watchbuddy.app/watchbuddy";
 			};
 			name = Debug;
@@ -1374,7 +1431,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Digital Siberia (4W7VRS65AA)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 4W7VRS65AA;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
@@ -1395,6 +1456,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/watchbuddy.app/watchbuddy";
 			};
 			name = Release;
@@ -1402,10 +1464,13 @@
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 7ZPX4249L6;
+				DEVELOPMENT_TEAM = 4W7VRS65AA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -1424,8 +1489,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.watchbuddy4412;
+				PRODUCT_BUNDLE_IDENTIFIER = com.watchbuddy.dev;
 				PRODUCT_NAME = watchbuddy;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1433,9 +1499,12 @@
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7ZPX4249L6;
+				DEVELOPMENT_TEAM = 4W7VRS65AA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -1454,8 +1523,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.watchbuddy4412;
+				PRODUCT_BUNDLE_IDENTIFIER = com.watchbuddy.dev;
 				PRODUCT_NAME = watchbuddy;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
