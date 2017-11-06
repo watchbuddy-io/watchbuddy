@@ -4,6 +4,7 @@ import MovieGridList from '../components/MovieGridList';
 import MovieInfo from '../components/MovieInfo';
 import Welcome from '../components/Welcome';
 import WelcomeFB from '../components/WelcomeFB';
+import Favorites from '../components/Favorites';
 
 export default views = {
   Login: Login,
@@ -11,5 +12,6 @@ export default views = {
   MovieGridList: MovieGridList,
   MovieInfo: MovieInfo,
   Welcome: Welcome,
-  WelcomeFB
+  WelcomeFB,
+  Favorites
 }

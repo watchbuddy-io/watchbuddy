@@ -3,6 +3,8 @@ import MovieGridListButtons from './MovieGridListButtons';
 import MovieInfo from './MovieInfo';
 import React, { Component } from 'react';
 
+import axios from 'axios';
+
 import {
   Content
 } from 'native-base';
@@ -10,7 +12,8 @@ import {
 import {
   Image,
   TouchableHighlight,
-  View
+  View,
+  Linking
 } from 'react-native';
 
 import {
@@ -29,7 +32,8 @@ export default class MovieGridList extends Component<{}> {
 
     this.state = {
       currentIndex: 0,
-      selectedMovie: null
+      selectedMovie: null,
+      movieUrl: 'https://www.amazon.com/Object-Beauty-John-Malkovic…camp=2025&creative=165953&creativeASIN=B003DZAZFE'
     };
   }
 
@@ -56,6 +60,8 @@ export default class MovieGridList extends Component<{}> {
     );
 
     this.context.setState({selectedMovie: this.movie});
+    // axios.post('http://localhost:1391/selectMovie', {movie: this.movie})
+    // .then(data => this.setState({movieUrl:data.data.movieUrl})) // data.data.movieUrl 
   }
 
   getMoviePoster(movie) {
@@ -106,7 +112,7 @@ export default class MovieGridList extends Component<{}> {
         </Content>
       :
         <Content>
-          <MovieInfo dimensions={this.props.dimensions} movie={this.state.selectedMovie} />
+          <MovieInfo fbToken={this.props.fbToken} movieUrl={this.state.movieUrl} dimensions={this.props.dimensions} movie={this.state.selectedMovie} />
         </Content>
     );
   }
