@@ -9,33 +9,30 @@ import {
 } from 'react-native';
 import FBSDK, { LoginManager, LoginButton, AccessToken } from 'react-native-fbsdk';
 
+// CAN WE MAKE THIS STATELESS?
+// we should be rendering null until we get back data from FB so its a white screen vs a transition from welcome page to grid list once the response comes back
 
-export default class WelcomeFB extends Component<{}> {
-  constructor(props) {
-    super(props)
-  }
-
-  componentWillMount() {
+export default WelcomeFB = (props) => {
+  this.componentWillMount = () => {
     AccessToken.getCurrentAccessToken().then(data => {
       if (data) {
-        this.props.changeView('MovieSwipeDeck')
+        props.changeView('MovieSwipeDeck')
       }
     }).catch(err => console.log('err', err))
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
+  };
+  componentWillMount();
+  return (
+    <View style={styles.container}>
       <View style={styles.overlay} />
         <Text
           style={{
             color: "rgba(255,255,255,1)",
             position: "absolute",
-            top: this.props.dimensions.height * .25,
-            width: this.props.dimensions.width,
+            top: props.dimensions.height * .25,
+            width: props.dimensions.width,
             textAlign: "center",
             backgroundColor: "transparent",
-            fontSize: this.props.dimensions.width / 6.8,
+            fontSize: props.dimensions.width / 6.8,
             zIndex: 2
           }}
         >
@@ -44,9 +41,9 @@ export default class WelcomeFB extends Component<{}> {
         <Text style={{
           color: "rgba(255,255,255,1)",
           position: "absolute",
-          width: this.props.dimensions.width * .8,
+          width: props.dimensions.width * .8,
           backgroundColor: "transparent",
-          fontSize: this.props.dimensions.width / 18.75,
+          fontSize: props.dimensions.width / 18.75,
           zIndex: 2,
         }}>
           Pick the movies you like and let our AI build recommendations according to your tastes!
@@ -54,7 +51,7 @@ export default class WelcomeFB extends Component<{}> {
         <Image style={styles.image} source={require('../../assets/welcome2.jpg')} />
         <View style={{
           position: 'absolute',
-          bottom: this.props.dimensions.height * .1,
+          bottom: props.dimensions.height * .1,
           zIndex: 2
         }}>
           <LoginButton
@@ -69,7 +66,7 @@ export default class WelcomeFB extends Component<{}> {
                   AccessToken.getCurrentAccessToken().then(
                     (data) => {
                       if (data) {
-                        this.props.changeView('MovieSwipeDeck')
+                        props.changeView('MovieSwipeDeck')
                       }
                     }
                   )
@@ -80,8 +77,80 @@ export default class WelcomeFB extends Component<{}> {
           </View>
       </View>
     );
-  }
 }
+
+// export default class WelcomeFB extends Component<{}> {
+//   constructor(props) {
+//     super(props)
+//   }
+
+//   componentWillMount() {
+//     AccessToken.getCurrentAccessToken().then(data => {
+//       if (data) {
+//         this.props.changeView('MovieSwipeDeck')
+//       }
+//     }).catch(err => console.log('err', err))
+//   }
+
+//   render() {
+//     return (
+//       <View style={styles.container}>
+//       <View style={styles.overlay} />
+//         <Text
+//           style={{
+//             color: "rgba(255,255,255,1)",
+//             position: "absolute",
+//             top: this.props.dimensions.height * .25,
+//             width: this.props.dimensions.width,
+//             textAlign: "center",
+//             backgroundColor: "transparent",
+//             fontSize: this.props.dimensions.width / 6.8,
+//             zIndex: 2
+//           }}
+//         >
+//           watchbuddy
+//         </Text>
+//         <Text style={{
+//           color: "rgba(255,255,255,1)",
+//           position: "absolute",
+//           width: this.props.dimensions.width * .8,
+//           backgroundColor: "transparent",
+//           fontSize: this.props.dimensions.width / 18.75,
+//           zIndex: 2,
+//         }}>
+//           Pick the movies you like and let our AI build recommendations according to your tastes!
+//         </Text>
+//         <Image style={styles.image} source={require('../../assets/welcome2.jpg')} />
+//         <View style={{
+//           position: 'absolute',
+//           bottom: this.props.dimensions.height * .1,
+//           zIndex: 2
+//         }}>
+//           <LoginButton
+//             publishPermissions={["publish_actions"]}
+//             onLoginFinished={
+//               (error, result) => {
+//                 if (error) {
+//                   alert("login has error: " + result.error);
+//                 } else if (result.isCancelled) {
+//                   alert("login is cancelled.");
+//                 } else {
+//                   AccessToken.getCurrentAccessToken().then(
+//                     (data) => {
+//                       if (data) {
+//                         this.props.changeView('MovieSwipeDeck')
+//                       }
+//                     }
+//                   )
+//                 }
+//               }
+//             }
+//             onLogoutFinished={() => alert("logout.")}/>
+//           </View>
+//       </View>
+//     );
+//   }
+// }
 
 const styles = StyleSheet.create({
   container: {
@@ -123,5 +192,3 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-
-// fb

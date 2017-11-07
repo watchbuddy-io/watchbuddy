@@ -31,7 +31,7 @@ export default class MovieGridList extends Component<{}> {
     this.state = {
       currentIndex: 0,
       selectedMovie: this.props.data.length ? null : this.props.data,
-      movieUrl: 'https://www.amazon.com/Object-Beauty-John-Malkovic…camp=2025&creative=165953&creativeASIN=B003DZAZFE' // should be null in the beginning or () => alert(we're working on this feature)
+      movieUrl: null
     };
   }
 
@@ -45,14 +45,6 @@ export default class MovieGridList extends Component<{}> {
     this.setState({currentIndex: (this.state.currentIndex + 4) % this.props.data.length});
   }
 
-  // componentWillMount() {
-  //   if (this.props.clickedFavorites) {
-  //     this.state.selectedMovie = this.props.data
-  //   } else {
-  //     console.log('You got here W/O clicking Favs (need to fix AMAZON link and make dynamic)')
-  //   }
-  // }
-
   onPosterPress(movie) {
     console.log('MOVIE', movie);
 
@@ -63,7 +55,7 @@ export default class MovieGridList extends Component<{}> {
           selectedMovie: movie,
           movieUrl:data.data.movieUrl
         })
-      }) // data.data.movieUrl 
+      })
       .catch(err => {
         this.setState({
           selectedMovie: movie,
