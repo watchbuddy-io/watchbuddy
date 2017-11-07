@@ -58,10 +58,9 @@ export default class Nav extends React.Component {
       } else if (buttonIndex === 2) {
         email(['support@watchbuddy.io'], null, null, null, 'Thanks for reaching out! We promise to take care of you. Let us know your issue below:')
       } else if (buttonIndex === 0) {
-        axios.get(`http://13.57.94.147:3000/favorites`,{params:{fbToken:this.props.fbToken.userID}})
-          .then(data => console.log(data))
-          .catch(err => console.log(err))
-        this.props.changeView('Favorites');
+        axios.get(`http://13.57.94.147:8080/favorites`,{params:{fbToken:this.props.fbToken.userID}})
+          .then(data => this.props.changeView('Favorites', data.data.movies))
+          .catch(err => alert('You Have No Favorites!'))
       }
     });
   }
