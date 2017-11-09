@@ -20,6 +20,8 @@ import axios from 'axios';
 import { AccessToken } from 'react-native-fbsdk'
 // finish from Seva
 
+import { web } from 'react-native-communications';
+
 const COMPONENT_WIDTH_RATIOS = {
   cardWidth: .92
 }
@@ -47,14 +49,14 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie, movieUrl, fbToken }
       </Separator>
       <View style={{ display: 'flex', flexDirection: 'row', paddingTop: 5, width: 400}}>
         <Button 
-          onPress={() => {Linking.openURL(movieUrl)}} 
+          onPress={() => {movieUrl ? web(movieUrl) : alert(`We're working on adding this feature as we speak! Stay tuned!`)}} 
           title={'Watch Now'}
           buttonStyle={styles.Button1}
         />
         <Button
           onPress={() => {
             console.log('insideasdfsdaf', fbToken)
-            axios.post('http://13.57.94.147:3000/favorites', {fbToken: fbToken.userID, favoriteMovies: JSON.stringify(movie)})
+            axios.post('http://13.57.94.147:8080/favorites', {fbToken: fbToken.userID, favoriteMovies: JSON.stringify(movie), movies: movie})
                 .then(data => console.log('clicked Saved GET success: ',data))
                 .catch(err => console.log('clicked Saved GET ERROR: ',err))
           }} 

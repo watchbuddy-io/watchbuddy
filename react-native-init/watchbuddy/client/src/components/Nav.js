@@ -12,8 +12,7 @@ import {
   Text
 } from 'react-native';
 
-import Mailer from 'react-native-mail';
-// var Mailer = require('NativeModules').RNMail
+// import Mailer from 'react-native-mail';
 import { textWithoutEncoding, email } from 'react-native-communications'
 
 import axios from 'axios';
@@ -58,10 +57,9 @@ export default class Nav extends React.Component {
       } else if (buttonIndex === 2) {
         email(['support@watchbuddy.io'], null, null, null, 'Thanks for reaching out! We promise to take care of you. Let us know your issue below:')
       } else if (buttonIndex === 0) {
-        axios.get(`http://13.57.94.147:3000/favorites`,{params:{fbToken:this.props.fbToken.userID}})
-          .then(data => console.log(data))
-          .catch(err => console.log(err))
-        this.props.changeView('Favorites');
+        axios.get(`http://13.57.94.147:8080/favorites`,{params:{fbToken:this.props.fbToken.userID}})
+          .then(data => this.props.changeView('Favorites', data.data.movies))
+          .catch(err => alert('You Have No Favorites!'))
       }
     });
   }
@@ -89,37 +87,3 @@ export default class Nav extends React.Component {
     );
   }
 }
-
-
-// var MailExampleApp = React.createClass({
-//   handleHelp: function() {
-//     Mailer.mail({
-//       subject: 'need help',
-//       recipients: ['support@example.com'],
-//       ccRecipients: ['supportCC@example.com'],
-//       bccRecipients: ['supportBCC@example.com'],
-//       body: '',
-//       isHTML: true,
-//       attachment: {
-//         path: '',  // The absolute path of the file from which to read data. 
-//         type: '',   // Mime Type: jpg, png, doc, ppt, html, pdf 
-//         name: '',   // Optional: Custom filename for attachment 
-//       }
-//     }, (error, event) => {
-//         if(error) {
-//           AlertIOS.alert('Error', 'Could not send mail. Please send us an email to support@example.com');
-//         }
-//     });
-//   },  
-//   render: function() {
-//     return (
-//       <TouchableHighlight
-//             onPress={row.handleHelp}
-//             underlayColor="#f7f7f7">
-//           <View style={styles.container}>
-//             <Image source={require('image!announcement')} style={styles.image} />
-//           </View>
-//        </TouchableHighlight>
-//     );
-//   }
-// });
