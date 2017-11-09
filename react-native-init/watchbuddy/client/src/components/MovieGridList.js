@@ -30,9 +30,27 @@ export default class MovieGridList extends Component<{}> {
 
     this.state = {
       currentIndex: 0,
-      selectedMovie: this.props.data.length ? null : this.props.data,
+      selectedMovie: this.props.data.length ? null : this.loadFromFavorites(),
       movieUrl: null
     };
+  }
+
+  loadFromFavorites() {
+    axios.post('http://13.57.94.147:8080/selectMovie', {movie: this.props.data.title})
+      .then(data => {
+        console.log('response from AMAZON API', data)
+        this.setState({
+          selectedMovie: this.props.data,
+          movieUrl:data.data.movieUrl
+        })
+      })
+      .catch(err => {
+        this.setState({
+          selectedMovie: movie,
+          movieUrl: null
+        })
+        console.log('err from amazon: ', err)
+      })
   }
 
   onLeftButtonPress() {
