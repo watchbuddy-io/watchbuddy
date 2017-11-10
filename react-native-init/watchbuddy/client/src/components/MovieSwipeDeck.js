@@ -129,7 +129,7 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
 
     this.spring();
     return (
-    <View style={styles.container}>
+    <View style={{flexDirection: "column", height: dimensions.height, justifyContent: 'center', alignItems: 'center'}}>
       <Animated.Image
         style={{
           transform: [{scale: this.springValue}],
@@ -137,6 +137,9 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
           justifyContent:'center',
        }}
         source={BrainPNG}/>
+      <Text style={this.styles.Text}>
+        Building your recommendations...
+      </Text>
     </View>
     )
 
@@ -172,7 +175,7 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
         />
       </View>
       <MovieSwipeDeckButtons
-        dimensions={{ height: dimensions.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeckButtons }}
+        dimensions={{ height: dimensions.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeckButtons, width: dimensions.width * COMPONENT_WIDTH_RATIOS.cardWidth }}
         handleRightButtonPress={() => this.throttleButtonPresses(this.triggerSwipeRight)}
         handleUnwatchedButtonPress={() => this.throttleButtonPresses(this.triggerUnwatched)}
         handleLeftButtonPress={() => this.throttleButtonPresses(this.triggerSwipeLeft)}

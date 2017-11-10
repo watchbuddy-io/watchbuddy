@@ -87,11 +87,7 @@ export default class MovieGridList extends Component<{}> {
   getMoviePoster(movie, key) {
     return (
       movie ?
-<<<<<<< HEAD
-        <TouchableHighlight onPress={this.onPosterPress.bind({context: this, movie: movie})} key={key}>
-=======
-        <TouchableHighlight onPress={() => this.onPosterPress.call(this,movie)}>
->>>>>>> c16c7c751d5e9606b17dee26dfd7a0441c52fd64
+        <TouchableHighlight onPress={() => this.onPosterPress.call(this,movie)} key={key}>
           <Image
             source={{ height: this.props.dimensions.height / 2, width: this.props.dimensions.width / 2, uri: `https://image.tmdb.org/t/p/w500/${movie.poster_path}` }}
           />
@@ -112,7 +108,7 @@ export default class MovieGridList extends Component<{}> {
     return (
       (!this.state.selectedMovie) ?
         <Content>
-          <ScrollView horizontal={true} snapToInterval={this.props.dimensions.width / 2}>
+          <ScrollView horizontal={true} overScrollMode="never" pagingEnabled={true}>
             <Grid>
               <Row>
                 {this.props.data.slice(0, Math.floor(this.props.data.length / 2)).map((movie, i) => (
