@@ -32,7 +32,7 @@ export default movieSwipeDeckStyles = {
         width: dimensions.width * COMPONENT_WIDTH_RATIOS.cardWidth
       },
       Text: {
-        color: '#444',
+        color: '#FFF',
         textAlign: 'center'
       },
       View: {
