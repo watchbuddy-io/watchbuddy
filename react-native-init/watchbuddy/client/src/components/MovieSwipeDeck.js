@@ -44,14 +44,20 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
   this.springValue = new Animated.Value(0.05)
   this.spring = () => {
     this.springValue.setValue(0.05)
-    Animated.spring(
-      this.springValue,
-      {
-        toValue: .5,
-        friction: 0.1,
-        tension: 10
-      }
-    ).start()
+    Animated.parallel([
+      Animated.spring(
+        this.springValue,
+        {
+          toValue: .5,
+          friction: 1,
+          tension: -10,
+          duration: 10000
+        }
+      ).start(),
+      Animated.timing({
+        toValue: 1000
+      })
+    ]);
   }
   // end animationa
   this.liked = [];
@@ -129,10 +135,17 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
 
     this.spring();
     return (
-    <View style={styles.container}>
+    <View style={{flexDirection: "column", height: dimensions.height, justifyContent: 'center', alignItems: 'center'}}>
       <Animated.Image
-        style={{ transform: [{scale: this.springValue}] }}
+        style={{
+          transform: [{scale: this.springValue}],
+          alignItems: 'center',
+          justifyContent:'center',
+       }}
         source={BrainPNG}/>
+      <Text style={this.styles.Text}>
+        Building your recommendations...
+      </Text>
     </View>
     )
 
@@ -168,7 +181,7 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
         />
       </View>
       <MovieSwipeDeckButtons
-        dimensions={{ height: dimensions.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeckButtons }}
+        dimensions={{ height: dimensions.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeckButtons, width: dimensions.width * COMPONENT_WIDTH_RATIOS.cardWidth }}
         handleRightButtonPress={() => this.throttleButtonPresses(this.triggerSwipeRight)}
         handleUnwatchedButtonPress={() => this.throttleButtonPresses(this.triggerUnwatched)}
         handleLeftButtonPress={() => this.throttleButtonPresses(this.triggerSwipeLeft)}
