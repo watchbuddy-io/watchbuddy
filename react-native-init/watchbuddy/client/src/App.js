@@ -42,10 +42,14 @@ export default class App extends Component<{}> {
     }).catch(err => console.log('Error in App.js FB Access Token', err))
   }
 
-  changeView(view, data) {
-    this.setState({ view: view });
-    if (data) {
-      this.setState({data: data});
+  changeView(view, data, favorites) {
+    if (!data) {
+      this.setState({ view: view });
+    } else {
+      this.setState({
+        view: view,
+        data: data
+      });
     }
   }
 
@@ -74,7 +78,7 @@ export default class App extends Component<{}> {
   }
 
   render() {
-
+    console.log('FB Token: ', this.fbToken)
     console.log(this.state.view);
     return (
       <Container style={{ flexDirection: "column" }}>

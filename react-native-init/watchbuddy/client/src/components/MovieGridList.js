@@ -31,9 +31,27 @@ export default class MovieGridList extends Component<{}> {
 
     this.state = {
       currentIndex: 0,
-      selectedMovie: null,
-      movieUrl: 'https://www.amazon.com/Object-Beauty-John-Malkovic…camp=2025&creative=165953&creativeASIN=B003DZAZFE'
+      selectedMovie: this.props.data.length ? null : this.loadFromFavorites(),
+      movieUrl: null
     };
+  }
+
+  loadFromFavorites() {
+    axios.post('http://13.57.94.147:8080/selectMovie', {movie: this.props.data.title})
+      .then(data => {
+        console.log('response from AMAZON API', data)
+        this.setState({
+          selectedMovie: this.props.data,
+          movieUrl:data.data.movieUrl
+        })
+      })
+      .catch(err => {
+        this.setState({
+          selectedMovie: movie,
+          movieUrl: null
+        })
+        console.log('err from amazon: ', err)
+      })
   }
 
   onLeftButtonPress() {
@@ -46,27 +64,34 @@ export default class MovieGridList extends Component<{}> {
     this.setState({currentIndex: (this.state.currentIndex + 4) % this.props.data.length});
   }
 
-  onPosterPress(event) {
-    console.log(this.movie);
+  onPosterPress(movie) {
+    console.log('MOVIE', movie);
 
-    axios.post('http://localhost:1391/click', 
-    {
-      movie_title: this.movie.title
-    }).then(data =>
-      console.log(data)
-    ).catch(error => 
-      console.log(error)
-    );
-
-    this.context.setState({selectedMovie: this.movie});
-    // axios.post('http://localhost:1391/selectMovie', {movie: this.movie})
-    // .then(data => this.setState({movieUrl:data.data.movieUrl})) // data.data.movieUrl 
+    axios.post('http://13.57.94.147:8080/selectMovie', {movie: movie.title})
+      .then(data => {
+        console.log('response from AMAZON API', data)
+        this.setState({
+          selectedMovie: movie,
+          movieUrl:data.data.movieUrl
+        })
+      })
+      .catch(err => {
+        this.setState({
+          selectedMovie: movie,
+          movieUrl: null
+        })
+        console.log('err from amazon: ', err)
+      })
   }
 
   getMoviePoster(movie, key) {
     return (
       movie ?
+<<<<<<< HEAD
         <TouchableHighlight onPress={this.onPosterPress.bind({context: this, movie: movie})} key={key}>
+=======
+        <TouchableHighlight onPress={() => this.onPosterPress.call(this,movie)}>
+>>>>>>> c16c7c751d5e9606b17dee26dfd7a0441c52fd64
           <Image
             source={{ height: this.props.dimensions.height / 2, width: this.props.dimensions.width / 2, uri: `https://image.tmdb.org/t/p/w500/${movie.poster_path}` }}
           />
@@ -82,6 +107,8 @@ export default class MovieGridList extends Component<{}> {
   }
 
   render() {
+    console.log('movie URL: ', this.state.movieUrl)
+    console.log('this.props.data',this.props.data)
     return (
       (!this.state.selectedMovie) ?
         <Content>
