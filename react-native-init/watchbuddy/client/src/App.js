@@ -31,7 +31,7 @@ export default class App extends Component<{}> {
     super();
 
     this.state = {
-      view: 'MovieSwipeDeck',
+      view: 'WelcomeFB',
       data: dummyRequestData.data,
       screenDimensions: screen.getScreenDimensions()
     }
@@ -81,7 +81,7 @@ export default class App extends Component<{}> {
     console.log('FB Token: ', this.fbToken)
     console.log(this.state.view);
     return (
-      <Container style={{ flexDirection: "column" }} bounces={false}>
+      <Container style={{ flexDirection: "column" }}>
         {(this.state.view !== 'WelcomeFB') ? this.renderNav() : null}
         {this.renderView(this.state.data)}
       </Container>
