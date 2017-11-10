@@ -54,7 +54,7 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie, movieUrl, fbToken }
         <Button
           onPress={() => {
             console.log('insideasdfsdaf', fbToken)
-            axios.post('http://13.57.94.147:3000/favorites', {fbToken: fbToken.userID, favoriteMovies: JSON.stringify(movie)})
+            axios.post('http://13.57.94.147/favorites', {fbToken: fbToken.userID, favoriteMovies: JSON.stringify(movie)})
                 .then(data => console.log('clicked Saved GET success: ',data))
                 .catch(err => console.log('clicked Saved GET ERROR: ',err))
           }} 

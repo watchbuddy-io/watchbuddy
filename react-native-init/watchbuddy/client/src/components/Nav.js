@@ -58,7 +58,7 @@ export default class Nav extends React.Component {
       } else if (buttonIndex === 2) {
         email(['support@watchbuddy.io'], null, null, null, 'Thanks for reaching out! We promise to take care of you. Let us know your issue below:')
       } else if (buttonIndex === 0) {
-        axios.get(`http://13.57.94.147:3000/favorites`,{params:{fbToken:this.props.fbToken.userID}})
+        axios.get(`http://13.57.94.147/favorites`,{params:{fbToken:this.props.fbToken.userID}})
           .then(data => console.log(data))
           .catch(err => console.log(err))
         this.props.changeView('Favorites');

@@ -31,7 +31,7 @@ export default class App extends Component<{}> {
     super();
 
     this.state = {
-      view: 'WelcomeFB',
+      view: 'MovieSwipeDeck',
       data: dummyRequestData.data,
       screenDimensions: screen.getScreenDimensions()
     }

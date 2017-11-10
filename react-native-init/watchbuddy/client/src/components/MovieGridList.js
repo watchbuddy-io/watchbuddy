@@ -3,17 +3,16 @@ import MovieGridListButtons from './MovieGridListButtons';
 import MovieInfo from './MovieInfo';
 import React, { Component } from 'react';
 
-import axios from 'axios';
-
 import {
   Content
 } from 'native-base';
 
 import {
   Image,
+  Linking,
+  ScrollView,
   TouchableHighlight,
-  View,
-  Linking
+  View
 } from 'react-native';
 
 import {
@@ -64,10 +63,10 @@ export default class MovieGridList extends Component<{}> {
     // .then(data => this.setState({movieUrl:data.data.movieUrl})) // data.data.movieUrl 
   }
 
-  getMoviePoster(movie) {
+  getMoviePoster(movie, key) {
     return (
       movie ?
-        <TouchableHighlight onPress={this.onPosterPress.bind({context: this, movie: movie})}>
+        <TouchableHighlight onPress={this.onPosterPress.bind({context: this, movie: movie})} key={key}>
           <Image
             source={{ height: this.props.dimensions.height / 2, width: this.props.dimensions.width / 2, uri: `https://image.tmdb.org/t/p/w500/${movie.poster_path}` }}
           />
@@ -86,29 +85,20 @@ export default class MovieGridList extends Component<{}> {
     return (
       (!this.state.selectedMovie) ?
         <Content>
-          <Grid>
-            <Col style={{ height: this.props.dimensions.height }}>
+          <ScrollView horizontal={true} snapToInterval={this.props.dimensions.width / 2}>
+            <Grid>
               <Row>
-                {this.getMoviePoster(this.props.data[this.state.currentIndex % this.props.data.length])}
+                {this.props.data.slice(0, Math.floor(this.props.data.length / 2)).map((movie, i) => (
+                  this.getMoviePoster(movie, i)
+                ))}
               </Row>
               <Row>
-                {this.getMoviePoster(this.props.data[(this.state.currentIndex + 1) % this.props.data.length])}
+                {this.props.data.slice(Math.floor(this.props.data.length / 2)).map((movie, i) => (
+                  this.getMoviePoster(movie, i)
+                ))}
               </Row>
-            </Col>
-            <Col style={{ height: this.props.dimensions.height }}>
-              <Row>
-                {this.getMoviePoster(this.props.data[(this.state.currentIndex + 2) % this.props.data.length])}
-              </Row>
-              <Row>
-                {this.getMoviePoster(this.props.data[(this.state.currentIndex + 3) % this.props.data.length])}
-              </Row>
-            </Col>
-          </Grid>
-          <MovieGridListButtons 
-            style={{ height: this.props.dimensions.height, width: this.props.dimensions.width }} 
-            handleLeftButtonPress={this.onLeftButtonPress.bind(this)} 
-            handleRightButtonPress={this.onRightButtonPress.bind(this)}
-          />
+            </Grid>
+          </ScrollView>
         </Content>
       :
         <Content>

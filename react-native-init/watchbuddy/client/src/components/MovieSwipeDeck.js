@@ -131,7 +131,11 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
     return (
     <View style={styles.container}>
       <Animated.Image
-        style={{ transform: [{scale: this.springValue}] }}
+        style={{
+          transform: [{scale: this.springValue}],
+          alignItems: 'center',
+          justifyContent:'center',
+       }}
         source={BrainPNG}/>
     </View>
     )
