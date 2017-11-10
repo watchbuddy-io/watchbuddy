@@ -44,14 +44,20 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
   this.springValue = new Animated.Value(0.05)
   this.spring = () => {
     this.springValue.setValue(0.05)
-    Animated.spring(
-      this.springValue,
-      {
-        toValue: .5,
-        friction: 0.1,
-        tension: 10
-      }
-    ).start()
+    Animated.parallel([
+      Animated.spring(
+        this.springValue,
+        {
+          toValue: .5,
+          friction: 1,
+          tension: -10,
+          duration: 10000
+        }
+      ).start(),
+      Animated.timing({
+        toValue: 1000
+      })
+    ]);
   }
   // end animationa
   this.liked = [];

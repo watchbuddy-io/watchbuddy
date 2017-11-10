@@ -107,8 +107,8 @@ export default class MovieGridList extends Component<{}> {
     console.log('this.props.data',this.props.data)
     return (
       (!this.state.selectedMovie) ?
-        <Content>
-          <ScrollView horizontal={true} overScrollMode="never" pagingEnabled={true}>
+        <Content bounces={false}>
+          <ScrollView horizontal={true} overScrollMode="never" pagingEnabled={true} bounces={false} automaticallyAdjustContentInsets={false}>
             <Grid>
               <Row>
                 {this.props.data.slice(0, Math.floor(this.props.data.length / 2)).map((movie, i) => (
@@ -124,7 +124,7 @@ export default class MovieGridList extends Component<{}> {
           </ScrollView>
         </Content>
       :
-        <Content>
+        <Content bounces={false}>
           <MovieInfo fbToken={this.props.fbToken} movieUrl={this.state.movieUrl} dimensions={this.props.dimensions} movie={this.state.selectedMovie} />
         </Content>
     );

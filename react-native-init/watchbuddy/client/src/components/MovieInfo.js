@@ -26,7 +26,7 @@ const COMPONENT_WIDTH_RATIOS = {
   cardWidth: .92
 }
 
-export default MovieSwipeDeckButtons = ({ dimensions, movie, movieUrl, fbToken }) => {
+export default MovieInfo = ({ dimensions, movie, movieUrl, fbToken }) => {
   this.getMoviePoster = (movie) => {
     return (
       movie ?
@@ -38,20 +38,18 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie, movieUrl, fbToken }
   }
 
   return (
-    <View>
+    <View bounces={false}>
       <View style={{height: dimensions.height / 2, width: dimensions.width}}>
         {this.getMoviePoster(movie)}
-        <View>
-        </View>
       </View>
       <Separator bordered>
         <Text>{movie.title} | Rating: {movie.vote_average} </Text>
       </Separator>
-      <View style={{ display: 'flex', flexDirection: 'row', paddingTop: 5, width: 400}}>
+      <View style={{ display: 'flex', flexDirection: 'row', paddingTop: dimensions.height * .02, width: dimensions.width, justifyContent: 'space-between' }}>
         <Button 
-          onPress={() => {movieUrl ? web(movieUrl) : alert(`We're working on adding this feature as we speak! Stay tuned!`)}} 
+          onPress={() => {movieUrl ? web(movieUrl) : alert(`We're working on adding this feature right now! Stay tuned!`)}} 
           title={'Watch Now'}
-          buttonStyle={styles.Button1}
+          buttonStyle={styles.Button}
         />
         <Button
           onPress={() => {
@@ -61,24 +59,13 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie, movieUrl, fbToken }
                 .catch(err => console.log('clicked Saved GET ERROR: ',err))
           }} 
           title={'Save'}
-          buttonStyle={styles.Button2} 
+          buttonStyle={styles.Button} 
         />
       </View>
-      <Text style={{
-        fontWeight: 'bold',
-        fontSize: 20,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingTop: 5
-      }}>
+      <Text style={styles.description}>
         Critics Description:
       </Text>
-      <Text style={{ 
-        fontSize: 16,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingTop: 5
-       }}>
+      <Text style={styles.overview}>
         {movie.overview}
       </Text>
     </View>
@@ -86,13 +73,21 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie, movieUrl, fbToken }
 }
 
 const styles = {
-  Button1: {
+  Button: {
     width: 160,
     backgroundColor: '#29b6f6',
   },
-  Button2: {
-    width: 160,
-    backgroundColor: '#29b6f6',
+  description: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5
+  },
+  overview: {
+    fontSize: 16,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5
   }
-
 }
