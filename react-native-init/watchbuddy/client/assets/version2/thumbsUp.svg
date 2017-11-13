@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="79px" height="62px" viewBox="0 0 79 62" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>Rectangle</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-24.8%" y="-17.7%" width="152.3%" height="152.3%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" fill="#5995E4" x="0" y="0" width="79" height="61.3134328" rx="30.6567164"></rect>
+        <g id="ic_thumb_up_white_48px" filter="url(#filter-1)" transform="translate(25.000000, 17.000000)">
+            <polygon id="Shape" points="0 0 28.2299995 0 28.2299995 28.2299995 0 28.2299995"></polygon>
+            <path d="M1.17624998,24.7012496 L5.8812499,24.7012496 L5.8812499,10.5862498 L1.17624998,10.5862498 L1.17624998,24.7012496 Z M27.0537496,11.7624998 C27.0537496,10.4686248 25.9951246,9.40999985 24.7012496,9.40999985 L17.2791122,9.40999985 L18.3965497,4.03453743 L18.4318372,3.65813744 C18.4318372,3.17587495 18.2318747,2.72889996 17.9142872,2.41131246 L16.6674622,1.17624998 L8.92773736,8.92773736 C8.49252486,9.35118735 8.23374987,9.93931234 8.23374987,10.5862498 L8.23374987,22.3487496 C8.23374987,23.6426246 9.29237485,24.7012496 10.5862498,24.7012496 L21.1724997,24.7012496 C22.1487871,24.7012496 22.9839246,24.1131246 23.3367996,23.2662246 L26.8890746,14.9736623 C26.9949371,14.7031248 27.0537496,14.4208248 27.0537496,14.1149998 L27.0537496,11.8683623 L27.0419871,11.8565998 L27.0537496,11.7624998 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>
