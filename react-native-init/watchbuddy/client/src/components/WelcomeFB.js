@@ -55,13 +55,12 @@ export default WelcomeFB = (props) => {
           zIndex: 2
         }}>
           <LoginButton
-            publishPermissions={["publish_actions"]}
             onLoginFinished={
               (error, result) => {
                 if (error) {
-                  alert("login has error: " + result.error);
+                  alert("There was an error logging in! " + result.error);
                 } else if (result.isCancelled) {
-                  alert("login is cancelled.");
+                  alert("Login cancelled.");
                 } else {
                   AccessToken.getCurrentAccessToken().then(
                     (data) => {
@@ -73,8 +72,17 @@ export default WelcomeFB = (props) => {
                 }
               }
             }
-            onLogoutFinished={() => alert("logout.")}/>
-          </View>
+            onLogoutFinished={() => alert("Logged out.")}/>
+          <Text style={{
+            zIndex: 1,
+            backgroundColor: 'transparent',
+            position: 'relative',
+            top: '30%',
+            alignSelf: 'center',
+            textDecorationLine: 'underline',
+            color: "rgba(255,255,255,1)"
+          }} onPress={() => props.changeView('MovieSwipeDeck')}> Not Now </Text>
+        </View>
       </View>
     );
 }

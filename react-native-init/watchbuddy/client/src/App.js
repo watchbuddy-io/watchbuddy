@@ -33,16 +33,24 @@ export default class App extends Component<{}> {
     this.state = {
       view: 'WelcomeFB',
       data: dummyRequestData.data,
-      screenDimensions: screen.getScreenDimensions()
+      screenDimensions: screen.getScreenDimensions(),
+      loggedIn: false  // change to non state variable?
     }
     this.fbToken = AccessToken.getCurrentAccessToken().then(data => {
       if (data) {
         this.fbToken = data;
+        console.log('Sucessful Facebook Login in App.js')
+      } else {
+        this.fbToken = false;
+        console.log('Error in App.js FB AccessToken')
       }
-    }).catch(err => console.log('Error in App.js FB Access Token', err))
+    }).catch(err => {
+      this.fbToken = false;
+      console.log('Error in App.js FB Access Token', err)
+    })
   }
 
-  changeView(view, data, favorites) {
+  changeView(view, data) {
     if (!data) {
       this.setState({ view: view });
     } else {
