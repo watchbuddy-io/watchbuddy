@@ -4,7 +4,8 @@ import React from 'react';
 import {
   Image,
   Text,
-  View
+  View,
+  AlertIOS
 } from 'react-native';
 
 import {
@@ -55,10 +56,24 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie, movieUrl, fbToken }
         />
         <Button
           onPress={() => {
-            console.log('insideasdfsdaf', fbToken)
-            axios.post('http://13.57.94.147:8080/favorites', {fbToken: fbToken.userID, favoriteMovies: JSON.stringify(movie), movies: movie})
+            console.log('Save Button Pressed')
+            if (fbToken) {
+              axios.post('http://13.57.94.147:8080/favorites', {fbToken: fbToken.userID, favoriteMovies: JSON.stringify(movie), movies: movie})
                 .then(data => console.log('clicked Saved GET success: ',data))
                 .catch(err => console.log('clicked Saved GET ERROR: ',err))
+            } else {
+              AlertIOS.alert(
+               'Login to save favorites',
+               'Our AI gets smarter each movie you save - that means even better recommendations for you',
+               [
+                 {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                 {text: 'Login', onPress: () => {
+                   this.props.changeView('WelcomeFB')
+                   console.log('Login Pressed')
+                 }},
+               ],
+              )
+            }
           }} 
           title={'Save'}
           buttonStyle={styles.Button2} 

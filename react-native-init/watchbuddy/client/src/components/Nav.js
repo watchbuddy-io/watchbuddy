@@ -18,6 +18,9 @@ import { textWithoutEncoding, email } from 'react-native-communications'
 
 import axios from 'axios';
 
+import { LoginManager } from 'react-native-fbsdk';
+
+
 const ICON_STYLES = {
   size: 25,
   color: '#444'
@@ -31,10 +34,11 @@ var BUTTONS = [
   'View Favorites',
   'Share',
   'Send Feedback',
+  'Logout',
   'Cancel',
 ];
 
-var CANCEL_INDEX = 3;
+var CANCEL_INDEX = 4;
 
 export default class Nav extends React.Component {
   constructor({ dimensions, changeView, fbToken }) {
@@ -61,8 +65,16 @@ export default class Nav extends React.Component {
         axios.get(`http://13.57.94.147:8080/favorites`,{params:{fbToken:this.props.fbToken.userID}}) // change to just this.fbToken since its deconstructed
           .then(data => this.props.changeView('Favorites', data.data.movies))
           .catch(err => alert('You Have No Favorites!'))
-      } else {
-        console.log('my PROPS',this.props)
+      } else if (buttonIndex === 3) {
+        if (this.props.fbToken) {
+          let logOut = Promise.resolve(LoginManager.logOut());
+          let changeViewLoggedOut = Promise.resolve(this.props.changeView('WelcomeFB'));
+          Promise.all([logOut, changeViewLoggedOut])
+            // can remove w/o Promise if needed.
+        } else {
+          alert(`You're not logged in!`);
+        }
+      } else if (buttonIndex === 0 && !this.props.fbToken) {
         AlertIOS.alert(
          'Login to save favorites',
          'Our AI gets smarter each movie you save - that means even better recommendations for you',

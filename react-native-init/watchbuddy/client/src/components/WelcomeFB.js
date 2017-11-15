@@ -16,11 +16,15 @@ export default WelcomeFB = (props) => {
   this.componentWillMount = () => {
     AccessToken.getCurrentAccessToken().then(data => {
       if (data) {
+        console.log('You are already logged in!')
         props.changeView('MovieSwipeDeck')
+      } else {
+        console.log('You are not logged in!')
       }
-    }).catch(err => console.log('err', err))
+    }).catch(err => console.log('Error on componentWillMount in WelcomeFB: ', err))
   };
   componentWillMount();
+  console.log(FBSDK)
   return (
     <View style={styles.container}>
       <View style={styles.overlay} />
@@ -55,12 +59,13 @@ export default WelcomeFB = (props) => {
           zIndex: 2
         }}>
           <LoginButton
+            readPermissions={["email","public_profile"]}
             onLoginFinished={
               (error, result) => {
                 if (error) {
                   alert("There was an error logging in! " + result.error);
                 } else if (result.isCancelled) {
-                  alert("Login cancelled.");
+                  console.log("Login cancelled.");
                 } else {
                   AccessToken.getCurrentAccessToken().then(
                     (data) => {
