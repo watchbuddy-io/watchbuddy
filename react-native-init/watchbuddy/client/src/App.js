@@ -32,8 +32,10 @@ export default class App extends Component<{}> {
     this.state = {
       view: 'WelcomeFB',
       data: dummyRequestData.data,
-      screenDimensions: screen.getScreenDimensions()
+      screenDimensions: screen.getScreenDimensions(),
+      loggedIn: false  // change to non state variable?
     }
+<<<<<<< HEAD
 
     this.fbToken = AccessToken.getCurrentAccessToken().then(data => {
       if (data) {
@@ -43,9 +45,23 @@ export default class App extends Component<{}> {
       .catch(err => console.log('Error in App.js FB Access Token', err));
 
     this.changeView = this.changeView.bind(this);
+=======
+    this.fbToken;
+    AccessToken.getCurrentAccessToken().then(data => {
+      console.log('access token here:', data)
+      if (data) {
+        this.fbToken = data;
+        this.setState({loggedIn: true})
+        console.log('Sucessful Facebook Login in App.js') 
+      } 
+    }).catch(err => {
+      this.fbToken = false;
+      console.log('Error in App.js FB Access Token', err)
+    })
+>>>>>>> e5a54cad0e7580db03f3e19e8ec4c2bd4130dafb
   }
 
-  changeView(view, data, favorites) {
+  changeView(view, data) {
     if (!data) {
       this.setState({ view: view });
     } else {
@@ -83,7 +99,7 @@ export default class App extends Component<{}> {
 
   render() {
     return (
-      <Container style={{ flexDirection: "column" }} bounces={false}>
+      <Container style={{ flexDirection: "column" }}>
         {(this.state.view !== 'WelcomeFB') ? this.renderNav() : null}
         {this.renderView(this.state.data)}
       </Container>

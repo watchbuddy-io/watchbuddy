@@ -16,11 +16,15 @@ export default WelcomeFB = (props) => {
   this.componentWillMount = () => {
     AccessToken.getCurrentAccessToken().then(data => {
       if (data) {
+        console.log('You are already logged in!')
         props.changeView('MovieSwipeDeck')
+      } else {
+        console.log('You are not logged in!')
       }
-    }).catch(err => console.log('err', err))
+    }).catch(err => console.log('Error on componentWillMount in WelcomeFB: ', err))
   };
   componentWillMount();
+  console.log(FBSDK)
   return (
     <View style={styles.container}>
       <View style={styles.overlay} />
@@ -55,13 +59,13 @@ export default WelcomeFB = (props) => {
           zIndex: 2
         }}>
           <LoginButton
-            publishPermissions={["publish_actions"]}
+            readPermissions={["email","public_profile"]}
             onLoginFinished={
               (error, result) => {
                 if (error) {
-                  alert("login has error: " + result.error);
+                  alert("There was an error logging in! " + result.error);
                 } else if (result.isCancelled) {
-                  alert("login is cancelled.");
+                  console.log("Login cancelled.");
                 } else {
                   AccessToken.getCurrentAccessToken().then(
                     (data) => {
@@ -73,8 +77,17 @@ export default WelcomeFB = (props) => {
                 }
               }
             }
-            onLogoutFinished={() => alert("logout.")}/>
-          </View>
+            onLogoutFinished={() => alert("Logged out.")}/>
+          <Text style={{
+            zIndex: 1,
+            backgroundColor: 'transparent',
+            position: 'relative',
+            top: '30%',
+            alignSelf: 'center',
+            textDecorationLine: 'underline',
+            color: "rgba(255,255,255,1)"
+          }} onPress={() => props.changeView('MovieSwipeDeck')}> Not Now </Text>
+        </View>
       </View>
     );
 }
