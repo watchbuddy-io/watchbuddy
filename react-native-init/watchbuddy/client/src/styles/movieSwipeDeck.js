@@ -33,6 +33,7 @@ export default movieSwipeDeckStyles = {
       },
       Text: {
         color: '#444',
+        fontSize: 16,
         textAlign: 'center'
       },
       View: {
