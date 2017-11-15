@@ -88,7 +88,7 @@ export default class MovieGridList extends Component<{}> {
       movie ?
         <TouchableHighlight onPress={() => this.onPosterPress.call(this,movie)}>
           <Image
-            source={{ height: this.props.dimensions.height / 2, width: this.props.dimensions.width / 2, uri: `https://image.tmdb.org/t/p/w500/${movie.poster_path}` }}
+            source={{ height: this.props.dimensions.height / 2, width: this.props.dimensions.width / 2, uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}` }}
           />
         </TouchableHighlight>
         : null
@@ -102,8 +102,6 @@ export default class MovieGridList extends Component<{}> {
   }
 
   render() {
-    console.log('movie URL: ', this.state.movieUrl)
-    console.log('this.props.data',this.props.data)
     return (
       (!this.state.selectedMovie) ?
         <Content>

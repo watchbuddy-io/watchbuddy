@@ -1,17 +1,16 @@
 import axios from 'axios';
 import content from './utils/content';
-import dummyData from './data/dummyData';
 import dummyRequestData from './data/dummyRequestData';
 import Nav from './components/Nav';
 import React from 'react';
 import screen from './utils/screen';
 import views from './utils/views';
 
-import FBSDK, { LoginManager, LoginButton, AccessToken } from 'react-native-fbsdk';
-
-import { 
-  Spinner
-} from 'nachos-ui';
+import FBSDK, { 
+  AccessToken,
+  LoginButton,
+  LoginManager 
+ } from 'react-native-fbsdk';
 
 import { 
   Container, 
@@ -36,6 +35,17 @@ export default class App extends Component<{}> {
       screenDimensions: screen.getScreenDimensions(),
       loggedIn: false  // change to non state variable?
     }
+<<<<<<< HEAD
+
+    this.fbToken = AccessToken.getCurrentAccessToken().then(data => {
+      if (data) {
+        this.fbToken = data;
+      }
+    })
+      .catch(err => console.log('Error in App.js FB Access Token', err));
+
+    this.changeView = this.changeView.bind(this);
+=======
     this.fbToken;
     AccessToken.getCurrentAccessToken().then(data => {
       console.log('access token here:', data)
@@ -48,6 +58,7 @@ export default class App extends Component<{}> {
       this.fbToken = false;
       console.log('Error in App.js FB Access Token', err)
     })
+>>>>>>> e5a54cad0e7580db03f3e19e8ec4c2bd4130dafb
   }
 
   changeView(view, data) {
@@ -67,8 +78,8 @@ export default class App extends Component<{}> {
     return (
       <Content
         data={data}
-        dimensions={(this.state.view !== 'WelcomeFB') ? content.getContentDimensions(this.state.screenDimensions) : this.state.screenDimensions}
-        changeView={this.changeView.bind(this)}
+        dimensions={(this.state.view !== 'WelcomeFB') ? content.getContentDimensions(this.state.screenDimensions, this.state.view) : this.state.screenDimensions}
+        changeView={this.changeView}
         fbToken={this.fbToken}
       />
     );
@@ -77,17 +88,16 @@ export default class App extends Component<{}> {
   renderNav() {
     return (
       <Nav 
-        dimensions={content.getNavDimensions(this.state.screenDimensions)}
+        view={this.state.view}
+        dimensions={content.getNavDimensions(this.state.screenDimensions, this.state.view)}
         currentView={this.state.view}
-        changeView={this.changeView.bind(this)}
+        changeView={this.changeView}
         fbToken={this.fbToken}
       />
     );
   }
 
   render() {
-    console.log('FB Token: ', this.fbToken)
-    console.log(this.state.view);
     return (
       <Container style={{ flexDirection: "column" }}>
         {(this.state.view !== 'WelcomeFB') ? this.renderNav() : null}

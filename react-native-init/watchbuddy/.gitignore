@@ -61,3 +61,6 @@ package-lock.json
 
 # DS_Store
 *.DS_Store
+
+# keys
+react-native-init/keys/
