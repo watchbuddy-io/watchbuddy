@@ -2,7 +2,13 @@
 
 > Have too many shows to watch? Have some free time on certain days? Use WatchBuddy to figure out what episodes to watch for your overloaded shows!
 
-## Team
+## Legacy Team
+
+  - Timothy Hoang
+  - Seva Mouler
+  - Quilty Kim
+
+## Greenfield Team
 
   - Daniel Tran
   - Helen Yi
