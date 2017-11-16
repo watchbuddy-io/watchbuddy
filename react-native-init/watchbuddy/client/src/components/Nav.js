@@ -20,7 +20,7 @@ import axios from 'axios';
 
 import { LoginManager } from 'react-native-fbsdk';
 
-
+// added to see if pull works
 const ICON_STYLES = {
   size: 25,
   color: '#444'
