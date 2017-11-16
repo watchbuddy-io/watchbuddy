@@ -1,6 +1,8 @@
 import React from 'react';
 
 import {
+  Image,
+  TouchableHighlight,
   View
 } from 'react-native';
 
@@ -15,31 +17,23 @@ const ICON_STYLES = {
 
 export default MovieSwipeDeckButtons = ({ dimensions, handleLeftButtonPress, handleUnwatchedButtonPress, handleRightButtonPress, buttonsDisabled }) => {
   return (
-    <View style={{ flexDirection: "column", height: dimensions.height, justifyContent: 'center' }}>
-      <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-        <Button 
-          rounded
-          disabled={buttonsDisabled}
-          onPress={handleLeftButtonPress}
-          icon={{ name: 'thumb-down', size: ICON_STYLES.size, color: ICON_STYLES.color }} 
-          buttonStyle={{ backgroundColor: '#ff5722' }}
-          iconStyle={{position:'relative', right:"50px"}}
-        />
-        <Button 
-          rounded
-          icon
-          disabled={buttonsDisabled}
-          onPress={handleUnwatchedButtonPress} 
-          icon={{ name: 'md-eye-off', type: 'ionicon', size: ICON_STYLES.size, color: ICON_STYLES.color, position: 'relative', top: '50px' }} 
-          buttonStyle={{ backgroundColor: '#fdd835' }}
-        />
-        <Button
-          rounded
-          disabled={buttonsDisabled}
-          onPress={handleRightButtonPress} 
-          icon={{ name: 'thumb-up', size: ICON_STYLES.size, color: ICON_STYLES.color }} 
-          buttonStyle={{ backgroundColor: '#29b6f6' }} 
-        />
+    <View style={{ flexDirection: "column", height: dimensions.height, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flexDirection: "row", justifyContent: 'space-between', width: dimensions.width }}>
+        <TouchableHighlight onPress={handleLeftButtonPress} underlayColor="rgba(0,0,0,0)">
+          <Image
+            source={require('../../assets/thumbsdown.png')}
+          />
+        </TouchableHighlight>
+        <TouchableHighlight onPress={handleUnwatchedButtonPress} underlayColor="rgba(0,0,0,0)">
+          <Image
+            source={require('../../assets/notseen.png')}
+          />
+        </TouchableHighlight>
+        <TouchableHighlight onPress={handleRightButtonPress} underlayColor="rgba(0,0,0,0)">
+          <Image
+            source={require('../../assets/thumbsup.png')}
+          />
+        </TouchableHighlight>
       </View>
     </View>
   );
