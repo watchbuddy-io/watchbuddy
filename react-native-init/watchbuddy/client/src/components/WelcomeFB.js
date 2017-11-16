@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native';
+import axios from 'axios';
 import FBSDK, { LoginManager, LoginButton, AccessToken } from 'react-native-fbsdk';
 
 // CAN WE MAKE THIS STATELESS?
@@ -16,8 +17,19 @@ export default WelcomeFB = (props) => {
   this.componentWillMount = () => {
     AccessToken.getCurrentAccessToken().then(data => {
       if (data) {
-        console.log('You are already logged in!')
-        props.changeView('MovieSwipeDeck')
+        axios.get(`http://13.57.94.147:8080/loggedIn`)
+          .then(movies => {
+            if (movies) {
+              console.log('You are already logged in!')
+              props.changeView('MovieGridList', JSON.parse(movies.data).results);    
+            } else {
+              props.changeView('MovieSwipeDeck')
+            }
+          })
+          .catch(err => {
+            console.log('There was an error on fetching /loggedIn', err);
+          })
+          
       } else {
         console.log('You are not logged in!')
       }
@@ -63,7 +75,7 @@ export default WelcomeFB = (props) => {
             onLoginFinished={
               (error, result) => {
                 if (error) {
-                  alert("There was an error logging in! " + result.error);
+                  alert("There was an error logging in!") // " + result.error);
                 } else if (result.isCancelled) {
                   console.log("Login cancelled.");
                 } else {

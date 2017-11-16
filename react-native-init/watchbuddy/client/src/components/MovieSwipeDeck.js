@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
+export default MovieSwipeDeck = ({ data, changeView, dimensions, fbToken }) => {
   // animation
   this.springValue = new Animated.Value(0.05)
   this.spring = () => {
@@ -61,6 +61,7 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
   this.numRenderEmptyCalls = 0;
 
   this.onSwipeRight = (card) => {
+    console.log('this is the card:', card)
     console.log("Movie liked: " + card.title);
     this.liked.push(card);
   }
@@ -114,14 +115,15 @@ export default MovieSwipeDeck = ({ data, changeView, dimensions }) => {
 
   this.renderEmpty = () => {
     if (this.numRenderEmptyCalls > 1) {
-      googleApiRequests.queryGoogleApi(this.liked)
+      googleApiRequests.queryGoogleApi(this.liked, fbToken)
         .then(data => {
           console.log(JSON.parse(data.data).results);
           changeView('MovieGridList', JSON.parse(data.data).results);
         })
         .catch(err => {
           console.log(err);
-          changeView('MovieGridList')
+          alert('There was an error! Please restart the app.')
+          changeView('MovieGridList') // do we want this?
         });
     }
 

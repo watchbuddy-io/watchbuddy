@@ -411,6 +411,7 @@
 		C471944E1F92C58700F0556D /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		C471944F1F92C58800F0556D /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		C4980FCD1FBBF31700334A9B /* Images-5.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Images-5.xcassets"; path = "watchbuddy/Images-5.xcassets"; sourceTree = "<group>"; };
+		C4980FCF1FBD182B00334A9B /* watchbuddy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = watchbuddy.entitlements; path = watchbuddy/watchbuddy.entitlements; sourceTree = "<group>"; };
 		C4C368AA1FAE2A3700080FE8 /* RNMail.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNMail.xcodeproj; path = "../node_modules/react-native-mail/RNMail.xcodeproj"; sourceTree = "<group>"; };
 		C92DE2FA68D14F349A9C99C7 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		C99AC2B4FF844069AE781944 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
@@ -563,6 +564,7 @@
 		13B07FAE1A68108700A75B9A /* watchbuddy */ = {
 			isa = PBXGroup;
 			children = (
+				C4980FCF1FBD182B00334A9B /* watchbuddy.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -856,6 +858,11 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 4W7VRS65AA;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
