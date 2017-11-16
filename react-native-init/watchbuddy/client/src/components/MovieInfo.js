@@ -26,7 +26,7 @@ const COMPONENT_WIDTH_RATIOS = {
   cardWidth: .92
 }
 
-export default MovieInfo = ({ dimensions, movie, movieUrl, fbToken }) => {
+export default MovieInfo = ({ dimensions, data, fbToken }) => {
   this.getMoviePoster = (movie) => {
     return (
       movie ?
@@ -40,22 +40,22 @@ export default MovieInfo = ({ dimensions, movie, movieUrl, fbToken }) => {
   return (
     <View bounces={false}>
       <View style={{height: dimensions.height / 2, width: dimensions.width}}>
-        {this.getMoviePoster(movie)}
+        {this.getMoviePoster(data)}
       </View>
       <Separator bordered>
-        <Text>{movie.title} | Rating: {movie.vote_average} </Text>
+        <Text>{data.title} | Rating: {data.vote_average} </Text>
       </Separator>
       <View style={{ display: 'flex', flexDirection: 'row', paddingTop: dimensions.height * .02, width: dimensions.width, justifyContent: 'space-between' }}>
         <Button 
-          onPress={() => {movieUrl ? web(movieUrl) : alert(`We're working on adding this feature right now! Stay tuned!`)}} 
+          onPress={() => { data.movieUrl ? web(data.movieUrl) : alert(`We're working on linking this movie right now! Stay tuned!`) }} 
           title={'Watch Now'}
           buttonStyle={styles.Button}
         />
         <Button
           onPress={() => {
-            console.log('insideasdfsdaf', fbToken)
-            axios.post('http://13.57.94.147:8080/favorites', {fbToken: fbToken.userID, favoriteMovies: JSON.stringify(movie), movies: movie})
-                .then(data => console.log('clicked Saved GET success: ',data))
+            console.log('FBTOKEN', fbToken)
+            axios.post('http://13.57.94.147:8080/favorites', { fbToken: fbToken.userID, favoriteMovies: JSON.stringify(data), movies: data })
+                .then(data => console.log('clicked Saved GET success: ', data))
                 .catch(err => console.log('clicked Saved GET ERROR: ',err))
           }} 
           title={'Save'}
@@ -66,7 +66,7 @@ export default MovieInfo = ({ dimensions, movie, movieUrl, fbToken }) => {
         Critics Description:
       </Text>
       <Text style={styles.overview}>
-        {movie.overview}
+        {data.overview}
       </Text>
     </View>
   );

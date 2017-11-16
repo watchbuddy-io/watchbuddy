@@ -98,84 +98,11 @@ export default WelcomeFB = (props) => {
             alignSelf: 'center',
             textDecorationLine: 'underline',
             color: "rgba(255,255,255,1)"
-          }} onPress={() => props.changeView('MovieSwipeDeck')}> Not Now </Text>
+          }} onPress={() => props.changeView('MovieSwipeDeck')}> skip login </Text>
         </View>
       </View>
     );
 }
-
-// export default class WelcomeFB extends Component<{}> {
-//   constructor(props) {
-//     super(props)
-//   }
-
-//   componentWillMount() {
-//     AccessToken.getCurrentAccessToken().then(data => {
-//       if (data) {
-//         this.props.changeView('MovieSwipeDeck')
-//       }
-//     }).catch(err => console.log('err', err))
-//   }
-
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//       <View style={styles.overlay} />
-//         <Text
-//           style={{
-//             color: "rgba(255,255,255,1)",
-//             position: "absolute",
-//             top: this.props.dimensions.height * .25,
-//             width: this.props.dimensions.width,
-//             textAlign: "center",
-//             backgroundColor: "transparent",
-//             fontSize: this.props.dimensions.width / 6.8,
-//             zIndex: 2
-//           }}
-//         >
-//           watchbuddy
-//         </Text>
-//         <Text style={{
-//           color: "rgba(255,255,255,1)",
-//           position: "absolute",
-//           width: this.props.dimensions.width * .8,
-//           backgroundColor: "transparent",
-//           fontSize: this.props.dimensions.width / 18.75,
-//           zIndex: 2,
-//         }}>
-//           Pick the movies you like and let our AI build recommendations according to your tastes!
-//         </Text>
-//         <Image style={styles.image} source={require('../../assets/welcome2.jpg')} />
-//         <View style={{
-//           position: 'absolute',
-//           bottom: this.props.dimensions.height * .1,
-//           zIndex: 2
-//         }}>
-//           <LoginButton
-//             publishPermissions={["publish_actions"]}
-//             onLoginFinished={
-//               (error, result) => {
-//                 if (error) {
-//                   alert("login has error: " + result.error);
-//                 } else if (result.isCancelled) {
-//                   alert("login is cancelled.");
-//                 } else {
-//                   AccessToken.getCurrentAccessToken().then(
-//                     (data) => {
-//                       if (data) {
-//                         this.props.changeView('MovieSwipeDeck')
-//                       }
-//                     }
-//                   )
-//                 }
-//               }
-//             }
-//             onLogoutFinished={() => alert("logout.")}/>
-//           </View>
-//       </View>
-//     );
-//   }
-// }
 
 const styles = StyleSheet.create({
   container: {

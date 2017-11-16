@@ -32,20 +32,22 @@ export default class App extends Component<{}> {
     this.state = {
       view: 'WelcomeFB',
       data: dummyRequestData.data,
-      screenDimensions: screen.getScreenDimensions()
+      screenDimensions: screen.getScreenDimensions(),
+      fbToken: null
     }
 
-    this.fbToken = AccessToken.getCurrentAccessToken().then(data => {
-      if (data) {
-        this.fbToken = data;
-      }
-    })
+    AccessToken.getCurrentAccessToken()
+      .then(data => {
+        if (data) {
+          this.setState({ fbToken: data });
+        }
+      })
       .catch(err => console.log('Error in App.js FB Access Token', err));
 
     this.changeView = this.changeView.bind(this);
   }
 
-  changeView(view, data, favorites) {
+  changeView(view, data) {
     if (!data) {
       this.setState({ view: view });
     } else {
@@ -59,11 +61,8 @@ export default class App extends Component<{}> {
   componentWillMount() {
     AccessToken.getCurrentAccessToken().then(data => {
       if (data) {
-        console.log('data in loggedin', data)
-        this.setState({view:'MovieGridList'})
-        // axios.get(`http://13.57.94.147:8080/loggedIn`).then(movies => {
-
-        // })
+        console.log('Data on logged in', data)
+        this.setState({ view: 'MovieGridList' });
         console.log('This user is opening the app again, logged in.')
       } 
     }).catch(err => {
@@ -71,36 +70,39 @@ export default class App extends Component<{}> {
     })
   }
 
-  renderView(data) {
+  renderView() {
     var Content = views[this.state.view];
 
     return (
       <Content
-        data={data}
+        data={this.state.data}
         dimensions={(this.state.view !== 'WelcomeFB') ? content.getContentDimensions(this.state.screenDimensions, this.state.view) : this.state.screenDimensions}
         changeView={this.changeView}
-        fbToken={this.fbToken}
+        fbToken={this.state.fbToken}
       />
     );
   }
 
   renderNav() {
+    console.log('DATA', this.state.data);
+
     return (
       <Nav 
         view={this.state.view}
+        data={this.state.data}
         dimensions={content.getNavDimensions(this.state.screenDimensions, this.state.view)}
-        currentView={this.state.view}
         changeView={this.changeView}
-        fbToken={this.fbToken}
+        fbToken={this.state.fbToken}
       />
     );
   }
 
   render() {
+    console.log('TOKEN', this.state.fbToken);
     return (
-      <Container style={{ flexDirection: "column" }} bounces={false}>
-        {(this.state.view !== 'WelcomeFB') ? this.renderNav() : null}
-        {this.renderView(this.state.data)}
+      <Container style={{ flexDirection: "column" }}>
+        {(this.state.view === 'WelcomeFB') ? null : this.renderNav()}
+        {this.renderView()}
       </Container>
     );
   }

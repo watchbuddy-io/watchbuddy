@@ -1,6 +1,6 @@
 const COMPONENT_HEIGHT_RATIOS = {
   nav: .1,
-  content: .9  
+  content: .9005  
 }
 
 export default content = {

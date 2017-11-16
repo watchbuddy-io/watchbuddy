@@ -9,7 +9,8 @@ import {
   ActionSheetIOS,
   Linking,
   View,
-  Text
+  Text,
+  AlertIOS
 } from 'react-native';
 
 // import Mailer from 'react-native-mail';
@@ -17,6 +18,9 @@ import { textWithoutEncoding, email } from 'react-native-communications'
 
 import axios from 'axios';
 
+import { LoginManager } from 'react-native-fbsdk';
+
+// added to see if pull works
 const ICON_STYLES = {
   size: 25,
   color: '#444'
@@ -30,48 +34,80 @@ var BUTTONS = [
   'View Favorites',
   'Share',
   'Send Feedback',
+  'Logout',
   'Cancel',
 ];
 
-var CANCEL_INDEX = 3;
+var BUTTONS_NO_LOGIN = [
+  'View Favorites',
+  'Share',
+  'Send Feedback',
+  'Cancel',
+];
+
+var CANCEL_INDEX = 4;
+
+var CANCEL_INDEX_NO_LOGIN = 3;
 
 export default class Nav extends React.Component {
-  constructor({
-    view,
-    dimensions,
-    changeView,
-    fbToken
-  }) {
+  constructor({ view, data, dimensions, changeView, fbToken }) {
     super();
 
     this.state = {
-      clicked: 'none'
+      data: (['MovieSwipeDeck', 'MovieGridList'].includes(view)) ? data : null,
     };
+
+    this.view = view;
+    this.dimensions = dimensions;
+    this.changeView = changeView;
+    this.fbToken = fbToken;
+  }
+
+  componentWillReceiveProps({ view, data, dimensions, changeView, fbToken }) {
+    this.setState({ data: (['MovieSwipeDeck', 'MovieGridList'].includes(view)) ? data : this.state.data });
+
+    this.view = view;
+    this.dimensions = dimensions;
+    this.changeView = changeView;
+    this.fbToken = fbToken;
   }
 
   showActionSheet() {
-    const {
-      changeView,
-      fbToken
-    } = this.props;
-
     ActionSheetIOS.showActionSheetWithOptions({
-      options: BUTTONS,
-      cancelButtonIndex: CANCEL_INDEX
+      options: (this.fbToken) ? BUTTONS : BUTTONS_NO_LOGIN,
+      cancelButtonIndex: (this.fbToken) ? CANCEL_INDEX : CANCEL_INDEX_NO_LOGIN
     },
     (buttonIndex) => {
-      if (buttonIndex === 1) {
-        textWithoutEncoding(null, 'Hey! Check out watchbuddy.io on the App Store for great AI based movie recommendations!')
+      if (buttonIndex === 0 && this.fbToken) {
+        console.log('REACHED');
+        axios.get(`http://13.57.94.147:8080/favorites`, { params: { fbToken: this.fbToken.userID } }) // change to just this.fbToken since its deconstructed
+          .then(data => {
+            console.log('FAVORITES DATA', data);
+            this.changeView('Favorites', this.state.data);
+          })
+          .catch(err => alert('You Have No Favorites!'))
+      } else if (buttonIndex === 0) {
+        AlertIOS.alert(
+         'Login to save favorites',
+         'Our AI gets smarter with each movie you save, but you have to be logged in!',
+         [
+           { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+           { text: 'Login', onPress: () => {
+             this.changeView('WelcomeFB');
+             console.log('Login Pressed');
+           } },
+         ],
+        )
+      } else if (buttonIndex === 1) {
+        // this.handleHelp();
+        // Linking.openURL('mailto:somethingemail@gmail.com?subject=abcdefg&body=body')
+        textWithoutEncoding(null, 'Hey! Check out watchbuddy.io/app on the App Store for great AI based movie recommendations!')
       } else if (buttonIndex === 2) {
         email(['support@watchbuddy.io'], null, null, null, 'Thanks for reaching out! We promise to take care of you. Let us know your issue below:')
-      } else if (buttonIndex === 0) {
-        axios.get(`http://13.57.94.147:8080/favorites`, {params:{fbToken:fbToken.userID}})
-          .then(data => {
-            changeView('Favorites', data.data.movies);
-          })
-          .catch(err => {
-            alert('You Have No Favorites!');
-          })
+      } else if (buttonIndex === 3 && this.fbToken) {
+        let logOut = Promise.resolve(LoginManager.logOut());
+        let changeViewLoggedOut = Promise.resolve(this.changeView('WelcomeFB'));
+        Promise.all([logOut, changeViewLoggedOut]) // can remove w/o Promise if needed.
       }
     });
   }
@@ -90,15 +126,8 @@ export default class Nav extends React.Component {
   }
 
   render() {
-    const {
-      view,
-      dimensions,
-      changeView,
-      fbToken
-    } = this.props;
-    
     return (
-      <Header style={{ width: dimensions.width, height: dimensions.height, flexDirection: "row", justifyContent: 'space-between' }}
+      <Header style={{ width: this.dimensions.width, height: this.dimensions.height, flexDirection: "row", justifyContent: 'space-between' }}
         leftComponent={
           <Button icon={{ name: 'more-horiz', size: ICON_STYLES.size, color: ICON_STYLES.color }} 
                   buttonStyle={{ backgroundColor: '#FFF'}} 
@@ -110,15 +139,15 @@ export default class Nav extends React.Component {
           <Button title={'watchbuddy.io'}
                   buttonStyle={{ backgroundColor: '#FFF' }}
                   textStyle={{ color: '#444', fontSize: 20 }}
-                  disabled={(view === 'MovieSwipeDeck') ? true : false}
+                  disabled={(this.view === 'MovieSwipeDeck') ? true : false}
                   disabledStyle={{backgroundColor: '#FFF'}}
           />
         }
         rightComponent={
           <Button icon={{ name: 'home', size: ICON_STYLES.size, color: ICON_STYLES.color }}
                   buttonStyle={{ backgroundColor: '#FFF' }}
-                  onPress={() => changeView('MovieGridList')} 
-                  disabled={(view === 'MovieSwipeDeck') ? true : false}
+                  onPress={() => this.changeView('MovieGridList', this.state.data)} 
+                  disabled={(this.view === 'MovieSwipeDeck') ? true : false}
                   disabledStyle={{backgroundColor: '#FFF'}}
           />
         }
