@@ -56,6 +56,21 @@ export default class App extends Component<{}> {
     }
   }
 
+  componentWillMount() {
+    AccessToken.getCurrentAccessToken().then(data => {
+      if (data) {
+        console.log('data in loggedin', data)
+        this.setState({view:'MovieGridList'})
+        // axios.get(`http://13.57.94.147:8080/loggedIn`).then(movies => {
+
+        // })
+        console.log('This user is opening the app again, logged in.')
+      } 
+    }).catch(err => {
+      console.log('Error in App.js FB Access Token (open app again)', err)
+    })
+  }
+
   renderView(data) {
     var Content = views[this.state.view];
 

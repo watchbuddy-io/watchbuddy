@@ -142,7 +142,7 @@ export default class MovieSwipeDeck extends React.Component {
     } = this.state;
 
     if (this.numRenderEmptyCalls === 1) {
-      googleApiRequests.queryGoogleApi(this.state.liked)
+      googleApiRequests.queryGoogleApi(this.state.liked, this.props.fbToken)
       .then(data => {
         data = JSON.parse(data.data).results;
         console.log(data);
@@ -151,7 +151,8 @@ export default class MovieSwipeDeck extends React.Component {
       })
       .catch(err => {
         console.log(err);
-        changeView('MovieGridList')
+        alert('There was an error! Please restart the app.');
+        changeView('MovieGridList'); // Do we want this?
       });
     }
 
