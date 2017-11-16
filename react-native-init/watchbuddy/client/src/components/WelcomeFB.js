@@ -79,17 +79,20 @@ export default WelcomeFB = (props) => {
                 } else if (result.isCancelled) {
                   console.log("Login cancelled.");
                 } else {
-                  AccessToken.getCurrentAccessToken().then(
-                    (data) => {
-                      if (data) {
-                        props.changeView('MovieSwipeDeck')
+                  AccessToken.getCurrentAccessToken()
+                    .then(
+                      (data) => {
+                        if (data) {
+                          props.changeView('MovieSwipeDeck');
+                        }
                       }
-                    }
-                  )
+                    )
                 }
               }
             }
-            onLogoutFinished={() => alert("Logged out.")}/>
+            onLogoutFinished={() => {
+              alert("Logged out.");
+            }}/>
           <Text style={{
             zIndex: 1,
             backgroundColor: 'transparent',

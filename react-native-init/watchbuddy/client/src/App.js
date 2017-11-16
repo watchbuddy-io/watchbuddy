@@ -100,7 +100,7 @@ export default class App extends Component<{}> {
   render() {
     console.log('TOKEN', this.state.fbToken);
     return (
-      <Container style={{ flexDirection: "column" }}>
+      <Container style={{ flexDirection: "column" }} bounces={(this.state.view === 'Favorites') ? true : false}>
         {(this.state.view === 'WelcomeFB') ? null : this.renderNav()}
         {this.renderView()}
       </Container>
