@@ -2,17 +2,11 @@
 
 > Have too many shows to watch? Have some free time on certain days? Use WatchBuddy to figure out what episodes to watch for your overloaded shows!
 
-## Legacy Team
+## Team
 
   - Tim Hoang
   - Seva Mouler
   - Quilty Kim
-
-## Greenfield Team
-
-  - Daniel Tran
-  - Helen Yi
-  - Brian Kim
 
 ## Table of Contents
 
@@ -52,17 +46,27 @@
 
 ## Requirements
 
-- body-parser: 1.17.2
-- crypto: 1.0.1
-- express: 4.15.0
-- jquery: 3.1.1
-- moment: 2.18.1
-- mysql: 2.13.0
-- react: 15.4.2
-- react-datepicker: 0.55.0
-- react-dom: 15.4.2
-- request: 2.83.0
-- semantic-ui-react: 0.74.2
+- @google-cloud/prediction: "^0.6.2",
+- @google-cloud/storage: "^1.4.0",
+- amazon-product-api: "^0.4.4",
+- axios: "^0.16.2",
+- express: "^4.16.2",
+- install: "^0.10.1",
+- jquery: "^3.2.1",
+- moment: "^2.18.1",
+- mysql: "^2.13.0",
+- native-base: "^2.3.2",
+- react: "^16.1.1",
+- react-native: "0.49.3",
+- react-native-communications: "^2.2.1",
+- react-native-easy-grid: "^0.1.15",
+- react-native-elements: "^0.17.0",
+- react-native-fbsdk: "^0.6.3",
+- react-native-mail: "^3.0.4",
+- react-native-simple-action-sheet-ios: "0.0.1",
+- react-native-vector-icons: "^4.4.2",
+- request: "^2.83.0",
+- underscore: "^1.8.3"
 
 ## Development
 
