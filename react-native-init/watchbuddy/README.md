@@ -4,11 +4,7 @@
 
 ## Legacy Team
 
-<<<<<<< HEAD
-  - Timothy Hoang
-=======
   - Tim Hoang
->>>>>>> 8420950dcaf63255463ec34a8d592cd5627f9f26
   - Seva Mouler
   - Quilty Kim
 
