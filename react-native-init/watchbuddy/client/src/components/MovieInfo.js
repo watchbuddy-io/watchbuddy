@@ -4,8 +4,7 @@ import React from 'react';
 import {
   Image,
   Text,
-  View,
-  AlertIOS
+  View
 } from 'react-native';
 
 import {
@@ -27,7 +26,7 @@ const COMPONENT_WIDTH_RATIOS = {
   cardWidth: .92
 }
 
-export default MovieSwipeDeckButtons = ({ dimensions, movie, movieUrl, fbToken }) => {
+export default MovieInfo = ({ dimensions, movie, movieUrl, fbToken }) => {
   this.getMoviePoster = (movie) => {
     return (
       movie ?
@@ -39,61 +38,34 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie, movieUrl, fbToken }
   }
 
   return (
-    <View>
+    <View bounces={false}>
       <View style={{height: dimensions.height / 2, width: dimensions.width}}>
         {this.getMoviePoster(movie)}
-        <View>
-        </View>
       </View>
       <Separator bordered>
         <Text>{movie.title} | Rating: {movie.vote_average} </Text>
       </Separator>
-      <View style={{ display: 'flex', flexDirection: 'row', paddingTop: 5, width: 400}}>
+      <View style={{ display: 'flex', flexDirection: 'row', paddingTop: dimensions.height * .02, width: dimensions.width, justifyContent: 'space-between' }}>
         <Button 
-          onPress={() => {movieUrl ? web(movieUrl) : alert(`We're working on adding this feature as we speak! Stay tuned!`)}} 
+          onPress={() => {movieUrl ? web(movieUrl) : alert(`We're working on adding this feature right now! Stay tuned!`)}} 
           title={'Watch Now'}
-          buttonStyle={styles.Button1}
+          buttonStyle={styles.Button}
         />
         <Button
           onPress={() => {
-            console.log('Save Button Pressed')
-            if (fbToken) {
-              axios.post('http://13.57.94.147:8080/favorites', {fbToken: fbToken.userID, favoriteMovies: JSON.stringify(movie), movies: movie})
+            console.log('insideasdfsdaf', fbToken)
+            axios.post('http://13.57.94.147:8080/favorites', {fbToken: fbToken.userID, favoriteMovies: JSON.stringify(movie), movies: movie})
                 .then(data => console.log('clicked Saved GET success: ',data))
                 .catch(err => console.log('clicked Saved GET ERROR: ',err))
-            } else {
-              AlertIOS.alert(
-               'Login to save favorites',
-               'Our AI gets smarter each movie you save - that means even better recommendations for you',
-               [
-                 {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                 {text: 'Login', onPress: () => {
-                   this.props.changeView('WelcomeFB')
-                   console.log('Login Pressed')
-                 }},
-               ],
-              )
-            }
           }} 
           title={'Save'}
-          buttonStyle={styles.Button2} 
+          buttonStyle={styles.Button} 
         />
       </View>
-      <Text style={{
-        fontWeight: 'bold',
-        fontSize: 20,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingTop: 5
-      }}>
+      <Text style={styles.description}>
         Critics Description:
       </Text>
-      <Text style={{ 
-        fontSize: 16,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingTop: 5
-       }}>
+      <Text style={styles.overview}>
         {movie.overview}
       </Text>
     </View>
@@ -101,13 +73,21 @@ export default MovieSwipeDeckButtons = ({ dimensions, movie, movieUrl, fbToken }
 }
 
 const styles = {
-  Button1: {
+  Button: {
     width: 160,
     backgroundColor: '#29b6f6',
   },
-  Button2: {
-    width: 160,
-    backgroundColor: '#29b6f6',
+  description: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5
+  },
+  overview: {
+    fontSize: 16,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5
   }
-
 }
