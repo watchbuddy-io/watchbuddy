@@ -7,10 +7,10 @@ import {
 
 import {
   ActionSheetIOS,
+  AlertIOS,
   Linking,
   View,
   Text,
-  AlertIOS
 } from 'react-native';
 
 // import Mailer from 'react-native-mail';
@@ -79,12 +79,8 @@ export default class Nav extends React.Component {
     },
     (buttonIndex) => {
       if (buttonIndex === 0 && this.fbToken) {
-        console.log('REACHED');
         axios.get(`http://13.57.94.147:8080/favorites`, { params: { fbToken: this.fbToken.userID } }) // change to just this.fbToken since its deconstructed
-          .then(data => {
-            console.log('FAVORITES DATA', data);
-            this.changeView('Favorites', this.state.data);
-          })
+          .then(data => this.changeView('Favorites', (Array.isArray(data.data.movies)) ? data.data.movies : []))
           .catch(err => alert('You Have No Favorites!'))
       } else if (buttonIndex === 0) {
         AlertIOS.alert(
@@ -105,9 +101,8 @@ export default class Nav extends React.Component {
       } else if (buttonIndex === 2) {
         email(['support@watchbuddy.io'], null, null, null, 'Thanks for reaching out! We promise to take care of you. Let us know your issue below:')
       } else if (buttonIndex === 3 && this.fbToken) {
-        let logOut = Promise.resolve(LoginManager.logOut());
-        let changeViewLoggedOut = Promise.resolve(this.changeView('WelcomeFB'));
-        Promise.all([logOut, changeViewLoggedOut]) // can remove w/o Promise if needed.
+        LoginManager.logOut();
+        this.changeView('WelcomeFB');
       }
     });
   }

@@ -1,18 +1,24 @@
 import React from 'react'
+
 import {
   View,
   Text,
+  ScrollView,
   StyleSheet,
   Image
 } from 'react-native';
-import { List, ListItem } from 'react-native-elements';
+
+import {
+  List,
+  ListItem
+} from 'react-native-elements';
 
 // TODO: PASS WATCHNOW LINK - SHOULD BE INSIDE GRIDLIST (CURRENLTY DOESNT WORK WHEN CLICKING FROM FAVS)
 
 export default Favorites = (props) => {
-  console.log(props);
   return (
-      <List containerStyle={{marginBottom: 20}}>
+    <ScrollView>
+      <List containerStyle={{ marginBottom: 20 }}>
         {
           props.data ? props.data.map((movie, i) => (
             <ListItem
@@ -25,6 +31,7 @@ export default Favorites = (props) => {
           )) : <Text> You Don't Have Any Favorited Movies! </Text>
         }
       </List>
+    </ScrollView>
   )
 }
 

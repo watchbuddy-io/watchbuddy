@@ -2,9 +2,11 @@ import dummyRottenTomatoesData from '../data/dummyRottenTomatoesData';
 import React from 'react';
 
 import {
+  AlertIOS,
   Image,
+  ScrollView,
   Text,
-  View
+  View,
 } from 'react-native';
 
 import {
@@ -22,72 +24,138 @@ import { AccessToken } from 'react-native-fbsdk'
 
 import { web } from 'react-native-communications';
 
-const COMPONENT_WIDTH_RATIOS = {
-  cardWidth: .92
-}
-
 export default MovieInfo = ({ dimensions, data, fbToken }) => {
+  this.styles = {
+    Button: {
+      width: dimensions.width * .3,
+      backgroundColor: '#29b6f6',
+    },
+    boldText: {
+      fontWeight: 'bold',
+      fontSize: 16,
+      paddingLeft: 10,
+      paddingRight: 10,
+      paddingTop: 5,
+      paddingBottom: 5,
+    },
+    plainText: {
+      fontSize: 16,
+      paddingLeft: 10,
+      paddingRight: 10,
+      paddingTop: 5,
+      paddingBottom: 5,
+    },
+    divider: {
+      height: dimensions.height * .05,
+      width: dimensions.width,
+    },
+    separator: {
+      height: dimensions.height * .05,
+      width: dimensions.width,
+      backgroundColor: 'rgba(150, 150, 150, .8)',
+    },
+    main: {
+      height: dimensions.height,
+      width: dimensions.width,
+    },
+    poster: {
+      height: dimensions.height * .5,
+      width: dimensions.width,
+    },
+    overview: {
+      height: dimensions.height * .35,
+      width: dimensions.width,
+      backgroundColor: 'rgba(200, 200, 200, .8)'
+    },
+    scrollview: {
+      height: dimensions.height * .35, 
+      width: dimensions.width,
+    },
+    buttonBox: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between', 
+      backgroundColor: 'rgba(200, 200, 200, .8)'
+    },
+    buttonView: {
+      width: dimensions.width * .3,
+    },
+  }
+  
   this.getMoviePoster = (movie) => {
     return (
       movie ?
         <Image
-          source={{ height: dimensions.height / 2, width: dimensions.width, uri: `https://image.tmdb.org/t/p/w500/${movie.poster_path}` }}
+          source={{ height: dimensions.height * .5, width: dimensions.width, uri: `https://image.tmdb.org/t/p/w500/${movie.poster_path}` }}
         />
         : null
     );    
   }
 
   return (
-    <View bounces={false}>
-      <View style={{height: dimensions.height / 2, width: dimensions.width}}>
+    <View style={this.styles.main} bounces={false}>
+      <View style={this.styles.poster}>
         {this.getMoviePoster(data)}
       </View>
-      <Separator bordered>
-        <Text>{data.title} | Rating: {data.vote_average} </Text>
-      </Separator>
-      <View style={{ display: 'flex', flexDirection: 'row', paddingTop: dimensions.height * .02, width: dimensions.width, justifyContent: 'space-between' }}>
-        <Button 
-          onPress={() => { data.movieUrl ? web(data.movieUrl) : alert(`We're working on linking this movie right now! Stay tuned!`) }} 
-          title={'Watch Now'}
-          buttonStyle={styles.Button}
-        />
-        <Button
-          onPress={() => {
-            console.log('FBTOKEN', fbToken)
-            axios.post('http://13.57.94.147:8080/favorites', { fbToken: fbToken.userID, favoriteMovies: JSON.stringify(data), movies: data })
-                .then(data => console.log('clicked Saved GET success: ', data))
-                .catch(err => console.log('clicked Saved GET ERROR: ',err))
-          }} 
-          title={'Save'}
-          buttonStyle={styles.Button} 
-        />
+      <View style={this.styles.divider}>
+        <Separator style={this.styles.separator}>
+            <Text>{data.title} | Rating: {data.vote_average} </Text>
+        </Separator>
       </View>
-      <Text style={styles.description}>
-        Critics Description:
-      </Text>
-      <Text style={styles.overview}>
-        {data.overview}
-      </Text>
+      <View style={this.styles.overview}>
+        <Text style={this.styles.boldText}>
+          Synopsis:
+        </Text>
+        <ScrollView style={this.scrollview} bounces={false}>
+          <Text style={this.styles.plainText}>
+            {data.overview}
+          </Text>
+        </ScrollView>
+      </View>
+      <View style={styles.buttonBox}>
+        <View style={styles.buttonView}>
+          <Button 
+            onPress={() => { data.movieUrl ? web(data.movieUrl) : alert(`We're working on linking this movie right now! Stay tuned!`) }} 
+            title={'Watch Now'}
+            buttonStyle={this.styles.Button}
+          />
+        </View>
+        <View style={styles.buttonView}>
+          <Button
+            onPress={() => {
+
+            }} 
+            title={'Rate'}
+            buttonStyle={this.styles.Button} 
+          />
+        </View>
+        <View style={styles.buttonView}>
+          <Button
+            onPress={() => {
+              console.log('Save Button Pressed')
+              if (fbToken) {
+                axios.post('http://13.57.94.147:8080/favorites', {fbToken: fbToken.userID, favoriteMovies: JSON.stringify(movie), movies: movie})
+                  .then(data => console.log('clicked Saved GET success: ',data))
+                  .catch(err => console.log('clicked Saved GET ERROR: ',err))
+              } else {
+                AlertIOS.alert(
+                 'Login to save favorites',
+                 'Our AI gets smarter each movie you save - that means even better recommendations for you',
+                 [
+                   {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                   {text: 'Login', onPress: () => {
+                     this.props.changeView('WelcomeFB')
+                     console.log('Login Pressed')
+                   }},
+                 ],
+                )
+              }
+            }} 
+            title={'Save'}
+            buttonStyle={this.styles.Button} 
+          />
+        </View>
+      </View>
     </View>
   );
-}
-
-const styles = {
-  Button: {
-    width: 160,
-    backgroundColor: '#29b6f6',
-  },
-  description: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 5
-  },
-  overview: {
-    fontSize: 16,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 5
-  }
 }
