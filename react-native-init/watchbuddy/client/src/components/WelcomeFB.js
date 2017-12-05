@@ -21,9 +21,10 @@ export default WelcomeFB = (props) => {
           .then(movies => {
             if (movies) {
               console.log('You are already logged in!')
-              props.changeView('MovieGridList', JSON.parse(movies.data).results);    
+              props.changeView('MovieGridList', JSON.parse(movies.data).results, data);    
             } else {
-              props.changeView('MovieSwipeDeck')
+              console.log('You are not logged in!');
+              props.changeView('MovieSwipeDeck', null, data);
             }
           })
           .catch(err => {
@@ -31,12 +32,13 @@ export default WelcomeFB = (props) => {
           })
           
       } else {
-        console.log('You are not logged in!')
+        console.log('You are not logged in!');
+        // alert('Please try logging in again!');
       }
     }).catch(err => console.log('Error on componentWillMount in WelcomeFB: ', err))
   };
   componentWillMount();
-  console.log(FBSDK)
+  // console.log(FBSDK)
   return (
     <View style={styles.container}>
       <View style={styles.overlay} />
@@ -79,14 +81,15 @@ export default WelcomeFB = (props) => {
                 } else if (result.isCancelled) {
                   console.log("Login cancelled.");
                 } else {
-                  AccessToken.getCurrentAccessToken()
-                    .then(
-                      (data) => {
-                        if (data) {
-                          props.changeView('MovieSwipeDeck');
-                        }
-                      }
-                    )
+                  componentWillMount();
+                  // AccessToken.getCurrentAccessToken()
+                  //   .then(
+                  //     (data) => {
+                  //       if (data) {
+                  //         props.changeView('MovieSwipeDeck');
+                  //       }
+                  //     }
+                  //   )
                 }
               }
             }
