@@ -1,17 +1,16 @@
 import axios from 'axios';
 import content from './utils/content';
-import dummyData from './data/dummyData';
 import dummyRequestData from './data/dummyRequestData';
 import Nav from './components/Nav';
 import React from 'react';
 import screen from './utils/screen';
 import views from './utils/views';
 
-import FBSDK, { LoginManager, LoginButton, AccessToken } from 'react-native-fbsdk';
-
-import { 
-  Spinner
-} from 'nachos-ui';
+import FBSDK, { 
+  AccessToken,
+  LoginButton,
+  LoginManager 
+ } from 'react-native-fbsdk';
 
 import { 
   Container, 
@@ -34,20 +33,18 @@ export default class App extends Component<{}> {
       view: 'WelcomeFB',
       data: dummyRequestData.data,
       screenDimensions: screen.getScreenDimensions(),
-      loggedIn: false  // change to non state variable?
+      fbToken: null
     }
-    this.fbToken;
-    AccessToken.getCurrentAccessToken().then(data => {
-      console.log('access token here:', data)
-      if (data) {
-        this.fbToken = data;
-        this.setState({loggedIn: true})
-        console.log('Sucessful Facebook Login in App.js') 
-      } 
-    }).catch(err => {
-      this.fbToken = false;
-      console.log('Error in App.js FB Access Token', err)
-    })
+
+    AccessToken.getCurrentAccessToken()
+      .then(data => {
+        if (data) {
+          this.setState({ fbToken: data });
+        }
+      })
+      .catch(err => console.log('Error in App.js FB Access Token', err));
+
+    this.changeView = this.changeView.bind(this);
   }
 
   changeView(view, data) {
@@ -64,11 +61,8 @@ export default class App extends Component<{}> {
   componentWillMount() {
     AccessToken.getCurrentAccessToken().then(data => {
       if (data) {
-        console.log('data in loggedin', data)
-        this.setState({view:'MovieGridList'})
-        // axios.get(`http://13.57.94.147:8080/loggedIn`).then(movies => {
-
-        // })
+        console.log('Data on logged in', data)
+        this.setState({ view: 'MovieGridList' });
         console.log('This user is opening the app again, logged in.')
       } 
     }).catch(err => {
@@ -76,37 +70,40 @@ export default class App extends Component<{}> {
     })
   }
 
-  renderView(data) {
+  renderView() {
     var Content = views[this.state.view];
 
     return (
       <Content
-        data={data}
-        dimensions={(this.state.view !== 'WelcomeFB') ? content.getContentDimensions(this.state.screenDimensions) : this.state.screenDimensions}
-        changeView={this.changeView.bind(this)}
-        fbToken={this.fbToken}
+        data={this.state.data}
+        dimensions={(this.state.view !== 'WelcomeFB') ? content.getContentDimensions(this.state.screenDimensions, this.state.view) : this.state.screenDimensions}
+        changeView={this.changeView}
+        fbToken={this.state.fbToken}
       />
     );
   }
 
   renderNav() {
+    console.log('DATA', this.state.data);
+
     return (
       <Nav 
-        dimensions={content.getNavDimensions(this.state.screenDimensions)}
-        currentView={this.state.view}
-        changeView={this.changeView.bind(this)}
-        fbToken={this.fbToken}
+        view={this.state.view}
+        data={this.state.data}
+        dimensions={content.getNavDimensions(this.state.screenDimensions, this.state.view)}
+        changeView={this.changeView}
+        fbToken={this.state.fbToken}
       />
     );
   }
 
   render() {
-    console.log('FB Token: ', this.fbToken)
-    console.log(this.state.view);
+    console.log('TOKEN', this.state.fbToken);
+    
     return (
-      <Container style={{ flexDirection: "column" }}>
-        {(this.state.view !== 'WelcomeFB') ? this.renderNav() : null}
-        {this.renderView(this.state.data)}
+      <Container style={{ flexDirection: "column" }} bounces={(this.state.view === 'Favorites') ? true : false}>
+        {(this.state.view === 'WelcomeFB') ? null : this.renderNav()}
+        {this.renderView()}
       </Container>
     );
   }

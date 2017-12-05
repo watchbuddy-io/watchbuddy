@@ -4,7 +4,6 @@ import movieSwipeDeckStyles from '../styles/movieSwipeDeck';
 import React from 'react';
 import _ from 'underscore';
 import BrainPNG from '../../assets/thinking256.png';
-// import { View, Text, Image, StyleSheet, Easing } from 'react-native'
 
 import {
   Animated,
@@ -31,150 +30,191 @@ const COMPONENT_HEIGHT_RATIOS = {
   movieSwipeDeckButtons: .15
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-})
+export default class MovieSwipeDeck extends React.Component {
+  constructor(props) {
+    super(props);
 
-export default MovieSwipeDeck = ({ data, changeView, dimensions, fbToken }) => {
-  // animation
-  this.springValue = new Animated.Value(0.05)
-  this.spring = () => {
-    this.springValue.setValue(0.05)
-    Animated.spring(
-      this.springValue,
-      {
-        toValue: .5,
-        friction: 0.1,
-        tension: 10
-      }
-    ).start()
-  }
-  // end animationa
-  this.liked = [];
-  this.disliked = [];
-  this.unwatched = [];
-  this.styles = movieSwipeDeckStyles.getStyles(dimensions);
-  this.numRenderEmptyCalls = 0;
+    this.state = {
+      data: this.props.data,
+      changeView: this.props.changeView,
+      dimensions: this.props.dimensions,
+      liked: [],
+      disliked: [],
+      unwatched: [],
+    };
 
-  this.onSwipeRight = (card) => {
-    console.log('this is the card:', card)
+    // Animations
+    this.springValue = new Animated.Value(0.1)
+    this.spring = () => {
+      Animated.spring(
+        this.springValue,
+        {
+          toValue: .5,
+          friction: 0,
+          tension: 0,
+        }
+      ).start();
+    }
+
+    // Number Empty Calls (triggers once on last card, then again on renderEmpty)
+    this.numRenderEmptyCalls = 0;
+
+    // Styles
+    this.styles = movieSwipeDeckStyles.getStyles(this.props.dimensions);
+
+    // Bindings
+    this.renderCard = this.renderCard.bind(this);
+    this.renderEmpty = this.renderEmpty.bind(this);
+    this.onSwipeRight = this.onSwipeRight.bind(this);
+    this.onSwipeLeft = this.onSwipeLeft.bind(this);
+    this.onUnwatched = this.onUnwatched.bind(this);
+    this.triggerSwipeRight = this.triggerSwipeRight.bind(this);
+    this.triggerSwipeLeft = this.triggerSwipeLeft.bind(this);
+    this.triggerUnwatched = this.triggerUnwatched.bind(this);
+    this.throttleButtonPresses = this.throttleButtonPresses.bind(this)();
+  }
+
+  onSwipeRight(card) {
     console.log("Movie liked: " + card.title);
-    this.liked.push(card);
+    this.state.liked.push(card);
+    this.setState({ liked: this.state.liked });
   }
 
-  this.onSwipeLeft = (card) => {
+  onSwipeLeft(card) {
     console.log("Movie disliked: " + card.title);
-    this.disliked.push(card);
+    this.state.disliked.push(card);
+    this.setState({ disliked: this.state.disliked });
   }
 
-  this.onUnwatched = (card) => {
+  onUnwatched(card) {
     console.log("Movie unwatched: " + card.title);
-    this.unwatched.push(card);
+    this.state.unwatched.push(card);
+    this.setState({ unwatched: this.state.unwatched });
   }
 
-  this.triggerSwipeRight = () => {
+  triggerSwipeRight() {
     let card = this._deckSwiper._root.state.selectedItem;
     this._deckSwiper._root.swipeRight();
     this.onSwipeRight(card);
   }
 
-  this.triggerSwipeLeft = () => {
+  triggerSwipeLeft() {
     let card = this._deckSwiper._root.state.selectedItem;
     this._deckSwiper._root.swipeLeft();
     this.onSwipeLeft(card);
   }
 
-  this.triggerUnwatched = () => {
+  triggerUnwatched() {
     let card = this._deckSwiper._root.state.selectedItem;
     this._deckSwiper._root.swipeLeft();
     this.onUnwatched(card);
   }
 
-  this.renderCardPoster = (card) => {
-    return (
-      <CardItem cardBody>
-        <Image 
-          style={this.styles.Image}
-          source={{ uri: card.posterUrl }} 
-        />
-      </CardItem>
-    );
-  }
-
-  this.renderCard = (card) => {
+  renderCard(card) {
     return (
       <Card style={this.styles.Card}>
-        {this.renderCardPoster(card)}
+        <CardItem cardBody>
+          <Image 
+            style={this.styles.Image}
+            source={{ uri: card.posterUrl }} 
+          />
+        </CardItem>
       </Card>
     )
   }
 
-  this.renderEmpty = () => {
-    if (this.numRenderEmptyCalls > 1) {
-      googleApiRequests.queryGoogleApi(this.liked, fbToken)
-        .then(data => {
-          console.log(JSON.parse(data.data).results);
-          changeView('MovieGridList', JSON.parse(data.data).results);
-        })
-        .catch(err => {
-          console.log(err);
-          alert('There was an error! Please restart the app.')
-          changeView('MovieGridList') // do we want this?
-        });
-    }
-
-    this.numRenderEmptyCalls++;
-
-    this.spring();
-    return (
-    <View style={styles.container}>
-      <Animated.Image
-        style={{ transform: [{scale: this.springValue}] }}
-        source={BrainPNG}/>
-    </View>
-    )
-
-    // return (
-    //   <View style={this.styles.View}>
-    //     <Text style={this.styles.Text}>
-    //       Building your recommendations...
-    //     </Text>
-    //   </View>
-    // )
+  isEmptySwipeDeck() {
+    return this.state.liked.length + this.state.disliked.length + this.state.unwatched.length === this.state.data.length;
   }
 
-  this.throttleButtonPresses = _.throttle((event) => {
-    event();
-  }, 500).bind(this);
+  prefetchImages(movies) {
+    for (let i = 0; i < movies.length; i += 1) {
+      const movie = movies[i];
+      Image.prefetch(`https://image.tmdb.org/t/p/w500${movie.poster_path}`);
+    }
+  }
 
-  return (
-    <View 
-      style={{
-        height: dimensions.height, 
-        flexDirection: 'column'
-      }}>
-      <View 
-        style={{ height: dimensions.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck }}> 
-        <DeckSwiper
-          ref={(c) => this._deckSwiper = c}
-          dataSource={data}
-          renderItem={this.renderCard.bind(this)}
-          renderEmpty={this.renderEmpty.bind(this)}
-          onSwipeRight={this.onSwipeRight.bind(this)}
-          onSwipeLeft={this.onSwipeLeft.bind(this)}
-          looping={false}
-        />
-      </View>
-      <MovieSwipeDeckButtons
-        dimensions={{ height: dimensions.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeckButtons }}
-        handleRightButtonPress={() => this.throttleButtonPresses(this.triggerSwipeRight)}
-        handleUnwatchedButtonPress={() => this.throttleButtonPresses(this.triggerUnwatched)}
-        handleLeftButtonPress={() => this.throttleButtonPresses(this.triggerSwipeLeft)}
-      />
+  renderEmpty() {
+    const {
+      data,
+      changeView,
+      dimensions
+    } = this.state;
+
+    if (this.numRenderEmptyCalls === 1) {
+      googleApiRequests.queryGoogleApi(this.state.liked, this.props.fbToken)
+      .then(data => {
+        data = JSON.parse(data.data).results;
+        console.log(data);
+        this.prefetchImages(data);
+        setTimeout(() => changeView('MovieGridList', data), 2000);
+      })
+      .catch(err => {
+        console.log(err);
+        alert('There was an error! Please restart the app.');
+        changeView('MovieGridList'); // Do we want this?
+      });
+    }
+
+    this.numRenderEmptyCalls += 1;
+
+    this.spring();
+
+    return (
+    <View style={{flexDirection: "column", height: dimensions.height, justifyContent: 'center', alignItems: 'center'}}>
+      <Animated.Image
+        style={{
+          transform: [{scale: this.springValue}],
+          alignItems: 'center',
+          justifyContent:'center',
+       }}
+        source={BrainPNG}/>
+      <Text style={this.styles.Text}>
+        Our AI is building your recommendations...
+      </Text>
     </View>
-  );
+    )
+  }
+
+  throttleButtonPresses() {
+    return _.throttle((event) => event(), 650);
+  }
+
+  render() {
+    const {
+      data,
+      dimensions,
+    } = this.state;
+
+    return (
+      <View 
+        style={{
+          height: dimensions.height, 
+          flexDirection: 'column'
+        }}>
+        <View 
+          style={{ height: dimensions.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck }}> 
+          <DeckSwiper
+            ref={(c) => this._deckSwiper = c}
+            dataSource={data}
+            renderItem={this.renderCard}
+            renderEmpty={this.renderEmpty}
+            onSwipeRight={this.onSwipeRight}
+            onSwipeLeft={this.onSwipeLeft}
+            looping={false}
+          />
+        </View>
+        {
+          (!this.isEmptySwipeDeck()) ?
+            <MovieSwipeDeckButtons
+              dimensions={{ height: dimensions.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeckButtons, width: dimensions.width * COMPONENT_WIDTH_RATIOS.cardWidth }}
+              handleRightButtonPress={() => this.throttleButtonPresses(this.triggerSwipeRight)}
+              handleUnwatchedButtonPress={() => this.throttleButtonPresses(this.triggerUnwatched)}
+              handleLeftButtonPress={() => this.throttleButtonPresses(this.triggerSwipeLeft)}
+            />
+          : null
+        }
+      </View>
+    );
+  }
 }

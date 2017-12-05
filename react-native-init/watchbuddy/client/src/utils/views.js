@@ -7,11 +7,11 @@ import WelcomeFB from '../components/WelcomeFB';
 import Favorites from '../components/Favorites';
 
 export default views = {
-  Login: Login,
-  MovieSwipeDeck: MovieSwipeDeck,
-  MovieGridList: MovieGridList,
-  MovieInfo: MovieInfo,
-  Welcome: Welcome,
+  Login,
+  MovieSwipeDeck,
+  MovieGridList,
+  MovieInfo,
+  Welcome,
   WelcomeFB,
-  Favorites
+  Favorites,
 }
