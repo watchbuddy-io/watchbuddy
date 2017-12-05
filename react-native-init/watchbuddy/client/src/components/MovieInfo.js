@@ -28,7 +28,7 @@ import { web } from 'react-native-communications';
 export default MovieInfo = ({ dimensions, data, fbToken }) => {
   this.styles = {
     Button: {
-      width: dimensions.width * .3,
+      width: dimensions.width * .48,
       backgroundColor: '#29b6f6',
     },
     boldText: {
@@ -53,7 +53,7 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
     separator: {
       height: dimensions.height * .05,
       width: dimensions.width,
-      backgroundColor: 'rgba(150, 150, 150, .8)',
+      backgroundColor: 'rgba(180, 180, 180, .2)',
     },
     main: {
       height: dimensions.height,
@@ -66,7 +66,7 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
     overview: {
       height: dimensions.height * .35,
       width: dimensions.width,
-      backgroundColor: 'rgba(200, 200, 200, .8)'
+      backgroundColor: 'rgb(255, 255, 255)'
     },
     scrollview: {
       height: dimensions.height * .35, 
@@ -76,10 +76,10 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between', 
-      backgroundColor: 'rgba(200, 200, 200, .8)'
+      backgroundColor: 'rgb(255, 255, 255)'
     },
     buttonView: {
-      width: dimensions.width * .3,
+      width: dimensions.width * .48,
     },
   }
   
@@ -103,16 +103,6 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
             <Text>{data.title} | Rating: {Math.min(Number(data.vote_average * 13.5).toFixed(0), 98)}%</Text>
         </Separator>
       </View>
-      <View style={this.styles.overview}>
-        <Text style={this.styles.boldText}>
-          Synopsis:
-        </Text>
-        <ScrollView style={this.scrollview} bounces={false}>
-          <Text style={this.styles.plainText}>
-            {data.overview}
-          </Text>
-        </ScrollView>
-      </View>
       <View style={styles.buttonBox}>
         <View style={styles.buttonView}>
           <Button 
@@ -121,7 +111,7 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
             buttonStyle={this.styles.Button}
           />
         </View>
-        <View style={styles.buttonView}>
+        {/* <View style={styles.buttonView}>
           <Button
             onPress={() => {
 
@@ -129,7 +119,7 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
             title={'Rate'}
             buttonStyle={this.styles.Button} 
           />
-        </View>
+        </View> */}
         <View style={styles.buttonView}>
           <Button
             onPress={() => {
@@ -156,6 +146,16 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
             buttonStyle={this.styles.Button} 
           />
         </View>
+      </View>
+      <View style={this.styles.overview}>
+        <Text style={this.styles.boldText}>
+          Synopsis:
+        </Text>
+        <ScrollView style={this.scrollview} bounces={false}>
+          <Text style={this.styles.plainText}>
+            {data.overview}
+          </Text>
+        </ScrollView>
       </View>
     </View>
   );
