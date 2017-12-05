@@ -36,39 +36,40 @@ export default class App extends Component<{}> {
       fbToken: null
     }
 
-    AccessToken.getCurrentAccessToken()
-      .then(data => {
-        if (data) {
-          this.setState({ fbToken: data });
-        }
-      })
-      .catch(err => console.log('Error in App.js FB Access Token', err));
+    // AccessToken.getCurrentAccessToken()
+    //   .then(data => {
+    //     if (data) {
+    //       this.setState({ fbToken: data });
+    //     }
+    //   })
+    //   .catch(err => console.log('Error in App.js FB Access Token', err));
 
     this.changeView = this.changeView.bind(this);
   }
 
-  changeView(view, data) {
+  changeView(view, data, fbToken) {
     if (!data) {
       this.setState({ view: view });
     } else {
       this.setState({
         view: view,
-        data: data
+        data: data || this.state.data,
+        fbToken: fbToken || this.state.fbToken,
       });
     }
   }
 
-  componentWillMount() {
-    AccessToken.getCurrentAccessToken().then(data => {
-      if (data) {
-        console.log('Data on logged in', data)
-        this.setState({ view: 'MovieGridList' });
-        console.log('This user is opening the app again, logged in.')
-      } 
-    }).catch(err => {
-      console.log('Error in App.js FB Access Token (open app again)', err)
-    })
-  }
+  // componentWillMount() {
+  //   AccessToken.getCurrentAccessToken().then(data => {
+  //     if (data) {
+  //       console.log('Data on logged in', data)
+  //       this.setState({ view: 'MovieGridList' });
+  //       console.log('This user is opening the app again, logged in.')
+  //     } 
+  //   }).catch(err => {
+  //     console.log('Error in App.js FB Access Token (open app again)', err)
+  //   })
+  // }
 
   renderView() {
     var Content = views[this.state.view];
