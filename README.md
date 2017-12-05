@@ -2,6 +2,9 @@
 
 > Have too many shows to watch? Have some free time on certain days? Use WatchBuddy to figure out what episodes to watch for your overloaded shows!
 
+![alt text](https://github.com/timothyhoang/watchbuddy/blob/master/screenshots/landing.png)
+![alt text](https://github.com/timothyhoang/watchbuddy/blob/master/screenshots/swipe_deck.png)
+
 ## Mobile Team
 
   - Timothy Hoang

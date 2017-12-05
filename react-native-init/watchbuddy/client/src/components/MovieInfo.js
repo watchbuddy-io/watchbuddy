@@ -1,5 +1,6 @@
 import dummyRottenTomatoesData from '../data/dummyRottenTomatoesData';
 import React from 'react';
+import moviedb from '../../../helper/moviedb.js';
 
 import {
   AlertIOS,
@@ -99,7 +100,7 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
       </View>
       <View style={this.styles.divider}>
         <Separator style={this.styles.separator}>
-            <Text>{data.title} | Rating: {data.vote_average} </Text>
+            <Text>{data.title} | Rating: {Math.min(Number(data.vote_average * 13.5).toFixed(0), 98)}%</Text>
         </Separator>
       </View>
       <View style={this.styles.overview}>
