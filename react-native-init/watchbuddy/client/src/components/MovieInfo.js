@@ -150,7 +150,7 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
           onPress={() => {
             console.log('Save button Pressed')
             if (fbToken) {
-              axios.post('http://13.57.94.147:8080/favorites', {fbToken: fbToken.userID, favoriteMovies: JSON.stringify(data), movies: data})
+              axios.post('http://13.57.94.147:8080/favorites', {fbToken: fbToken, favoriteMovies: JSON.stringify(data), movies: data})
                 .then(data => console.log('clicked Saved GET success: ', data))
                 .catch(err => console.log('clicked Saved GET ERROR: ', err))
             } else {
