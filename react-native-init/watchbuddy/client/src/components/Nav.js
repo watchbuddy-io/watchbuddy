@@ -79,7 +79,7 @@ export default class Nav extends React.Component {
     },
     (buttonIndex) => {
       if (buttonIndex === 0 && this.fbToken) {
-        axios.get(`http://13.57.94.147:8080/favorites`, { params: { fbToken: this.fbToken.userID } }) // change to just this.fbToken since its deconstructed
+        axios.get(`http://13.57.94.147:8080/favorites`, { params: { fbToken: this.fbToken } }) // change to just this.fbToken since its deconstructed
           .then(data => this.changeView('Favorites', (Array.isArray(data.data.movies)) ? data.data.movies : []))
           .catch(err => alert('You Have No Favorites!'))
       } else if (buttonIndex === 0) {
