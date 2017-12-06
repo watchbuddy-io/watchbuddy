@@ -7,11 +7,12 @@ import {
   Image,
   ScrollView,
   Text,
+  TouchableHighlight,
   View,
 } from 'react-native';
 
 import {
-  Button
+  button
 } from 'react-native-elements';
 
 import {
@@ -26,25 +27,36 @@ import { AccessToken } from 'react-native-fbsdk'
 import { web } from 'react-native-communications';
 
 export default MovieInfo = ({ dimensions, data, fbToken }) => {
-  this.styles = {
-    Button: {
-      width: dimensions.width * .48,
+  styles = {
+    button: {
+      width: dimensions.width * .45,
+      height: dimensions.height * .075,
       backgroundColor: '#29b6f6',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    buttonText: {
+      fontWeight: 'bold',
+      fontSize: 16,
+      color: 'white',
+      textAlign: 'center',
+      textAlignVertical: 'center',
+    },
+    titleText: {
+      fontWeight: 'bold',
+      fontSize: 16,
     },
     boldText: {
       fontWeight: 'bold',
       fontSize: 16,
-      paddingLeft: 10,
-      paddingRight: 10,
-      paddingTop: 5,
-      paddingBottom: 5,
+      paddingLeft: dimensions.width * .0333,
+      paddingRight: dimensions.width * .0333,
+      paddingBottom: dimensions.width * .02,
     },
     plainText: {
       fontSize: 16,
-      paddingLeft: 10,
-      paddingRight: 10,
-      paddingTop: 5,
-      paddingBottom: 5,
+      paddingLeft: dimensions.width * .0333,
+      paddingRight: dimensions.width * .0333,
     },
     divider: {
       height: dimensions.height * .05,
@@ -66,22 +78,29 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
     overview: {
       height: dimensions.height * .35,
       width: dimensions.width,
-      backgroundColor: 'rgb(255, 255, 255)'
+      backgroundColor: 'white'
     },
     scrollview: {
-      height: dimensions.height * .35, 
       width: dimensions.width,
     },
     buttonBox: {
-      flex: 1,
+      width: dimensions.width,
       flexDirection: 'row',
-      justifyContent: 'space-between', 
-      backgroundColor: 'rgb(255, 255, 255)'
+      justifyContent: 'space-between',
+      backgroundColor: 'white',
+      paddingLeft: dimensions.width * .0333,
+      paddingRight: dimensions.width * .0333,
+      paddingTop: dimensions.width * .0333,
+      paddingBottom: dimensions.width * .0333,
     },
-    buttonView: {
-      width: dimensions.width * .48,
+    rating: {
+      height: dimensions.height * .075,
+      width: dimensions.width * .2,
+      backgroundColor: '#29b6f6',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
-  }
+  };
   
   this.getMoviePoster = (movie) => {
     return (
@@ -91,72 +110,82 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
         />
         : null
     );    
-  }
+  };
+
+  this.getNormalizedRating = (data) => {
+    return Math.min(Number((10 - data.vote_average) * 4 + data.vote_average * 10).toFixed(0), 98);
+  };
 
   return (
-    <View style={this.styles.main} bounces={false}>
-      <View style={this.styles.poster}>
+    <View style={styles.main} bounces={false}>
+      <View style={styles.poster}>
         {this.getMoviePoster(data)}
       </View>
-      <View style={this.styles.divider}>
-        <Separator style={this.styles.separator}>
-            <Text>{data.title} | Rating: {Math.min(Number(data.vote_average * 13.5).toFixed(0), 98)}%</Text>
+      <View style={styles.divider}>
+        <Separator style={styles.separator}>
+            <Text style={styles.titleText}>{data.title} | Rating: {getNormalizedRating(data)}%</Text>
         </Separator>
       </View>
       <View style={styles.buttonBox}>
-        <View style={styles.buttonView}>
-          <Button 
-            onPress={() => { data.movieUrl ? web(data.movieUrl) : alert(`We're working on linking this movie right now! Stay tuned!`) }} 
-            title={'Watch Now'}
-            buttonStyle={this.styles.Button}
-          />
-        </View>
-        {/* <View style={styles.buttonView}>
-          <Button
-            onPress={() => {
-
-            }} 
-            title={'Rate'}
-            buttonStyle={this.styles.Button} 
-          />
-        </View> */}
-        <View style={styles.buttonView}>
-          <Button
-            onPress={() => {
-              console.log('Save Button Pressed')
-              if (fbToken) {
-                axios.post('http://13.57.94.147:8080/favorites', {fbToken: fbToken, movies: data})
-                  .then(data => console.log('clicked Saved GET success: ', data))
-                  .catch(err => console.log('clicked Saved GET ERROR: ', err))
-              } else {
-                AlertIOS.alert(
-                 'Login to save favorites',
-                 'Our AI gets smarter each movie you save - that means even better recommendations for you',
-                 [
-                   {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                   {text: 'Login', onPress: () => {
-                     this.props.changeView('WelcomeFB')
-                     console.log('Login Pressed')
-                   }},
-                 ],
-                )
-              }
-            }} 
-            title={'Save'}
-            buttonStyle={this.styles.Button} 
-          />
-        </View>
+        {/* <TouchableHighlight
+          style={styles.rating}
+          activeOpacity={1}
+          underlayColor={'white'}
+        >
+          <View style={styles.rating}>
+            <Text style={styles.buttonText}>{getNormalizedRating(data)}%</Text>
+          </View>
+        </TouchableHighlight> */}
+        <TouchableHighlight 
+          onPress={() => { data.movieUrl ? web(data.movieUrl) : alert(`We're working on linking this movie right now! Stay tuned!`) }} 
+          style={styles.button}
+          activeOpacity={.8}
+          underlayColor={'white'}
+        >
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Watch Now</Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => {
+            console.log('Save button Pressed')
+            if (fbToken) {
+              axios.post('http://13.57.94.147:8080/favorites', {fbToken: fbToken.userID, favoriteMovies: JSON.stringify(data), movies: data})
+                .then(data => console.log('clicked Saved GET success: ', data))
+                .catch(err => console.log('clicked Saved GET ERROR: ', err))
+            } else {
+              AlertIOS.alert(
+              'Login to save favorites',
+              'Our AI gets smarter each movie you save - that means even better recommendations for you',
+              [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'Login', onPress: () => {
+                  this.props.changeView('WelcomeFB')
+                  console.log('Login Pressed')
+                }},
+              ],
+              )
+            }
+          }}
+          style={styles.button} 
+          activeOpacity={.8}
+          underlayColor={'white'}
+        >
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Save</Text>
+          </View>
+        </TouchableHighlight>
       </View>
-      <View style={this.styles.overview}>
-        <Text style={this.styles.boldText}>
-          Synopsis:
-        </Text>
-        <ScrollView style={this.scrollview} bounces={false}>
-          <Text style={this.styles.plainText}>
+      <ScrollView style={this.scrollview} bounces={false}>
+        <View style={styles.overview}>
+          <Text style={styles.boldText}>
+            Synopsis
+          </Text>
+          <Text style={styles.plainText}>
             {data.overview}
           </Text>
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     </View>
   );
 }
