@@ -17,9 +17,9 @@ export default WelcomeFB = (props) => {
   this.componentWillMount = () => {
     AccessToken.getCurrentAccessToken().then(data => {
       if (data) {
-        axios.get(`http://13.57.94.147:8080/loggedIn`)
+        axios.get(`http://13.57.94.147:8080/loggedIn`, { params: { fbToken: data.userID }})
           .then(movies => {
-            if (movies) {
+            if (movies.data) {
               console.log('You are already logged in!')
               props.changeView('MovieGridList', JSON.parse(movies.data).results, data);    
             } else {
