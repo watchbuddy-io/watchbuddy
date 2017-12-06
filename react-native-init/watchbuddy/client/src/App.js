@@ -49,11 +49,14 @@ export default class App extends Component<{}> {
 
   changeView(view, data, fbToken) {
     if (!data) {
-      this.setState({ view: view });
+      this.setState({ 
+        view: view,
+        fbToken: fbToken || this.state.fbToken
+      });
     } else {
       this.setState({
         view: view,
-        data: data || this.state.data,
+        data: data,
         fbToken: fbToken || this.state.fbToken,
       });
     }

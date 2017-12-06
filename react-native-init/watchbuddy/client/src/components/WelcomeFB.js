@@ -17,14 +17,16 @@ export default WelcomeFB = (props) => {
   this.componentWillMount = () => {
     AccessToken.getCurrentAccessToken().then(data => {
       if (data) {
-        axios.get(`http://13.57.94.147:8080/loggedIn`, { params: { fbToken: data.userID }})
+        axios.get(`http://13.57.94.147:8080/loggedIn`, {params: {fbToken: data.userID}})
           .then(movies => {
+            console.log('data from/loggedin!!', movies)
             if (movies.data) {
               console.log('You are already logged in!')
-              props.changeView('MovieGridList', JSON.parse(movies.data).results, data);    
+              props.changeView('MovieGridList', JSON.parse(movies.data).results, data.userID);    
             } else {
               console.log('You are not logged in!');
-              props.changeView('MovieSwipeDeck', null, data);
+              console.log('this is the FBTOKEN:', data.userID);
+              props.changeView('MovieSwipeDeck', null, data.userID);
             }
           })
           .catch(err => {
