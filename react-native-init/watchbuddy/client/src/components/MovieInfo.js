@@ -123,11 +123,10 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
       </View>
       <View style={styles.divider}>
         <Separator style={styles.separator}>
-            <Text style={styles.titleText}>{data.title}</Text>
+            <Text style={styles.titleText}>{data.title} | Rating: {getNormalizedRating(data)}%</Text>
         </Separator>
       </View>
       <View style={styles.buttonBox}>
-<<<<<<< HEAD
         {/* <TouchableHighlight
           style={styles.rating}
           activeOpacity={1}
@@ -136,7 +135,7 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
           <View style={styles.rating}>
             <Text style={styles.buttonText}>{getNormalizedRating(data)}%</Text>
           </View>
-        </TouchableHighlight>       */}
+        </TouchableHighlight> */}
         <TouchableHighlight 
           onPress={() => { data.movieUrl ? web(data.movieUrl) : alert(`We're working on linking this movie right now! Stay tuned!`) }} 
           style={styles.button}
@@ -176,50 +175,6 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
             <Text style={styles.buttonText}>Save</Text>
           </View>
         </TouchableHighlight>
-=======
-        <View style={styles.buttonView}>
-          <Button 
-            onPress={() => { data.movieUrl ? web(data.movieUrl) : alert(`We're working on linking this movie right now! Stay tuned!`) }} 
-            title={'Watch Now'}
-            buttonStyle={this.styles.Button}
-          />
-        </View>
-        {/* <View style={styles.buttonView}>
-          <Button
-            onPress={() => {
-
-            }} 
-            title={'Rate'}
-            buttonStyle={this.styles.Button} 
-          />
-        </View> */}
-        <View style={styles.buttonView}>
-          <Button
-            onPress={() => {
-              console.log('Save Button Pressed')
-              if (fbToken) {
-                axios.post('http://13.57.94.147:8080/favorites', {fbToken: fbToken, movies: data})
-                  .then(data => console.log('clicked Saved GET success: ', data))
-                  .catch(err => console.log('clicked Saved GET ERROR: ', err))
-              } else {
-                AlertIOS.alert(
-                 'Login to save favorites',
-                 'Our AI gets smarter each movie you save - that means even better recommendations for you',
-                 [
-                   {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                   {text: 'Login', onPress: () => {
-                     this.props.changeView('WelcomeFB')
-                     console.log('Login Pressed')
-                   }},
-                 ],
-                )
-              }
-            }} 
-            title={'Save'}
-            buttonStyle={this.styles.Button} 
-          />
-        </View>
->>>>>>> 50abff94d9195f616b3e7ada2ef6ba404d54234c
       </View>
       <ScrollView style={this.scrollview} bounces={false}>
         <View style={styles.overview}>
