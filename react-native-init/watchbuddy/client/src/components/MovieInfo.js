@@ -76,7 +76,7 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
       width: dimensions.width,
     },
     overview: {
-      height: dimensions.height * .35,
+      height: dimensions.height * .31,
       width: dimensions.width,
       backgroundColor: 'white'
     },
