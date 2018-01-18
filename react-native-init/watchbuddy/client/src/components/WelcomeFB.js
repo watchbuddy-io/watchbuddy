@@ -103,6 +103,7 @@ export default WelcomeFB = (props) => {
             backgroundColor: 'transparent',
             position: 'relative',
             top: '30%',
+            fontSize: props.dimensions.width * 0.06,
             alignSelf: 'center',
             textDecorationLine: 'underline',
             color: "rgba(255,255,255,1)"
