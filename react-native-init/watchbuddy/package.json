@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/watchbuddy/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'"
   },
   "dependencies": {
     "@google-cloud/prediction": "^0.6.2",
@@ -25,6 +26,7 @@
     "react-native-fbsdk": "^0.6.3",
     "react-native-mail": "^3.0.4",
     "react-native-simple-action-sheet-ios": "0.0.1",
+    "react-native-svg": "^6.0.1-rc.1",
     "react-native-vector-icons": "^4.4.2",
     "request": "^2.83.0",
     "underscore": "^1.8.3"

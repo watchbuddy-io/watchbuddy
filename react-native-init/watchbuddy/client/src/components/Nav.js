@@ -2,7 +2,8 @@ import React from 'react';
 
 import {
   Button,
-  Header
+  Header,
+  Icon
 } from 'react-native-elements';
 
 import {
@@ -102,7 +103,7 @@ export default class Nav extends React.Component {
         email(['support@watchbuddy.io'], null, null, null, 'Thanks for reaching out! We promise to take care of you. Let us know your issue below:')
       } else if (buttonIndex === 3 && this.fbToken) {
         LoginManager.logOut();
-        this.changeView('WelcomeFB');
+        this.changeView('WelcomeFB', null, null);
       }
     });
   }
@@ -122,31 +123,49 @@ export default class Nav extends React.Component {
 
   render() {
     return (
-      <Header style={{ width: this.dimensions.width, height: this.dimensions.height, flexDirection: "row", justifyContent: 'space-between' }}
-        leftComponent={
-          <Button icon={{ name: 'more-horiz', size: ICON_STYLES.size, color: ICON_STYLES.color }} 
-                  buttonStyle={{ backgroundColor: '#FFF'}} 
-                  onPress={() => this.showActionSheet()}
-                  disabledStyle={{backgroundColor: '#FFF'}}
-          />
-        }
-        centerComponent={
-          <Button title={'watchbuddy.io'}
-                  buttonStyle={{ backgroundColor: '#FFF' }}
-                  textStyle={{ color: '#444', fontSize: 20 }}
-                  disabled={(this.view === 'MovieSwipeDeck') ? true : false}
-                  disabledStyle={{backgroundColor: '#FFF'}}
-          />
-        }
-        rightComponent={
-          <Button icon={{ name: 'home', size: ICON_STYLES.size, color: ICON_STYLES.color }}
-                  buttonStyle={{ backgroundColor: '#FFF' }}
-                  onPress={() => this.changeView('MovieGridList', this.state.data)} 
-                  disabled={(this.view === 'MovieSwipeDeck') ? true : false}
-                  disabledStyle={{backgroundColor: '#FFF'}}
-          />
-        }
-      />
+      <View style={{height: this.dimensions.height, width: this.dimensions.width, flexDirection: 'row', justifyContent: 'space-between', paddingTop: 20, paddingRight: 10, paddingLeft: 10}}>
+        <Header //style={{ width: this.dimensions.width, height: this.dimensions.height, display: 'flex', flexDirection: "row", justifyContent: 'space-between'}}
+          leftComponent={
+            <View >
+              <Icon 
+                name='more-horiz'
+                onPress={() => this.showActionSheet()}
+              />
+            </View>
+            // <Button //icon={{ name: 'more-horiz', size: ICON_STYLES.size, color: ICON_STYLES.color }}
+            //         title={'io'} 
+            //                             textStyle={{ color: '#444', fontSize: 20 }}
+            //         buttonStyle={{ backgroundColor: '#FFF'}} 
+            //         onPress={() => this.showActionSheet()}
+            //         disabledStyle={{backgroundColor: '#FFF'}}
+            // />
+          }
+          centerComponent={
+            <View >
+              <Text style={{color: '#444', fontSize: 18}}> 
+                watchbuddy.io
+              </Text>
+            </View>
+          }
+          rightComponent={
+            <View >
+              <Icon 
+                name='home' 
+                onPress={() => this.changeView('MovieGridList', this.state.data)}
+              />
+            </View>
+            // <Button icon={{ name: 'home', size: ICON_STYLES.size, color: ICON_STYLES.color }}
+            //         //title={'io'}
+            //           //                  textStyle={{ color: '#444', fontSize: 20 }}
+
+            //         buttonStyle={{ backgroundColor: '#FFF' }}
+            //         onPress={() => this.changeView('MovieGridList', this.state.data)} 
+            //         disabled={(this.view === 'MovieSwipeDeck') ? true : false}
+            //         disabledStyle={{backgroundColor: '#FFF'}}
+            // />
+          }
+        />
+      </View>
     );
   }
 }
