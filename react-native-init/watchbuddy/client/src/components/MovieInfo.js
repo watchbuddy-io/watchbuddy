@@ -59,28 +59,30 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
       paddingRight: dimensions.width * .0333,
     },
     divider: {
-      height: dimensions.height * .05,
+      height: dimensions.height * .1,
       width: dimensions.width,
     },
     separator: {
-      height: dimensions.height * .05,
+      height: dimensions.height * .1,
       width: dimensions.width,
       backgroundColor: 'rgba(180, 180, 180, .2)',
     },
     main: {
-      height: dimensions.height,
+      // height: dimensions.height,
       width: dimensions.width,
+      flex: 1
     },
     poster: {
       height: dimensions.height * .5,
       width: dimensions.width,
     },
     overview: {
-      height: dimensions.height * .31,
+      height: dimensions.height,
       width: dimensions.width,
       backgroundColor: 'white'
     },
     scrollview: {
+      // height: dimensions.height * 1.5,
       width: dimensions.width,
     },
     buttonBox: {
@@ -117,7 +119,8 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
   };
 
   return (
-    <View style={styles.main} bounces={false}>
+    <ScrollView style={styles.scrollview} bounces={true}>
+    <View style={styles.main} bounces={true}>
       <View style={styles.poster}>
         {this.getMoviePoster(data)}
       </View>
@@ -176,7 +179,7 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
           </View>
         </TouchableHighlight>
       </View>
-      <ScrollView style={this.scrollview} bounces={false}>
+      
         <View style={styles.overview}>
           <Text style={styles.boldText}>
             Synopsis
@@ -185,7 +188,8 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
             {data.overview}
           </Text>
         </View>
-      </ScrollView>
+      
     </View>
+    </ScrollView>
   );
 }
