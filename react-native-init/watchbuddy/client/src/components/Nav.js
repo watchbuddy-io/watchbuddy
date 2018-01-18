@@ -102,7 +102,7 @@ export default class Nav extends React.Component {
         email(['support@watchbuddy.io'], null, null, null, 'Thanks for reaching out! We promise to take care of you. Let us know your issue below:')
       } else if (buttonIndex === 3 && this.fbToken) {
         LoginManager.logOut();
-        this.changeView('WelcomeFB');
+        this.changeView('WelcomeFB', null, null);
       }
     });
   }
