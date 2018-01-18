@@ -26,7 +26,7 @@ import { AccessToken } from 'react-native-fbsdk'
 
 import { web } from 'react-native-communications';
 
-export default MovieInfo = ({ dimensions, data, fbToken }) => {
+export default MovieInfo = ({ dimensions, data, fbToken, changeView }) => {
   styles = {
     button: {
       width: dimensions.width * .45,
@@ -140,7 +140,23 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
           </View>
         </TouchableHighlight> */}
         <TouchableHighlight 
-          onPress={() => { data.movieUrl ? web(data.movieUrl) : alert(`We're working on linking this movie right now! Stay tuned!`) }} 
+          onPress={() => { 
+            // data.movieUrl ? web(data.movieUrl) : alert(`We're working on linking this movie right now! Stay tuned!`) 
+            if (data.movieUrl) {
+              web(data.movieUrl)
+            } else {
+              axios.post('http://13.57.94.147:8080/selectMovie', { movie: data.title })
+                .then(result => {
+                  console.log('response from AMAZON API', result);
+                  data.movieUrl = result.data.movieUrl;
+                  web(result.data.movieUrl);
+                })
+                .catch(err => {
+                  alert(`We're working on linking this movie right now! Stay tuned!`)
+                  console.log('Error from Amazon: ', err);
+                })              
+              }
+          }} 
           style={styles.button}
           activeOpacity={.8}
           underlayColor={'white'}
@@ -163,8 +179,8 @@ export default MovieInfo = ({ dimensions, data, fbToken }) => {
               [
                 {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                 {text: 'Login', onPress: () => {
-                  this.props.changeView('WelcomeFB')
-                  console.log('Login Pressed')
+                  changeView('WelcomeFB');
+                  console.log('Login Pressed');
                 }},
               ],
               )

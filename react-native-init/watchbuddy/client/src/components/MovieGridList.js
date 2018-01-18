@@ -38,16 +38,16 @@ export default MovieGridList = (props) => {
 
   onPosterPress = (movie) => {
     console.log('MOVIE', movie);
-
-    axios.post('http://13.57.94.147:8080/selectMovie', { movie: movie.title })
-      .then(data => {
-        console.log('response from AMAZON API', data);
-        movie.movieUrl = data.data.movieUrl;
-        props.changeView('MovieInfo', movie);
-      })
-      .catch(err => {
-        console.log('Error from Amazon: ', err);
-      })
+    props.changeView('MovieInfo', movie);
+    // axios.post('http://13.57.94.147:8080/selectMovie', { movie: movie.title })
+    //   .then(data => {
+    //     console.log('response from AMAZON API', data);
+    //     movie.movieUrl = data.data.movieUrl;
+    //     props.changeView('MovieInfo', movie);
+    //   })
+    //   .catch(err => {
+    //     console.log('Error from Amazon: ', err);
+    //   })
   };
 
   this.getMoviePoster = (movie, key) => {

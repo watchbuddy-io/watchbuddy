@@ -21,6 +21,8 @@ import {
   View
 } from 'native-base';
 
+import SwipeDeckData from '../data/dummyRequestData';
+
 const COMPONENT_WIDTH_RATIOS = {
   cardWidth: .92
 }
@@ -35,7 +37,7 @@ export default class MovieSwipeDeck extends React.Component {
     super(props);
 
     this.state = {
-      data: this.props.data,
+      data: SwipeDeckData.data,
       changeView: this.props.changeView,
       dimensions: this.props.dimensions,
       liked: [],

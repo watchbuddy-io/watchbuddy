@@ -76,6 +76,10 @@ export default WelcomeFB = (props) => {
         }}>
           <LoginButton
             readPermissions={["email","public_profile"]}
+            // style={{
+            //   width: props.dimenions.width * 0.5,
+            //   height: props.dimensions.height * 0.01,
+            // }}
             onLoginFinished={
               (error, result) => {
                 if (error) {
@@ -103,7 +107,7 @@ export default WelcomeFB = (props) => {
             backgroundColor: 'transparent',
             position: 'relative',
             top: '30%',
-            fontSize: props.dimensions.width * 0.06,
+            fontSize: props.dimensions.width * 0.053,
             alignSelf: 'center',
             textDecorationLine: 'underline',
             color: "rgba(255,255,255,1)"
