@@ -52,7 +52,7 @@ export default WelcomeFB = (props) => {
             width: props.dimensions.width,
             textAlign: "center",
             backgroundColor: "transparent",
-            fontSize: props.dimensions.width / 6.8,
+            fontSize: props.dimensions.width / 8,
             zIndex: 2
           }}
         >
