@@ -123,9 +123,9 @@ export default class Nav extends React.Component {
 
   render() {
     return (
-      <View style={{height: this.dimensions.height, width: this.dimensions.width, flexDirection: 'row', justifyContent: 'space-between', paddingTop: 20, paddingRight: 10, paddingLeft: 10}}>
+      <View style={{ height: this.dimensions.height, width: this.dimensions.width, flexDirection: 'row', justifyContent: 'space-between', paddingTop: 20, paddingRight: 10, paddingLeft: 10}}>
         <Header //style={{ width: this.dimensions.width, height: this.dimensions.height, display: 'flex', flexDirection: "row", justifyContent: 'space-between'}}
-          leftComponent={
+          rightComponent={
             <View >
               <Icon 
                 name='more-horiz'
@@ -142,16 +142,21 @@ export default class Nav extends React.Component {
           }
           centerComponent={
             <View >
-              <Text style={{color: '#444', fontSize: 18}}> 
-                watchbuddy.io
+              <Text style={{fontSize: 18}}> 
+                WatchBuddy
               </Text>
             </View>
           }
-          rightComponent={
+          leftComponent={
             <View >
               <Icon 
-                name='home' 
-                onPress={() => this.changeView('MovieGridList', this.state.data)}
+                // name='home'
+                name='keyboard-arrow-left'
+                onPress={() => {
+                  if (this.view !== 'MovieSwipeDeck') {
+                    this.changeView('MovieGridList', this.state.data)
+                  }
+                }}
               />
             </View>
             // <Button icon={{ name: 'home', size: ICON_STYLES.size, color: ICON_STYLES.color }}
