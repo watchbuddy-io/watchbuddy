@@ -64,18 +64,18 @@ export default MovieGridList = (props) => {
 
   return (
     <Content bounces={false}>
-      <ScrollView horizontal={true} overScrollMode="never" pagingEnabled={true} bounces={false} automaticallyAdjustContentInsets={false}>
+      <ScrollView horizontal={false} overScrollMode="never" pagingEnabled={true} bounces={false} automaticallyAdjustContentInsets={false}>
         <Grid>
-          <Row>
+          <Col>
             {props.data.slice(0, Math.floor(props.data.length / 2)).map((movie, i) => (
               this.getMoviePoster(movie, i)
             ))}
-          </Row>
-          <Row>
+          </Col>
+          <Col>
             {props.data.slice(Math.floor(props.data.length / 2)).map((movie, i) => (
               this.getMoviePoster(movie, i)
             ))}
-          </Row>
+          </Col>
         </Grid>
       </ScrollView>
     </Content>
