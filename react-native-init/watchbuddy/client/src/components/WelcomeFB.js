@@ -110,7 +110,7 @@ export default WelcomeFB = (props) => {
             position: 'relative',
             top: '30%',
             // fontSize: props.dimensions.width * 0.053,
-            fontSize: props.dimensions.width * 0.04,
+            fontSize: props.dimensions.width * 0.035,
             alignSelf: 'center',
             textDecorationLine: 'underline',
             color: "rgba(255,255,255,1)"

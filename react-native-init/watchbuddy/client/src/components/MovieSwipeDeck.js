@@ -21,7 +21,7 @@ import {
   View
 } from 'native-base';
 
-import SwipeDeckData from '../data/dummyRequestData';
+import SwipeDeckData from '../data/dummyRequestData'; // may delete if can use static imgs
 
 const COMPONENT_WIDTH_RATIOS = {
   cardWidth: .92
@@ -74,21 +74,27 @@ export default class MovieSwipeDeck extends React.Component {
     this.triggerSwipeLeft = this.triggerSwipeLeft.bind(this);
     this.triggerUnwatched = this.triggerUnwatched.bind(this);
     this.throttleButtonPresses = this.throttleButtonPresses.bind(this)();
+
+    // Card posters
+    this.posterCardNum = 0;
   }
 
   onSwipeRight(card) {
+    this.posterCardNum++;
     console.log("Movie liked: " + card.title);
     this.state.liked.push(card);
     this.setState({ liked: this.state.liked });
   }
 
   onSwipeLeft(card) {
+    this.posterCardNum++;
     console.log("Movie disliked: " + card.title);
     this.state.disliked.push(card);
     this.setState({ disliked: this.state.disliked });
   }
 
   onUnwatched(card) {
+    this.posterCardNum++;
     console.log("Movie unwatched: " + card.title);
     this.state.unwatched.push(card);
     this.setState({ unwatched: this.state.unwatched });
@@ -118,7 +124,7 @@ export default class MovieSwipeDeck extends React.Component {
         <CardItem cardBody>
           <Image 
             style={this.styles.Image}
-            source={{ uri: card.posterUrl }} 
+            source={posterList[this.posterCardNum]} 
           />
         </CardItem>
       </Card>
@@ -220,3 +226,12 @@ export default class MovieSwipeDeck extends React.Component {
     );
   }
 }
+
+const posterList = [
+  require('../data/static_poster_images/bladeRunner.jpg'),
+  require('../data/static_poster_images/it.jpg'),
+  require('../data/static_poster_images/titanic.jpg'),
+  require('../data/static_poster_images/inception.jpg'),
+  require('../data/static_poster_images/starWars.jpg'),
+  require('../data/static_poster_images/batmanDarkKnight.jpg')
+]
