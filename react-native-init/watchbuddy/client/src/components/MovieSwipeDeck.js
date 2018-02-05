@@ -7,9 +7,11 @@ import BrainPNG from '../../assets/thinking256.png';
 
 import {
   Animated,
+  Button,
   Dimensions,
   Easing,
   Image,
+  Modal,
   StyleSheet,
   Text
 } from 'react-native';
@@ -43,6 +45,7 @@ export default class MovieSwipeDeck extends React.Component {
       liked: [],
       disliked: [],
       unwatched: [],
+      modalVisible: this.props.fbToken ? false : true,
     };
 
     // Animations
@@ -77,6 +80,10 @@ export default class MovieSwipeDeck extends React.Component {
 
     // Card posters
     this.posterCardNum = 0;
+  }
+
+  closeModal() {
+    this.setState({modalVisible:false});
   }
 
   onSwipeRight(card) {
@@ -202,6 +209,34 @@ export default class MovieSwipeDeck extends React.Component {
         }}>
         <View 
           style={{ height: dimensions.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck }}> 
+            <Modal
+              visible={this.state.modalVisible}
+              animationType={'slide'}
+              onRequestClose={() => this.closeModal()}
+              transparent={true}
+            >
+            <View style={{flex: 1, justifyContent: 'center', backgroundColor: 'rgba(99,149,222,0.95)'}}>
+              <View style={{alignItems: 'center', paddingLeft: 10, paddingRight: 10}}>
+                <Text style={{color: "rgba(255,255,255,1)", paddingBottom: 20}}>
+                  Welcome to WatchBuddy!
+                  {"\n"}{"\n"}
+                  - Swipe right on movies you like.{"\n"}
+                  - Swipe left on those you don't like.{"\n"}
+                  - If you haven't seen the movie - press the yellow button in the center.{"\n"}
+                  {"\n"}{"\n"}
+                  As you use WatchBuddy and save movies, our A.I. will continue building and improving recommendations for you.
+                  {"\n"}{"\n"}
+                  - WatchBuddy Team
+                </Text>
+                <Button
+                    onPress={() => this.closeModal()}
+                    title="Okay, let's go!"
+                    color="#003366"
+                >
+                </Button>
+              </View>
+            </View>
+          </Modal>
           <DeckSwiper
             ref={(c) => this._deckSwiper = c}
             dataSource={data}
