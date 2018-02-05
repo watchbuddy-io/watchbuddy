@@ -26,15 +26,15 @@ import {
 } from 'react-native-elements';
 
 export default MovieGridList = (props) => {
-  this.onLeftButtonPress = () => {
-    console.log('left button clicked');
-    this.setState({currentIndex: Math.abs(this.state.currentIndex - 4) % props.data.length});
-  };
+  // this.onLeftButtonPress = () => {
+  //   console.log('left button clicked');
+  //   this.setState({currentIndex: Math.abs(this.state.currentIndex - 4) % props.data.length});
+  // };
 
-  onRightButtonPress = () => {
-    console.log('right button clicked');
-    this.setState({currentIndex: (this.state.currentIndex + 4) % props.data.length});
-  };
+  // onRightButtonPress = () => {
+  //   console.log('right button clicked');
+  //   this.setState({currentIndex: (this.state.currentIndex + 4) % props.data.length});
+  // };
 
   onPosterPress = (movie) => {
     console.log('MOVIE', movie);

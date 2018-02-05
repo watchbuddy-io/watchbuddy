@@ -89,7 +89,7 @@ export default class MovieSwipeDeck extends React.Component {
   onSwipeRight(card) {
     this.posterCardNum++;
     console.log("Movie liked: " + card.title);
-    this.state.liked.push(card);
+    this.state.liked.push(card); // do we need both of this line and below, Tim?
     this.setState({ liked: this.state.liked });
   }
 
@@ -162,7 +162,7 @@ export default class MovieSwipeDeck extends React.Component {
         data = JSON.parse(data.data).results;
         console.log(data);
         this.prefetchImages(data);
-        setTimeout(() => changeView('MovieGridList', data), 2000);
+        setTimeout(() => changeView('MovieGridList', data), 3000); // changed from 2k bc was loading without poster pics, possibly bc of China internet
       })
       .catch(err => {
         console.log(err);
@@ -238,7 +238,7 @@ export default class MovieSwipeDeck extends React.Component {
           </Modal>
           <DeckSwiper
             ref={(c) => this._deckSwiper = c}
-            dataSource={data}
+            dataSource={data} // what's this used for, Tim?
             renderItem={this.renderCard}
             renderEmpty={this.renderEmpty}
             onSwipeRight={this.onSwipeRight}
