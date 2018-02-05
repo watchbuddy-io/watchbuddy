@@ -213,7 +213,7 @@ export default class MovieSwipeDeck extends React.Component {
               visible={this.state.modalVisible}
               animationType={'slide'}
               onRequestClose={() => this.closeModal()}
-              transparent={true}
+              presentationStyle={'formSheet'}
             >
             <View style={{flex: 1, justifyContent: 'center', backgroundColor: 'rgba(99,149,222,0.95)'}}>
               <View style={{alignItems: 'center', paddingLeft: 10, paddingRight: 10}}>
@@ -231,7 +231,6 @@ export default class MovieSwipeDeck extends React.Component {
                 <Button
                     onPress={() => this.closeModal()}
                     title="Okay, let's go!"
-                    color="#003366"
                 >
                 </Button>
               </View>
