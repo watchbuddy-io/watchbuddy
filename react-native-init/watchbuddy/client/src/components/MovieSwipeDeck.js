@@ -7,9 +7,11 @@ import BrainPNG from '../../assets/thinking256.png';
 
 import {
   Animated,
+  Button,
   Dimensions,
   Easing,
   Image,
+  Modal,
   StyleSheet,
   Text
 } from 'react-native';
@@ -20,6 +22,8 @@ import {
   DeckSwiper,
   View
 } from 'native-base';
+
+import SwipeDeckData from '../data/dummyRequestData'; // may delete if can use static imgs
 
 const COMPONENT_WIDTH_RATIOS = {
   cardWidth: .92
@@ -35,12 +39,13 @@ export default class MovieSwipeDeck extends React.Component {
     super(props);
 
     this.state = {
-      data: this.props.data,
+      data: SwipeDeckData.data,
       changeView: this.props.changeView,
       dimensions: this.props.dimensions,
       liked: [],
       disliked: [],
       unwatched: [],
+      modalVisible: this.props.fbToken ? false : true,
     };
 
     // Animations
@@ -72,21 +77,31 @@ export default class MovieSwipeDeck extends React.Component {
     this.triggerSwipeLeft = this.triggerSwipeLeft.bind(this);
     this.triggerUnwatched = this.triggerUnwatched.bind(this);
     this.throttleButtonPresses = this.throttleButtonPresses.bind(this)();
+
+    // Card posters
+    this.posterCardNum = 0;
+  }
+
+  closeModal() {
+    this.setState({modalVisible:false});
   }
 
   onSwipeRight(card) {
+    this.posterCardNum++;
     console.log("Movie liked: " + card.title);
-    this.state.liked.push(card);
+    this.state.liked.push(card); // do we need both of this line and below, Tim?
     this.setState({ liked: this.state.liked });
   }
 
   onSwipeLeft(card) {
+    this.posterCardNum++;
     console.log("Movie disliked: " + card.title);
     this.state.disliked.push(card);
     this.setState({ disliked: this.state.disliked });
   }
 
   onUnwatched(card) {
+    this.posterCardNum++;
     console.log("Movie unwatched: " + card.title);
     this.state.unwatched.push(card);
     this.setState({ unwatched: this.state.unwatched });
@@ -116,7 +131,7 @@ export default class MovieSwipeDeck extends React.Component {
         <CardItem cardBody>
           <Image 
             style={this.styles.Image}
-            source={{ uri: card.posterUrl }} 
+            source={posterList[this.posterCardNum]} 
           />
         </CardItem>
       </Card>
@@ -147,7 +162,7 @@ export default class MovieSwipeDeck extends React.Component {
         data = JSON.parse(data.data).results;
         console.log(data);
         this.prefetchImages(data);
-        setTimeout(() => changeView('MovieGridList', data), 2000);
+        setTimeout(() => changeView('MovieGridList', data), 3000); // changed from 2k bc was loading without poster pics, possibly bc of China internet
       })
       .catch(err => {
         console.log(err);
@@ -194,9 +209,36 @@ export default class MovieSwipeDeck extends React.Component {
         }}>
         <View 
           style={{ height: dimensions.height * COMPONENT_HEIGHT_RATIOS.movieSwipeDeck }}> 
+            <Modal
+              visible={this.state.modalVisible}
+              animationType={'slide'}
+              onRequestClose={() => this.closeModal()}
+              presentationStyle={'formSheet'}
+            >
+            <View style={{flex: 1, justifyContent: 'center', backgroundColor: 'rgba(99,149,222,0.95)'}}>
+              <View style={{alignItems: 'center', paddingLeft: 10, paddingRight: 10}}>
+                <Text style={{color: "rgba(255,255,255,1)", paddingBottom: 20}}>
+                  Welcome to WatchBuddy!
+                  {"\n"}{"\n"}
+                  - Swipe right on movies you like.{"\n"}
+                  - Swipe left on those you don't like.{"\n"}
+                  - If you haven't seen the movie - press the yellow button in the center.{"\n"}
+                  {"\n"}{"\n"}
+                  As you use WatchBuddy and save movies, our A.I. will continue building and improving recommendations for you.
+                  {"\n"}{"\n"}
+                  - WatchBuddy Team
+                </Text>
+                <Button
+                    onPress={() => this.closeModal()}
+                    title="Okay, let's go!"
+                >
+                </Button>
+              </View>
+            </View>
+          </Modal>
           <DeckSwiper
             ref={(c) => this._deckSwiper = c}
-            dataSource={data}
+            dataSource={data} // what's this used for, Tim?
             renderItem={this.renderCard}
             renderEmpty={this.renderEmpty}
             onSwipeRight={this.onSwipeRight}
@@ -218,3 +260,12 @@ export default class MovieSwipeDeck extends React.Component {
     );
   }
 }
+
+const posterList = [
+  require('../data/static_poster_images/bladeRunner.jpg'),
+  require('../data/static_poster_images/it.jpg'),
+  require('../data/static_poster_images/titanic.jpg'),
+  require('../data/static_poster_images/inception.jpg'),
+  require('../data/static_poster_images/starWars.jpg'),
+  require('../data/static_poster_images/batmanDarkKnight.jpg')
+]

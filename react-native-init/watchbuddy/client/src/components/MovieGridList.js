@@ -26,28 +26,28 @@ import {
 } from 'react-native-elements';
 
 export default MovieGridList = (props) => {
-  this.onLeftButtonPress = () => {
-    console.log('left button clicked');
-    this.setState({currentIndex: Math.abs(this.state.currentIndex - 4) % props.data.length});
-  };
+  // this.onLeftButtonPress = () => {
+  //   console.log('left button clicked');
+  //   this.setState({currentIndex: Math.abs(this.state.currentIndex - 4) % props.data.length});
+  // };
 
-  onRightButtonPress = () => {
-    console.log('right button clicked');
-    this.setState({currentIndex: (this.state.currentIndex + 4) % props.data.length});
-  };
+  // onRightButtonPress = () => {
+  //   console.log('right button clicked');
+  //   this.setState({currentIndex: (this.state.currentIndex + 4) % props.data.length});
+  // };
 
   onPosterPress = (movie) => {
     console.log('MOVIE', movie);
-
-    axios.post('http://13.57.94.147:8080/selectMovie', { movie: movie.title })
-      .then(data => {
-        console.log('response from AMAZON API', data);
-        movie.movieUrl = data.data.movieUrl;
-        props.changeView('MovieInfo', movie);
-      })
-      .catch(err => {
-        console.log('Error from Amazon: ', err);
-      })
+    props.changeView('MovieInfo', movie);
+    // axios.post('http://13.57.94.147:8080/selectMovie', { movie: movie.title })
+    //   .then(data => {
+    //     console.log('response from AMAZON API', data);
+    //     movie.movieUrl = data.data.movieUrl;
+    //     props.changeView('MovieInfo', movie);
+    //   })
+    //   .catch(err => {
+    //     console.log('Error from Amazon: ', err);
+    //   })
   };
 
   this.getMoviePoster = (movie, key) => {
@@ -64,18 +64,18 @@ export default MovieGridList = (props) => {
 
   return (
     <Content bounces={false}>
-      <ScrollView horizontal={true} overScrollMode="never" pagingEnabled={true} bounces={false} automaticallyAdjustContentInsets={false}>
+      <ScrollView horizontal={false} overScrollMode="never" pagingEnabled={true} bounces={false} automaticallyAdjustContentInsets={false}>
         <Grid>
-          <Row>
+          <Col>
             {props.data.slice(0, Math.floor(props.data.length / 2)).map((movie, i) => (
               this.getMoviePoster(movie, i)
             ))}
-          </Row>
-          <Row>
+          </Col>
+          <Col>
             {props.data.slice(Math.floor(props.data.length / 2)).map((movie, i) => (
               this.getMoviePoster(movie, i)
             ))}
-          </Row>
+          </Col>
         </Grid>
       </ScrollView>
     </Content>
