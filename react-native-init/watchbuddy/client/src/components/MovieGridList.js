@@ -51,10 +51,10 @@ export default MovieGridList = (props) => {
     //   })
   };
 
-  this.getMoviePoster = (movie, key) => {
+  this.getMoviePoster = (movie) => {
     return (
       movie ?
-        <TouchableHighlight onPress={() => this.onPosterPress(movie)} key={key}>
+        <TouchableHighlight onPress={() => this.onPosterPress(movie)}>
           <Image
             source={{ height: props.dimensions.height / 2, width: props.dimensions.width / 2, uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}` }}
           />
@@ -64,21 +64,12 @@ export default MovieGridList = (props) => {
   };
 
   return (
-    <Content bounces={false}>
-      <FlatList
-        data={props.data}
-        renderItem={({ item }) => (
-          <Grid>
-            <Col>
-              <TouchableHighlight onPress={() => this.onPosterPress(item)}>
-                <Image
-                  source={{ height: props.dimensions.height / 2, width: props.dimensions.width / 2, uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
-                />
-              </TouchableHighlight>
-            </Col>
-          </Grid>
-        )}
+    <FlatList
+      data={props.data}
+      renderItem={({ item }) => (this.getMoviePoster(item))}
+      style={{flexDirection: 'column'}}
+      horizontal={false}
+      numColumns={2}
     />
-   </Content>
   );
 }
