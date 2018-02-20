@@ -8,6 +8,7 @@ import {
 } from 'native-base';
 
 import {
+  FlatList,
   Image,
   Linking,
   ScrollView,
@@ -64,20 +65,20 @@ export default MovieGridList = (props) => {
 
   return (
     <Content bounces={false}>
-      <ScrollView horizontal={false} overScrollMode="never" pagingEnabled={true} bounces={false} automaticallyAdjustContentInsets={false}>
-        <Grid>
-          <Col>
-            {props.data.slice(0, Math.floor(props.data.length / 2)).map((movie, i) => (
-              this.getMoviePoster(movie, i)
-            ))}
-          </Col>
-          <Col>
-            {props.data.slice(Math.floor(props.data.length / 2)).map((movie, i) => (
-              this.getMoviePoster(movie, i)
-            ))}
-          </Col>
-        </Grid>
-      </ScrollView>
-    </Content>
+      <FlatList
+        data={props.data}
+        renderItem={({ item }) => (
+          <Grid>
+            <Col>
+              <TouchableHighlight onPress={() => this.onPosterPress(item)}>
+                <Image
+                  source={{ height: props.dimensions.height / 2, width: props.dimensions.width / 2, uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
+                />
+              </TouchableHighlight>
+            </Col>
+          </Grid>
+        )}
+    />
+   </Content>
   );
 }
