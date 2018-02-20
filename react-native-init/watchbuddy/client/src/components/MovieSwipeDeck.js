@@ -34,6 +34,16 @@ const COMPONENT_HEIGHT_RATIOS = {
   movieSwipeDeckButtons: .15
 }
 
+// Preload Images
+const posterList = [
+  require('../data/static_poster_images/bladeRunner.jpg'),
+  require('../data/static_poster_images/it.jpg'),
+  require('../data/static_poster_images/titanic.jpg'),
+  require('../data/static_poster_images/inception.jpg'),
+  require('../data/static_poster_images/starWars.jpg'),
+  require('../data/static_poster_images/batmanDarkKnight.jpg')
+];
+
 export default class MovieSwipeDeck extends React.Component {
   constructor(props) {
     super(props);
@@ -80,6 +90,12 @@ export default class MovieSwipeDeck extends React.Component {
 
     // Card posters
     this.posterCardNum = 0;
+  }
+
+  componentWillMount() {
+    this.state.data.forEach((movie, index) => {
+      movie.posterUrl = posterList[index];
+    });
   }
 
   closeModal() {
@@ -131,7 +147,7 @@ export default class MovieSwipeDeck extends React.Component {
         <CardItem cardBody>
           <Image 
             style={this.styles.Image}
-            source={posterList[this.posterCardNum]} 
+            source={card.posterUrl}
           />
         </CardItem>
       </Card>
@@ -260,12 +276,3 @@ export default class MovieSwipeDeck extends React.Component {
     );
   }
 }
-
-const posterList = [
-  require('../data/static_poster_images/bladeRunner.jpg'),
-  require('../data/static_poster_images/it.jpg'),
-  require('../data/static_poster_images/titanic.jpg'),
-  require('../data/static_poster_images/inception.jpg'),
-  require('../data/static_poster_images/starWars.jpg'),
-  require('../data/static_poster_images/batmanDarkKnight.jpg')
-]
