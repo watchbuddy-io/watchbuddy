@@ -124,18 +124,21 @@ export default class MovieSwipeDeck extends React.Component {
   }
 
   triggerSwipeRight() {
+    this.posterCardNum++;
     let card = this._deckSwiper._root.state.selectedItem;
     this._deckSwiper._root.swipeRight();
     this.onSwipeRight(card);
   }
 
   triggerSwipeLeft() {
+    this.posterCardNum++;
     let card = this._deckSwiper._root.state.selectedItem;
     this._deckSwiper._root.swipeLeft();
     this.onSwipeLeft(card);
   }
 
   triggerUnwatched() {
+    this.posterCardNum++;
     let card = this._deckSwiper._root.state.selectedItem;
     this._deckSwiper._root.swipeLeft();
     this.onUnwatched(card);
