@@ -63,6 +63,20 @@ export default MovieGridList = (props) => {
     );    
   };
 
+  // this.pageNumber = 1; // do we need to make state for this component?
+
+  // this.nextMovieDBPage = () => {
+  //   this.pageNumber++ // increase page number
+  //   // need to get movieprefs string
+  //   // api call to /userprefs with: moviestring, fbToken, pageNumber
+  //   axios.post(`http://13.57.94.147:8080/userprefs`,
+  //   {
+  //     prefs: props.prefs, // movie prefs string
+  //     fbToken: props.fbToken,
+  //     pageNumber: this.pageNumber;
+  //   })
+  // };
+
   return (
     <FlatList
       data={props.data}
@@ -70,6 +84,7 @@ export default MovieGridList = (props) => {
       style={{flexDirection: 'column'}}
       horizontal={false}
       numColumns={2}
+      onEndReached={props.data.push({poster_path: '/jjPJ4s3DWZZvI4vw8Xfi4Vqa1Q8.jpg'})}
     />
   );
 }
