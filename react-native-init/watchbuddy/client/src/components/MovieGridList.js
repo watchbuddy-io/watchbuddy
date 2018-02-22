@@ -62,8 +62,6 @@ export default class MovieGridList extends React.Component {
     );    
   };
 
-  // this.pageNumber = 1; // do we need to make state for this component?
-
   // this.nextMovieDBPage = () => {
   //   this.pageNumber++ // increase page number
   //   // need to get movieprefs string
@@ -85,7 +83,8 @@ export default class MovieGridList extends React.Component {
         horizontal={false}
         numColumns={2}
         onEndReachedThreshold={0.001}
-        onEndReached={() => this.setState({data: [...this.state.data, ...[{poster_path: '/jjPJ4s3DWZZvI4vw8Xfi4Vqa1Q8.jpg'}]]})}
+        onEndReached={() => this.setState({data: [...this.state.data, ...[{poster_path: '/jjPJ4s3DWZZvI4vw8Xfi4Vqa1Q8.jpg'}]]})} // add as sep method, +page num, api req
+        // onEndReached={() => this.setState({data: this.state.data.concat({poster_path: '/jjPJ4s3DWZZvI4vw8Xfi4Vqa1Q8.jpg'})})} // Tim, either works
       />
     );
   }
