@@ -26,20 +26,19 @@ import {
   Button
 } from 'react-native-elements';
 
-export default MovieGridList = (props) => {
-  // this.onLeftButtonPress = () => {
-  //   console.log('left button clicked');
-  //   this.setState({currentIndex: Math.abs(this.state.currentIndex - 4) % props.data.length});
-  // };
+export default class MovieGridList extends React.Component {
 
-  // onRightButtonPress = () => {
-  //   console.log('right button clicked');
-  //   this.setState({currentIndex: (this.state.currentIndex + 4) % props.data.length});
-  // };
+  constructor(props) {
+    super(props);
+    this.state = {
+      pageNumber: 1,
+      data: props.data,
+    }
+  }
 
-  onPosterPress = (movie) => {
+  onPosterPress(movie) {
     console.log('MOVIE', movie);
-    props.changeView('MovieInfo', movie);
+    this.props.changeView('MovieInfo', movie);
     // axios.post('http://13.57.94.147:8080/selectMovie', { movie: movie.title })
     //   .then(data => {
     //     console.log('response from AMAZON API', data);
@@ -51,12 +50,12 @@ export default MovieGridList = (props) => {
     //   })
   };
 
-  this.getMoviePoster = (movie) => {
+  getMoviePoster(movie) {
     return (
       movie ?
         <TouchableHighlight onPress={() => this.onPosterPress(movie)}>
           <Image
-            source={{ height: props.dimensions.height / 2, width: props.dimensions.width / 2, uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}` }}
+            source={{ height: this.props.dimensions.height / 2, width: this.props.dimensions.width / 2, uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}` }}
           />
         </TouchableHighlight>
         : null
@@ -71,20 +70,24 @@ export default MovieGridList = (props) => {
   //   // api call to /userprefs with: moviestring, fbToken, pageNumber
   //   axios.post(`http://13.57.94.147:8080/userprefs`,
   //   {
-  //     prefs: props.prefs, // movie prefs string
-  //     fbToken: props.fbToken,
+  //     prefs: this.props.prefs, // movie prefs string
+  //     fbToken: this.props.fbToken,
   //     pageNumber: this.pageNumber;
   //   })
   // };
 
-  return (
-    <FlatList
-      data={props.data}
-      renderItem={({ item }) => (this.getMoviePoster(item))}
-      style={{flexDirection: 'column'}}
-      horizontal={false}
-      numColumns={2}
-      onEndReached={props.data.push({poster_path: '/jjPJ4s3DWZZvI4vw8Xfi4Vqa1Q8.jpg'})}
-    />
-  );
+  render() {
+    return (
+      <FlatList
+        data={this.state.data}
+        renderItem={({ item }) => this.getMoviePoster(item)}
+        style={{flexDirection: 'column'}}
+        horizontal={false}
+        numColumns={2}
+        onEndReachedThreshold={0.001}
+        onEndReached={() => this.setState({data: [...this.state.data, ...[{poster_path: '/jjPJ4s3DWZZvI4vw8Xfi4Vqa1Q8.jpg'}]]})}
+      />
+    );
+  }
 }
+
