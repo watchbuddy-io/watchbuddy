@@ -31,7 +31,7 @@ export default class MovieGridList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pageNumber: 1,
+      pageNumber: 2,
       data: props.data,
     }
   }
@@ -74,6 +74,23 @@ export default class MovieGridList extends React.Component {
   //   })
   // };
 
+  getNextPage() {
+    axios.post('http://13.57.94.147:8080/userprefs', 
+      {
+        fbToken: this.props.fbToken,
+        prefs: '123', // this.props.
+        pageNumber: this.state.pageNumber,
+      })
+        .then((nextPageData) => {
+          nextPageData = JSON.parse(nextPageData.data).results
+          this.setState({
+            data: [...this.state.data, ...nextPageData],
+            pageNumber: this.state.pageNumber + 1,
+          })
+        })
+        .catch((err) => alert(err, "Oops! There was an error, please restart your app!"))
+  }
+
   render() {
     return (
       <FlatList
@@ -82,8 +99,8 @@ export default class MovieGridList extends React.Component {
         style={{flexDirection: 'column'}}
         horizontal={false}
         numColumns={2}
-        onEndReachedThreshold={0.001}
-        onEndReached={() => this.setState({data: [...this.state.data, ...[{poster_path: '/jjPJ4s3DWZZvI4vw8Xfi4Vqa1Q8.jpg'}]]})} // add as sep method, +page num, api req
+        onEndReachedThreshold={0.2}
+        onEndReached={() => this.getNextPage()} // () => this.setState({data: [...this.state.data, ...[{poster_path: '/jjPJ4s3DWZZvI4vw8Xfi4Vqa1Q8.jpg'}]]})} // add as sep method, +page num, api req
         // onEndReached={() => this.setState({data: this.state.data.concat({poster_path: '/jjPJ4s3DWZZvI4vw8Xfi4Vqa1Q8.jpg'})})} // Tim, either works
       />
     );
