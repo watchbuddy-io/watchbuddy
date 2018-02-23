@@ -181,7 +181,8 @@ export default class MovieSwipeDeck extends React.Component {
         data = JSON.parse(data.data).results;
         console.log(data);
         this.prefetchImages(data);
-        setTimeout(() => changeView('MovieGridList', data), 3000); // changed from 2k bc was loading without poster pics, possibly bc of China internet
+        var moviePrefs = this.state.liked.map(movie => movie.id).join('')
+        setTimeout(() => changeView('MovieGridList', data, null, moviePrefs), 2500); // changed from 2k bc was loading without poster pics, possibly bc of China internet
       })
       .catch(err => {
         console.log(err);
