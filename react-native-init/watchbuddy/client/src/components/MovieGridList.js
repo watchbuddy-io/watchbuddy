@@ -33,7 +33,7 @@ export default class MovieGridList extends React.Component {
     this.state = {
       data: props.data,
     }
-    this.pageNumber = 1
+    this.pageNumber = 2
   }
 
   onPosterPress(movie) {
@@ -75,7 +75,7 @@ export default class MovieGridList extends React.Component {
   // };
 
   getNextPage() {
-    alert(this.pageNumber)
+    // alert(this.pageNumber)
     axios.post('http://13.57.94.147:8080/userprefs', 
       {
         fbToken: this.props.fbToken,
@@ -87,8 +87,7 @@ export default class MovieGridList extends React.Component {
           this.setState({
             data: [...this.state.data, ...nextPageData],
             // pageNumber: this.state.pageNumber++,
-          })
-          this.pageNumber += 1;
+          }, () => this.pageNumber += 1)
         })
         .catch((err) => alert(err, "Oops! There was an error, please restart your app!"))
   }
@@ -101,8 +100,8 @@ export default class MovieGridList extends React.Component {
         style={{flexDirection: 'column'}}
         horizontal={false}
         numColumns={2}
-        onEndReachedThreshold={0.01} // add spinner to show loading
-        onEndReached={() => this.getNextPage()} // flashScrollIndicators() ?
+        onEndReached={this.getNextPage.bind(this)} // flashScrollIndicators() ?
+        onEndReachedThreshold={0.1} // add spinner to show loading
           // () => this.setState({data: [...this.state.data, ...[{poster_path: '/jjPJ4s3DWZZvI4vw8Xfi4Vqa1Q8.jpg'}]]})} // add as sep method, +page num, api req
         // onEndReached={() => this.setState({data: this.state.data.concat({poster_path: '/jjPJ4s3DWZZvI4vw8Xfi4Vqa1Q8.jpg'})})} // Tim, either works
       />
