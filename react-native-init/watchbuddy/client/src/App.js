@@ -111,7 +111,7 @@ export default class App extends Component<{}> {
     
     return (
       <Container style={{ flexDirection: "column" }} bounces={(this.state.view === 'Favorites') ? true : false}>
-        {(this.state.view === 'WelcomeFB') ? null : this.renderNav()}
+        {(this.state.view === 'WelcomeFB' || this.state.view === 'Tutorial') ? null : this.renderNav()}
         {this.renderView()}
       </Container>
     );

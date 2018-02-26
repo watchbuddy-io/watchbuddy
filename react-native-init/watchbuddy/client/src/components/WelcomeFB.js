@@ -114,7 +114,7 @@ export default WelcomeFB = (props) => {
             alignSelf: 'center',
             textDecorationLine: 'underline',
             color: "rgba(255,255,255,1)"
-          }} onPress={() => props.changeView('MovieSwipeDeck')}> skip login </Text>
+          }} onPress={() => props.changeView('Tutorial')}> skip login </Text>
         </View>
       </View>
     );
