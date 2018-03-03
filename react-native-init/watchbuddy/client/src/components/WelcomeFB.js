@@ -19,17 +19,21 @@ export default WelcomeFB = (props) => {
       if (data) {
         axios.get(`http://13.57.94.147:8080/loggedIn`, {params: {fbToken: data.userID}})
           .then(movies => {
+            alert(JSON.stringify(movies));
             console.log('data from/loggedin!!', movies)
             if (movies.data) {
               console.log('You are already logged in!')
-              props.changeView('MovieGridList', JSON.parse(movies.data).results, data.userID);    
+              props.changeView('MovieGridList', JSON.parse(movies.data).results, data.userID);
+              alert(1);  
             } else {
               console.log('You are not logged in!');
               console.log('this is the FBTOKEN:', data.userID);
               props.changeView('MovieSwipeDeck', null, data.userID);
+              alert(2);
             }
           })
           .catch(err => {
+            alert(3);
             console.log('There was an error on fetching /loggedIn', err);
           })
           
@@ -39,7 +43,7 @@ export default WelcomeFB = (props) => {
       }
     }).catch(err => console.log('Error on componentWillMount in WelcomeFB: ', err))
   };
-  componentWillMount();
+  this.componentWillMount();
   // console.log(FBSDK)
   return (
     <View style={styles.container}>
@@ -89,15 +93,15 @@ export default WelcomeFB = (props) => {
                 } else if (result.isCancelled) {
                   console.log("Login cancelled.");
                 } else {
-                  componentWillMount();
-                  // AccessToken.getCurrentAccessToken()
-                  //   .then(
-                  //     (data) => {
-                  //       if (data) {
-                  //         props.changeView('MovieSwipeDeck');
-                  //       }
-                  //     }
-                  //   )
+                  this.componentWillMount();
+                  AccessToken.getCurrentAccessToken()
+                    .then(
+                      (data) => {
+                        if (data) {
+                          props.changeView('MovieSwipeDeck');
+                        }
+                      }
+                    )
                 }
               }
             }
