@@ -126,12 +126,14 @@ export default class Nav extends React.Component {
       <View style={{ height: this.dimensions.height, width: this.dimensions.width, flexDirection: 'row', justifyContent: 'space-between', paddingTop: 20, paddingRight: 10, paddingLeft: 10}}>
         <Header //style={{ width: this.dimensions.width, height: this.dimensions.height, display: 'flex', flexDirection: "row", justifyContent: 'space-between'}}
           rightComponent={
-            <View >
-              <Icon 
-                name='more-horiz'
-                onPress={() => this.showActionSheet()}
-              />
-            </View>
+            (this.view !== 'MovieSwipeDeck') ?
+              <View >
+                <Icon 
+                  name='more-horiz'
+                  onPress={() => this.showActionSheet()}
+                />
+              </View>
+            : null
             // <Button //icon={{ name: 'more-horiz', size: ICON_STYLES.size, color: ICON_STYLES.color }}
             //         title={'io'} 
             //                             textStyle={{ color: '#444', fontSize: 20 }}
@@ -148,17 +150,17 @@ export default class Nav extends React.Component {
             </View>
           }
           leftComponent={
-            <View >
-              <Icon 
-                // name='home'
-                name='keyboard-arrow-left'
-                onPress={() => {
-                  if (this.view !== 'MovieSwipeDeck') {
+            (this.view !== 'MovieSwipeDeck') ?
+              <View >
+                <Icon 
+                  // name='home'
+                  name='keyboard-arrow-left'
+                  onPress={() => {
                     this.changeView('MovieGridList', this.state.data)
-                  }
-                }}
-              />
-            </View>
+                  }}
+                />
+              </View>
+            : null
             // <Button icon={{ name: 'home', size: ICON_STYLES.size, color: ICON_STYLES.color }}
             //         //title={'io'}
             //           //                  textStyle={{ color: '#444', fontSize: 20 }}
