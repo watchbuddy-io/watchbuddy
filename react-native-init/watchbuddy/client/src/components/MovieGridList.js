@@ -33,7 +33,7 @@ export default class MovieGridList extends React.Component {
     this.state = {
       data: props.data,
     }
-    this.pageNumber = 2
+    this.pageNumber = 1
   }
 
   onPosterPress(movie) {

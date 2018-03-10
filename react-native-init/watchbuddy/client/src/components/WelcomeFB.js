@@ -26,7 +26,7 @@ export default WelcomeFB = (props) => {
             } else {
               console.log('You are not logged in!');
               console.log('this is the FBTOKEN:', data.userID);
-              props.changeView('MovieSwipeDeck', null, data.userID);
+              props.changeView('Tutorial', null, data.userID);
             }
           })
           .catch(err => {
