@@ -32,8 +32,15 @@ export default class MovieGridList extends React.Component {
     super(props);
     this.state = {
       data: props.data,
+      pageNumber: 2,
     }
-    this.pageNumber = 1
+    this.pageNumber = 1;
+    this.getNextPage.bind(this);
+    this.onEndCalled;
+  }
+
+  componentDidMount() {
+    this.onEndCalled = false;
   }
 
   onPosterPress(movie) {
@@ -76,32 +83,40 @@ export default class MovieGridList extends React.Component {
 
   getNextPage() {
     // alert(this.pageNumber)
+    if (!this.onEndCalled) {
     axios.post('http://13.57.94.147:8080/userprefs', 
       {
         fbToken: this.props.fbToken,
         prefs: this.props.moviePrefs || '123456',
-        pageNumber: this.pageNumber,
+        pageNumber: this.state.pageNumber,
       })
         .then((nextPageData) => {
           nextPageData = JSON.parse(nextPageData.data).results
           this.setState({
             data: [...this.state.data, ...nextPageData],
-            // pageNumber: this.state.pageNumber++,
-          }, () => this.pageNumber += 1)
+            pageNumber: this.state.pageNumber += 1,
+          })
         })
         .catch((err) => alert(err, "Oops! There was an error, please restart your app!"))
+    }
   }
 
   render() {
     return (
       <FlatList
+        // onScrollBeginDrag={alert('onScrollBeginDrag')}
+        // bounces={false}
+        // onMomentumScrollBegin={() => { 
+        //   this.onEndCalled = false;
+        //   alert('boom');
+        // }}
         data={this.state.data}
         renderItem={({ item }) => this.getMoviePoster(item)}
         style={{flexDirection: 'column'}}
         horizontal={false}
         numColumns={2}
-        onEndReached={this.getNextPage.bind(this)} // flashScrollIndicators() ?
-        onEndReachedThreshold={0.1} // add spinner to show loading
+        onEndReached={() => this.getNextPage()} // flashScrollIndicators() ?
+        onEndReachedThreshold={0.5} // add spinner to show loading
           // () => this.setState({data: [...this.state.data, ...[{poster_path: '/jjPJ4s3DWZZvI4vw8Xfi4Vqa1Q8.jpg'}]]})} // add as sep method, +page num, api req
         // onEndReached={() => this.setState({data: this.state.data.concat({poster_path: '/jjPJ4s3DWZZvI4vw8Xfi4Vqa1Q8.jpg'})})} // Tim, either works
       />

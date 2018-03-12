@@ -110,9 +110,13 @@ export default WelcomeFB = (props) => {
             position: 'relative',
             top: '30%',
             // fontSize: props.dimensions.width * 0.053,
-            fontSize: props.dimensions.width * 0.035,
+            fontSize: props.dimensions.width * 0.030,
             alignSelf: 'center',
-            textDecorationLine: 'underline',
+            // textDecorationLine: 'underline',
+            borderRadius: 2.5,
+            borderColor: "rgba(255,255,255,1)",
+            borderWidth: 1,
+            padding: 3,
             color: "rgba(255,255,255,1)"
           }} onPress={() => props.changeView('Tutorial')}> skip login </Text>
         </View>
