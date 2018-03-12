@@ -33,7 +33,8 @@ export default class App extends Component<{}> {
       view: 'WelcomeFB',
       data: dummyRequestData.data,
       screenDimensions: screen.getScreenDimensions(),
-      fbToken: null
+      fbToken: null,
+      moviePrefs: null,
     }
 
     // AccessToken.getCurrentAccessToken()
@@ -47,7 +48,7 @@ export default class App extends Component<{}> {
     this.changeView = this.changeView.bind(this);
   }
 
-  changeView(view, data, fbToken) {
+  changeView(view, data, fbToken, moviePrefs) {
     if (!data) {
       this.setState({ 
         view: view,
@@ -59,6 +60,7 @@ export default class App extends Component<{}> {
         view: view,
         data: data,
         fbToken: fbToken || this.state.fbToken,
+        moviePrefs: moviePrefs,
         // fbToken: (fbToken !== undefined) ? fbToken || this.state.fbToken,
       });
     }
@@ -85,6 +87,7 @@ export default class App extends Component<{}> {
         dimensions={(this.state.view !== 'WelcomeFB') ? content.getContentDimensions(this.state.screenDimensions, this.state.view) : this.state.screenDimensions}
         changeView={this.changeView}
         fbToken={this.state.fbToken}
+        moviePrefs={this.state.moviePrefs}
       />
     );
   }
@@ -108,7 +111,7 @@ export default class App extends Component<{}> {
     
     return (
       <Container style={{ flexDirection: "column" }} bounces={(this.state.view === 'Favorites') ? true : false}>
-        {(this.state.view === 'WelcomeFB') ? null : this.renderNav()}
+        {(this.state.view === 'WelcomeFB' || this.state.view === 'Tutorial') ? null : this.renderNav()}
         {this.renderView()}
       </Container>
     );

@@ -5,6 +5,7 @@ import MovieInfo from '../components/MovieInfo';
 import Welcome from '../components/Welcome';
 import WelcomeFB from '../components/WelcomeFB';
 import Favorites from '../components/Favorites';
+import Tutorial from '../components/Tutorial';
 
 export default views = {
   Login,
@@ -14,4 +15,5 @@ export default views = {
   Welcome,
   WelcomeFB,
   Favorites,
+  Tutorial,
 }
